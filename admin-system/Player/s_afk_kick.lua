@@ -2,6 +2,7 @@ local pending = {}
 
 function checkAFK()
 	if (getPlayerIdleTime(client) or 0) >  600000 then
+		if exports.integration:isPlayerScripter(client) then return end
 		if exports.integration:isPlayerTrialAdmin(client) then
 			if getElementData(client, "duty_admin") == 1 then
 				triggerClientEvent(client, "accounts:settings:updateAccountSettings", client, "duty_admin", 0)
