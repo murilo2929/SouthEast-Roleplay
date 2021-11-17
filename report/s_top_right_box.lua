@@ -20,7 +20,7 @@ function updateUnansweredReports()
 			if (isElement(admin)) then
 			--handler = tostring(getPlayerName(admin))
 			else
-				handler = "None."
+				handler = "Nenhum."
 				if staff then
 					for k,v in ipairs(staff) do
 						if string.find(adminTeams, v) and not seenReport[i] then
@@ -35,7 +35,7 @@ function updateUnansweredReports()
 	end
 	
 	if count == 0 then
-		table.insert(info, {"None."})
+		table.insert(info, {"Nenhum."})
 	else
 		--
 	end

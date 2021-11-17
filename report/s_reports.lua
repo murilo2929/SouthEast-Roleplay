@@ -198,7 +198,7 @@ function maximeReportsReminder()
 		end
 	end
 end
-setTimer(maximeReportsReminder, 5*60*1000 , 0) -- every 5 mins.
+--setTimer(maximeReportsReminder, 5*60*1000 , 0) -- every 5 mins.
 
 function sortReports(showMessage)
 	-- reports[slot] = { }
