@@ -122,7 +122,7 @@ end
 addEvent("removePlayerFromBus", true)
 addEventHandler("removePlayerFromBus", getRootElement(), ejectPlayerFromBus)
 
--- BUS ROUTES BLIPS
+--[[ BUS ROUTES BLIPS
 function createBusBlips( )
 	for routeID, route in ipairs( g_bus_routes ) do
 		blips[routeID] = {}
@@ -136,4 +136,4 @@ function createBusBlips( )
 		end
 	end
 end
-addEventHandler( "onResourceStart", getResourceRootElement(), createBusBlips )
+addEventHandler( "onResourceStart", getResourceRootElement(), createBusBlips )]]
