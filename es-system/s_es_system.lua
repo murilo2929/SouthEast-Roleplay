@@ -8,7 +8,7 @@ function playerDeath(totalAmmo, killer, killerWeapon)
 
 			--setElementModel(source,getElementModel(source))
 			local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
-			setElementData(source, data_name, getElementModel(source))) -- sets the skin ID data
+			setElementData(source, data_name, getElementModel(source)) -- sets the skin ID data
 			--setPlayerTeam(source, team)
 			setElementInterior(source, 6)
 			setElementDimension(source, getElementData(source, "playerid")+65400)

@@ -44,39 +44,39 @@ function giveGraffitiPerm(thePlayer, commandName, target)
 						exports.global:sendMessageToAdmins("AdmCmd: " .. tostring(adminTitle) .. " has granted "..tUsername.." (" .. targetPlayerName..") /graffiti permission.")
 						exports.logs:dbLog(thePlayer, 4, targetPlayer, "GRAFFITI ON")
 						outputChatBox("You have received /graffiti permission from an admin.", targetPlayer, 0, 255, 0)
-						mysql:query_free("UPDATE `accounts` SET `gperm` = '1' WHERE `id` = '"..taccountID.."'")
+						dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `gperm`= ? WHERE `id`=?", 1, taccountID)
 					else
 						exports.anticheat:changeProtectedElementDataEx(targetPlayer, "gperm", 0, true)
 						exports.global:sendMessageToAdmins("AdmCmd: " .. tostring(adminTitle) .. " has revoked "..tUsername.." (" .. targetPlayerName..")'s /graffiti permission.")
 						exports.logs:dbLog(thePlayer, 4, targetPlayer, "GRAFFITI OFF")
 						outputChatBox("Your /graffiti permission has been revoked.", targetPlayer, 255, 255, 25)
-						mysql:query_free("UPDATE `accounts` SET `gperm` = '0' WHERE `id` = '"..taccountID.."'")
+						dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `gperm`= ? WHERE `id`=?", 0, taccountID)
 					end
 
 				end
 			else -- Username?
-				local fetchData = mysql:query_fetch_assoc("SELECT `id`,`gperm` FROM `accounts` WHERE `username`='"..mysql:escape_string(target).."' LIMIT 1")
-	            if not fetchData then
-	                outputChatBox("Could not find any player online with name '"..target.."' or any account with that username.", thePlayer, 255,0,0)
-	                return false
-				end
-
-				local isOnline = false
 				for k, player in pairs(getElementsByType("player")) do
-					if getElementData(player, "loggedin") == 1 then
-						local un = getElementData(player, "account:username")
-						if un == target then
-							giveGraffitiPerm(thePlayer, commandName, getPlayerName(player))
-							isOnline = true
-							break
-						end
-					end
-				end
+                    if getElementData(player, "loggedin") == 1 then
+                        local un = getElementData(player, "account:username")
+                        if un == target then
+                            giveGraffitiPerm(thePlayer, commandName, getPlayerName(player))
+                            return
+                        end
+                    end
+                end
 
-				if isOnline then return false end
+                local accID, gperm
 
-				local accID = tonumber(fetchData["id"])
-				local gperm = tonumber(fetchData["gperm"])
+                local qh = dbQuery(exports.mysql:getConn("core"), "SELECT `id`,`gperm` FROM `accounts` WHERE `username`=? LIMIT 1", target)
+                local result = dbPoll( qh, 10000 )
+                if result and #result > 0 then
+                    accID = tonumber(result[1]["id"])
+                    gperm = tonumber(result[1]["gperm"])
+                else
+                    dbFree(qh)
+                    outputChatBox("Could not find any player online with name '"..target.."' or any account with that username.", thePlayer, 255,0,0)
+                    return
+                end
 
 				local newgperm = 1
 				if gperm == 1 then
@@ -86,12 +86,12 @@ function giveGraffitiPerm(thePlayer, commandName, target)
 				if newgperm == 1 then
 					exports.global:sendMessageToAdmins("AdmCmd: " .. tostring(adminTitle) .. " has granted (offline) "..target.." /graffiti permission.")
 					exports.logs:dbLog(thePlayer, 4, targetPlayer, "ACC #"..accID.." GRAFFITI ON")
-					mysql:query_free("UPDATE `accounts` SET `gperm` = '1' WHERE `id` = '"..accID.."'")
+					dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `gperm`= ? WHERE `id`=?", 1, accID)
 
 				elseif newgperm == 0 then
 					exports.global:sendMessageToAdmins("AdmCmd: " .. tostring(adminTitle) .. " has revoked (offline) "..target.."'s /graffiti permission.")
 					exports.logs:dbLog(thePlayer, 4, thePlayer, "ACC #"..accID.." GRAFFITI OFF")
-					mysql:query_free("UPDATE `accounts` SET `gperm` = '0' WHERE `id` = '"..accID.."'")
+					dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `gperm`= ? WHERE `id`=?", 0, accID)
 				end
 			end
 		end

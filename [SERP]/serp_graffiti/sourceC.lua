@@ -7,6 +7,8 @@
 
 ]]
 
+disabledBrowsers = true -- DESATIVAR O BAGULHO DO CEF - Fernando 16/11/2021
+
 graffitiTimers = {}
 local screenW, screenH = guiGetScreenSize()
 
@@ -992,9 +994,8 @@ function showTheEditor()
 
 			drawingSurface = dxCreateRenderTarget(paintAreaWidth, paintAreaHeight, true)
 
-			local disabledBrowsers = (getElementData(localPlayer, "disableCEF") or "0") == "1"
 			if not disabledBrowsers then
-				triggerEvent("displayMesaage", localPlayer, "If you have issues with the Image Upload page you can disable CEF in F10 Settings.", 'info')
+				outputChatBox("If you have issues with the Image Upload page you can disable CEF in F10 Settings.", 255,194,14)
 				loadImagePanel.browserElement = createBrowser(screenW, screenH, true, true)
 			end
 
