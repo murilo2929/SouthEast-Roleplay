@@ -102,20 +102,20 @@ function applyLanguage(from, player, message, language)
 end
 
 -- Bind Keys required
-function bindKeys()
+--[[function bindKeys()
 	local players = exports.pool:getPoolElementsByType("player")
 	for k, arrayPlayer in ipairs(players) do
 		if not(isKeyBound(arrayPlayer, "F6", "down", showLanguages)) then
 			bindKey(arrayPlayer, "F6", "down", showLanguages)
 		end
 	end
-end
+end]]
 
-function bindKeysOnJoin()
+--[[function bindKeysOnJoin()
 	bindKey(source, "F6", "down", showLanguages)
 end
 addEventHandler("onResourceStart", getResourceRootElement(), bindKeys)
-addEventHandler("onPlayerJoin", getRootElement(), bindKeysOnJoin)
+addEventHandler("onPlayerJoin", getRootElement(), bindKeysOnJoin)]]
 
 function showLanguages(player)
 	local langs = { }
