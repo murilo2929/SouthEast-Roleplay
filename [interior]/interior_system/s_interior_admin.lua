@@ -6,7 +6,6 @@
 * Proprietary and confidential
 * ***********************************************************************************************************************
 ]]
-local nome = getPlayerName(playerSource)
 
 
 
@@ -14,6 +13,7 @@ function getNearbyInteriors(thePlayer, commandName)
 	if (exports.integration:isPlayerHeadAdmin(thePlayer) or exports.integration:isPlayerMappingTeamMember(thePlayer)) then
 		local posX, posY, posZ = getElementPosition(thePlayer)
 		local dimension = getElementDimension(thePlayer)
+		local nome = getPlayerName(thePlayer)
 		outputChatBox("Nearby Interiors:", thePlayer, 255, 126, 0)
 		local count = 0
 		local possibleInteriors = exports.pool:getPoolElementsByType('interior')
@@ -46,6 +46,7 @@ function delNearbyInteriors(thePlayer, commandName)
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) then
 		local posX, posY, posZ = getElementPosition(thePlayer)
 		local dimension = getElementDimension(thePlayer)
+		local nome = getPlayerName(thePlayer)
 		outputChatBox("Deleting Nearby Interiors:", thePlayer, 255, 126, 0)
 		local count = 0
 		local possibleInteriors = exports.pool:getPoolElementsByType('interior')
@@ -84,6 +85,7 @@ addCommandHandler("removerintproximo", delNearbyInteriors, false, false)
 function gotoHouse( thePlayer, commandName, houseID, target )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerSupporter(thePlayer) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local houseID = tonumber( houseID )
+		local nome = getPlayerName(thePlayer)
 		if not houseID then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Biz ID] (Player)", thePlayer, 255, 194, 14 )
 		else
@@ -127,6 +129,7 @@ addCommandHandler( "gotoint", gotoHouse )
 function gotoHouseInside( thePlayer, commandName, houseID, target )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local houseID = tonumber( houseID )
+		local nome = getPlayerName(thePlayer)
 		if not houseID then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID] (Player)", thePlayer, 255, 194, 14 )
 		else
@@ -170,6 +173,7 @@ end
 function setInteriorID( thePlayer, commandName, interiorID )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local interiors = exports["official-interiors"].getInteriorsList() --/MAXIME
+		local nome = getPlayerName(thePlayer)
 		interiorID = tonumber( interiorID )
 		if not interiorID then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [interior id] - changes the house interior", thePlayer, 255, 194, 14 )
@@ -234,6 +238,7 @@ addCommandHandler( "setintid", setInteriorID )
 function setInteriorPrice( thePlayer, commandName, cost )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		cost = tonumber( cost )
+		local nome = getPlayerName(thePlayer)
 		if not cost then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [preço]", thePlayer, 255, 194, 14 )
 		else
@@ -288,6 +293,7 @@ addCommandHandler( "getintprice", getInteriorPrice )
 function setInteriorType( thePlayer, commandName, type )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		type = math.ceil( tonumber( type ) or -1 )
+		local nome = getPlayerName(thePlayer)
 		if not type or type < 0 or type > 3 then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [type (0-3)]", thePlayer, 255, 194, 14 )
 		else
@@ -353,6 +359,7 @@ addCommandHandler( "getinttype", getInteriorType )
 function getInteriorID( thePlayer, commandName )
 	local theId = nil
 	local myDim = getElementDimension(thePlayer)
+	local nome = getPlayerName(thePlayer)
 	if myDim > 0 then
 		local theInterior = exports.pool:getElement('interior', myDim)
 		theId = theInterior and getElementData(theInterior, 'interior_id') or nil
@@ -383,6 +390,7 @@ addCommandHandler( "getintid", getInteriorID )
 function toggleInterior( thePlayer, commandName, id )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		id = tonumber( id )
+		local nome = getPlayerName(thePlayer)
 		if not id then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [ID]", thePlayer, 255, 194, 14 )
 		else
@@ -427,6 +435,7 @@ addCommandHandler( "togint", toggleInterior )
 
 function reloadInterior(thePlayer, commandName, interiorID)
 	if (exports.integration:isPlayerHeadAdmin(thePlayer) or exports.integration:isPlayerMappingTeamMember(thePlayer)) then
+		local nome = getPlayerName(thePlayer)
 		if not interiorID then
 			outputChatBox("SYNTAX: /" .. commandName .. " [Interior ID]", thePlayer, 255, 194, 14)
 		else
@@ -448,6 +457,7 @@ addCommandHandler("reloadint", reloadInterior, false, false)
 function deleteInterior( thePlayer, commandName, houseID )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		houseID = tonumber( houseID )
+		local nome = getPlayerName(thePlayer)
 		if not houseID then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID]", thePlayer, 255, 194, 14 )
 			return false
@@ -501,6 +511,7 @@ function restoreInt(thePlayer, commandName, houseID)
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		if not showLoadingProgressTimer then
 			houseID = tonumber( houseID )
+			local nome = getPlayerName(thePlayer)
 			if not houseID then
 				outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID]", thePlayer, 255, 194, 14 )
 			else
@@ -562,6 +573,7 @@ function removeInterior(thePlayer, commandName, houseID)
 	if exports.integration:isPlayerScripter( thePlayer ) or commandName == "MOVETOLS" then
 		if not showLoadingProgressTimer then
 			houseID = tonumber( houseID ) or getElementData(thePlayer, "mostRecentDeletedInterior")
+			local nome = getPlayerName(thePlayer)
 			if not houseID then
 				outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID]", thePlayer, 255, 194, 14 )
 			else
@@ -647,6 +659,7 @@ addCommandHandler("removeinterior", removeInterior, false, false)
 
 function removeDeletedInteriors(thePlayer, commandName)
 	if exports.integration:isPlayerScripter( thePlayer ) then
+		local nome = getPlayerName(thePlayer)
 		if not getElementData(thePlayer, "confirm:removeDeletedInteriors") then
 			outputChatBox( "Remove todos os interiors da database.", thePlayer, 255, 194, 14 )
 			outputChatBox( "Sem chance de recuperar, use /"..commandName.." para começar. /cancelremovedeletedints para cancelar.", thePlayer, 255, 194, 14 )
@@ -680,6 +693,7 @@ addCommandHandler("removedeletedinteriors", removeDeletedInteriors, false, false
 
 function removeForSaleInteriors(thePlayer, commandName)
 	if exports.integration:isPlayerScripter( thePlayer ) then
+		local nome = getPlayerName(thePlayer)
 		if not getElementData(thePlayer, "confirm:removeForSaleInteriors") then
 			outputChatBox( "Removes all for-sale interiors completely and permanently from SQL.", thePlayer, 255, 194, 14 )
 			outputChatBox( "And there will be no way to recover them, /"..commandName.." again to start it. /cancelremoveforsaleints to cancel.", thePlayer, 255, 194, 14 )
@@ -752,6 +766,7 @@ addCommandHandler("delthisinterior", deleteThisInterior, false, false)
 function updateInteriorEntrance(thePlayer, commandName, intID)
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer)  then
 		local intID = tonumber(intID)
+		local nome = getPlayerName(thePlayer)
 		if not (intID) then
 			outputChatBox( "SYNTAX: /" .. commandName .. " [Interior ID]", thePlayer, 255, 194, 14 )
 		else
@@ -798,6 +813,7 @@ addCommandHandler("setintentrance", updateInteriorEntrance, false, false)
 function createInterior(thePlayer, commandName, interiorId, inttype, cost, ...)
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local cost = tonumber(cost)
+		local nome = getPlayerName(thePlayer)
 		if (not (interiorId) or not (inttype) or not (cost) or not (...) or ((tonumber(inttype)<0) or (tonumber(inttype)>3))) and (commandName:lower() == "addint" or commandName:lower() == "addinterior") then
 			outputChatBox("SYNTAX: /" .. commandName .. " [Interior ID] [TIPO] [Preço] [Nome] [Nota Admin - Opcional]", thePlayer, 255, 194, 14)
 			outputChatBox("TYPE 0: Casa", thePlayer, 255, 194, 14)
@@ -884,6 +900,7 @@ addCommandHandler("addgaragem", createInterior, false, false)
 function updateInteriorExit(thePlayer, commandName)
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local dimension = getElementDimension(thePlayer)
+		local nome = getPlayerName(thePlayer)
 
 		if (dimension==0) then
 			outputChatBox("Você não esta em um interior.", thePlayer, 255, 0, 0)
@@ -895,7 +912,7 @@ function updateInteriorExit(thePlayer, commandName)
 			local query = mysql:query_free("UPDATE interiors SET interiorx='" .. x .. "', interiory='" .. y .. "', interiorz='" .. z .. "', angleexit='" .. rot .. "', `interior`='".. tostring(interior) .."' WHERE id='" .. dbid .. "'")
 			outputChatBox("Saida do interior atualizada!", thePlayer, 0, 255, 0)
 			exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "SETINTERIOREXIT "..x.."/"..y.."/"..z)
-			exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou a saida do interior #"..interior.." para int:("..interior..") dim:("" "..x.."/"..y.."/"..z)
+			exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou a saida do interior #"..interior.." para int:("..interior..") dim:("..x.."/"..y.."/"..z)
 
 			exports["interior-manager"]:addInteriorLogs(dbid, commandName, thePlayer)
 
@@ -910,6 +927,7 @@ addCommandHandler("setintexit", updateInteriorExit, false, false)
 function changeInteriorName( thePlayer, commandName, ...)
 	if (exports.integration:isPlayerHeadAdmin(thePlayer) or exports.integration:isPlayerMappingTeamMember(thePlayer)) then -- Is the player an admin?
 		local id = getElementDimension(thePlayer)
+		local nome = getPlayerName(thePlayer)
 		if not (...) then -- is the command complete?
 			outputChatBox("SYNTAX: /" .. commandName .." [Novo nome]", thePlayer, 255, 194, 14) -- if command is not complete show the syntax.
 		elseif (dimension==0) then
@@ -944,6 +962,7 @@ addCommandHandler("setintname", changeInteriorName, false, false)
 
 function forceSellProperty(thePlayer, commandName, intID)
 	if exports.integration:isPlayerScripter(thePlayer)  then
+		local nome = getPlayerName(thePlayer)
 		if not intID and getElementDimension(thePlayer) > 0 then
 			intID = getElementDimension(thePlayer)
 		end
@@ -1000,6 +1019,7 @@ addCommandHandler("fsell", forceSellProperty, false, false)
 
 function forcesellFactionInterior(factionId, intId)
 	if exports.integration:isPlayerTrialAdmin(source) then
+		local nome = getPlayerName(thePlayer)
 		if not intId or not tonumber(intId) or (tonumber(intId)%1 ~= 0) or (tonumber(intId) <= 0) then
 			return false
 		end
@@ -1042,6 +1062,7 @@ addEventHandler("interior_system:factionfsell", root, forcesellFactionInterior)
 
 function changeInteriorAddress( thePlayer, commandName, id, ...) --MS: Adding command for setting address + logging it
 	if (exports.integration:isPlayerScripter(thePlayer)) then -- Is the player a Trial Admin+ or Mapping Team?
+		local nome = getPlayerName(thePlayer)
 		if not id or not (...) then -- is the command complete?
 			outputChatBox("SYNTAX: /" .. commandName .." [Interior ID] [Address or 'reset']", thePlayer, 255, 194, 14) -- if command is not complete show the syntax.
 			outputChatBox("SYNTAX: 'reset' will remove the interiors address.", thePlayer, 255, 194, 14)
