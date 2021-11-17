@@ -67,9 +67,3 @@ function playPmSound(message)
 end
 addEvent("pmClient",true)
 addEventHandler("pmClient",getRootElement(),playPmSound)
-
-
-
-addCommandHandler("d", function()
-	outputChatBox("ThO chat de rádio do departamento foi movido para /dep. Obrigado.")
-end, false, false)

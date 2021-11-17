@@ -197,7 +197,7 @@ function localIC(source, message, language)
 									local message2 = call(getResourceFromName("language-system"), "applyLanguage", source, lp, message, language)
 									local message2 = trunklateText( lp, message2 )
 
-									outputChatBox("" .. playerName .. " ((In Car)) diz: " .. message2, lp, unpack(color))
+									outputChatBox("" .. playerName .. " ((Veículo)) diz: " .. message2, lp, unpack(color))
 									table.insert(affectedElements, lp)
 								end
 							end
@@ -825,12 +825,12 @@ function govAnnouncement(thePlayer, commandName, ...)
 					local logged = getElementData(value, "loggedin")
 
 					if (logged==1) then
-						outputChatBox(">> Government Announcement from " .. factionRankTitle .. " " .. getPlayerName(thePlayer), value, 0, 183, 239)
+						outputChatBox(">> Anúncio de governo do " .. factionRankTitle .. " " .. getPlayerName(thePlayer), value, 0, 183, 239)
 						outputChatBox(message, value, 0, 183, 239)
 					end
 				end
 			else
-				outputChatBox("You do not have permission to use this command.", thePlayer, 255, 0, 0)
+				outputChatBox("Você não tem permissão para usar este comando.", thePlayer, 255, 0, 0)
 			end
 		end
 	end
@@ -843,10 +843,10 @@ function playerToggleDonatorChat(thePlayer, commandName)
 	if (logged==1 and hasPerk) then
 		local enabled = getElementData(thePlayer, "donatorchat")
 		if (tonumber(perkValue)==1) then
-			outputChatBox("You have now hidden Donator Chat.", thePlayer, 255, 194, 14)
+			outputChatBox("Você desativou o chat de doador.", thePlayer, 255, 194, 14)
 			exports.donators:updatePerkValue(thePlayer, 9, 0)
 		else
-			outputChatBox("You have now enabled Donator Chat.", thePlayer, 255, 194, 14)
+			outputChatBox("Você ativou o chat de doador.", thePlayer, 255, 194, 14)
 			exports.donators:updatePerkValue(thePlayer, 9, 1)
 		end
 	end
@@ -873,7 +873,7 @@ function donatorchat(thePlayer, commandName, ...) -- MAXIME
 			local hidden = getElementData(thePlayer, "hiddenadmin") or 0
 
 			if (tonumber(togDonChatState) == 0) then
-				outputChatBox("[Donator] You're sending a message while having your donator chat channel toggled off.", thePlayer, 200, 200, 200)
+				outputChatBox("[Donator] Você esta enviando mensagem com o chat de doador desativado.", thePlayer, 200, 200, 200)
 			end
 
 			for key, value in ipairs(getElementsByType("player")) do
@@ -1077,7 +1077,7 @@ function playerToggleOOC(thePlayer, commandName)
 		mysql:query_free("UPDATE account_details SET globalooc=" .. mysql:escape_string(getElementData(thePlayer, "globalooc")) .. " WHERE account_id = " .. mysql:escape_string(getElementData(thePlayer, "account:id")))
 	end
 end
-addCommandHandler("toggleooc", playerToggleOOC, false, false)
+--addCommandHandler("toggleooc", playerToggleOOC, false, false)
 
 local advertisementMessages = { "samp", "SA-MP", "Kye", "shodown", "Vedic", "vedic","ventro","Ventro", "server", "sincityrp", "ls-rp", "sincity", "tri0n3", "www.", ".com", "co.cc", ".net", ".co.uk", "everlast", "neverlast", "www.everlastgaming.com", "trueliferp", "truelife", "mtarp", "mta:rp", "mta-rp"}
 
@@ -1137,8 +1137,8 @@ function vctChat(thePlayer, commandName, ...)
         end
     end
 end
-addCommandHandler("v", vctChat, false, false)
-addCommandHandler("vct", vctChat, false, false)
+--addCommandHandler("v", vctChat, false, false)
+--addCommandHandler("vct", vctChat, false, false)
 
 function toggleVCT( player, command )
 	if exports.integration:isPlayerVehicleConsultant( player ) and (getElementData(player, "loggedin") == 1) then
@@ -1150,8 +1150,8 @@ function toggleVCT( player, command )
 		end
 	end
 end
-addCommandHandler("togglevct", toggleVCT)
-addCommandHandler("togvct", toggleVCT)
+--addCommandHandler("togglevct", toggleVCT)
+--addCommandHandler("togvct", toggleVCT)
 
 function mappingTeamChat(thePlayer, commandName, ...)
     local logged = getElementData(thePlayer, "loggedin")
@@ -1174,7 +1174,7 @@ function mappingTeamChat(thePlayer, commandName, ...)
         end
     end
 end
-addCommandHandler("mt", mappingTeamChat, false, false)
+--addCommandHandler("mt", mappingTeamChat, false, false)
 
 function fmtChat(thePlayer, commandName, ...)
     local logged = getElementData(thePlayer, "loggedin")
@@ -1197,7 +1197,7 @@ function fmtChat(thePlayer, commandName, ...)
         end
     end
 end
-addCommandHandler("fmt", fmtChat, false, false)
+--addCommandHandler("fmt", fmtChat, false, false)
 
 
 ignoreList = {}
@@ -1233,7 +1233,7 @@ function ignoreOnePlayer(thePlayer, commandName, targetPlayerNick)
 		end
 	end
 end
-addCommandHandler("ignore", ignoreOnePlayer)
+--addCommandHandler("ignore", ignoreOnePlayer)
 
 function checkifiamfucked(thePlayer, commandName)
 	outputChatBox(" ~~~~~~~~~ Ignore List ~~~~~~~~~ ", thePlayer, 237, 172, 19)
@@ -1248,7 +1248,7 @@ function checkifiamfucked(thePlayer, commandName)
 	end
 	outputChatBox(" ~~~~~~~~~~~~~~~~~~~~~~~~~~~ ", thePlayer, 237, 172, 19)
 end
-addCommandHandler("ignorelist", checkifiamfucked)
+--addCommandHandler("ignorelist", checkifiamfucked)
 
 addEventHandler('onPlayerQuit', root,
 	function()
@@ -1304,12 +1304,12 @@ function pmPlayer(thePlayer, commandName, who, ...)
 
 		if (targetPlayer) then
 			if targetPlayer == thePlayer then
-				outputChatBox("You clearly don't need to pm yourself.", thePlayer, 255, 0, 0)
+				outputChatBox("Você não pode dar PM em si mesmo.", thePlayer, 255, 0, 0)
 				return false
 			end
 
 			if getElementData(targetPlayer, "loggedin") ~= 1 then
-				outputChatBox("Player is not logged in yet.", thePlayer, 255, 255, 0)
+				outputChatBox("Jogador não esta logado.", thePlayer, 255, 255, 0)
 				return false
 			end
 
@@ -1326,7 +1326,7 @@ function pmPlayer(thePlayer, commandName, who, ...)
 					if are_they_friends and allow_friends_pm then
 						-- Let pm go through
 					else
-						outputChatBox("Player is ignoring private messages.", thePlayer, 255, 255, 0)
+						outputChatBox("Jogador esta ignorando PM's.", thePlayer, 255, 255, 0)
 						return false
 					end
 				end
@@ -1335,13 +1335,13 @@ function pmPlayer(thePlayer, commandName, who, ...)
 			-- check if ignored
 			for k, v in ipairs(ignoreList[thePlayer] or {}) do
 				if v == targetPlayer then
-					outputChatBox('You are currently ignoring ' .. targetPlayerName .. '. Remove him from your ignore list to PM.', thePlayer, 255, 0, 0)
+					outputChatBox('Você esta ignorando ' .. targetPlayerName .. '.', thePlayer, 255, 0, 0)
 					return false
 				end
 			end
 			for k, v in ipairs(ignoreList[targetPlayer] or {}) do
 				if v == thePlayer then
-					outputChatBox(targetPlayerName .. ' is ignoring private messages from you.', thePlayer, 255, 0, 0)
+					outputChatBox(targetPlayerName .. ' esta ignorando mensagens privadas de você.', thePlayer, 255, 0, 0)
 					return false
 				end
 			end
@@ -1380,8 +1380,8 @@ function pmPlayer(thePlayer, commandName, who, ...)
 					local found = string.find(string.lower(message), "%s" .. tostring(v))
 					local found2 = string.find(string.lower(message), tostring(v) .. "%s")
 					if (found) or (found2) or (string.lower(message)==tostring(v)) then
-						exports.global:sendMessageToAdmins("AdmWrn: " .. tostring(playerName) .. " sent a possible advertisement PM to " .. tostring(targetPlayerName) .. ".")
-						exports.global:sendMessageToAdmins("AdmWrn: Message: " .. tostring(message))
+						exports.global:sendMessageToAdmins("AdmWrn: " .. tostring(playerName) .. " possivelmente está anunciando algo para " .. tostring(targetPlayerName) .. ".")
+						exports.global:sendMessageToAdmins("AdmWrn: Mensagem: " .. tostring(message))
 						break
 					end
 				end
@@ -1528,7 +1528,7 @@ function districtIC(thePlayer, commandName, ...)
 		end
 	end
 end
-addCommandHandler("district", districtIC, false, false)
+--addCommandHandler("district", districtIC, false, false)
 
 function localDo(thePlayer, commandName, ...)
 	if exports['freecam-tv']:isPlayerFreecamEnabled(thePlayer) then return end
@@ -1698,7 +1698,7 @@ function megaphoneShout(thePlayer, commandName, ...)
 									message2 = call(getResourceFromName("language-system"), "applyLanguage", thePlayer, nearbyPlayer, message, language)
 								end
 								table.insert(affectedElements, nearbyPlayer)
-								outputChatBox(" ((" .. playerName .. ")) Megafone <O: " .. trunklateText(nearbyPlayer, message2), nearbyPlayer, 255, 255, 0)
+								outputChatBox(" ((" .. playerName .. ")) Megafone: " .. trunklateText(nearbyPlayer, message2), nearbyPlayer, 255, 255, 0)
 							end
 						end
 					end
@@ -1756,7 +1756,7 @@ function toggleFaction(thePlayer, commandName)
 		end
 	end
 end
-addCommandHandler("togglef", toggleFaction)
+--[[addCommandHandler("togglef", toggleFaction)
 addCommandHandler("togf", toggleFaction)
 addCommandHandler("togglef1", toggleFaction)
 addCommandHandler("togf1", toggleFaction)
@@ -1767,7 +1767,7 @@ addCommandHandler("togf3", toggleFaction)
 addCommandHandler("togglef4", toggleFaction)
 addCommandHandler("togf4", toggleFaction)
 addCommandHandler("togglef5", toggleFaction)
-addCommandHandler("togf5", toggleFaction)
+addCommandHandler("togf5", toggleFaction)]]
 
 function toggleFactionSelf(thePlayer, commandName)
 	local logged = getElementData(thePlayer, "loggedin")
@@ -1798,7 +1798,7 @@ function toggleFactionSelf(thePlayer, commandName)
 		end
 	end
 end
-addCommandHandler("togglefaction", toggleFactionSelf)
+--[[addCommandHandler("togglefaction", toggleFactionSelf)
 addCommandHandler("togfaction", toggleFactionSelf)
 addCommandHandler("togglefaction1", toggleFactionSelf)
 addCommandHandler("togfaction1", toggleFactionSelf)
@@ -1809,7 +1809,7 @@ addCommandHandler("togfaction3", toggleFactionSelf)
 addCommandHandler("togglefaction4", toggleFactionSelf)
 addCommandHandler("togfaction4", toggleFactionSelf)
 addCommandHandler("togglefaction5", toggleFactionSelf)
-addCommandHandler("togfaction5", toggleFactionSelf)
+addCommandHandler("togfaction5", toggleFactionSelf)]]
 
 function factionOOC(thePlayer, commandName, ...)
 	local logged = getElementData(thePlayer, "loggedin")
@@ -1966,8 +1966,8 @@ function togGovOOC(thePlayer, theCommand)
 		end
 	end
 end
-addCommandHandler("toggovooc", togGovOOC)
-addCommandHandler("toggooc", togGovOOC)
+--[[addCommandHandler("toggovooc", togGovOOC)
+addCommandHandler("toggooc", togGovOOC)]]
 
 function togGovOOCSelf(thePlayer, theCommand)
 	local logged = getElementData(thePlayer, "loggedin")
@@ -1985,7 +1985,7 @@ function togGovOOCSelf(thePlayer, theCommand)
 		end
 	end
 end
-addCommandHandler("toggov", togGovOOCSelf)
+--addCommandHandler("toggov", togGovOOCSelf)
 
 -- /govooc
 function govooc(thePlayer, commandName, ...)
@@ -2027,7 +2027,7 @@ function govooc(thePlayer, commandName, ...)
 		end
 	end
 end
-addCommandHandler("gooc", govooc)
+--addCommandHandler("gooc", govooc)
 
 function setRadioChannel(thePlayer, commandName, slot, channel)
 	slot = tonumber( slot )
@@ -2058,7 +2058,7 @@ function setRadioChannel(thePlayer, commandName, slot, channel)
 								outputChatBox("Você não pode sintonizar seu rádio nessa frequência!", thePlayer, 255, 0, 0)
 							end
 						else
-							outputChatBox("Seu rádio está desligado. ((/ toggleradio))", thePlayer, 255, 0, 0)
+							outputChatBox("Seu rádio está desligado. (( /ligarradio ))", thePlayer, 255, 0, 0)
 						end
 						return
 					end
@@ -2124,6 +2124,7 @@ function toggleRadio(thePlayer, commandName, slot)
 	end
 end
 addCommandHandler("toggleradio", toggleRadio, false, false)
+addCommandHandler("ligarradio", toggleRadio, false, false)
 
 -- Admin chat
 function adminChat(thePlayer, commandName, ...)
@@ -2184,9 +2185,8 @@ function leadAdminChat(thePlayer, commandName, ...)
 		end
 	end
 end
-
-addCommandHandler("l", leadAdminChat, false, false)
-addCommandHandler("uat", leadAdminChat, false, false)
+--addCommandHandler("l", leadAdminChat, false, false)
+--addCommandHandler("uat", leadAdminChat, false, false)
 
 -- Misc
 local function sortTable( a, b )
@@ -2302,8 +2302,8 @@ function toggleAdminChat(thePlayer, commandName)
 		end
 	end
 end
-addCommandHandler("toga", toggleAdminChat, false, false)
-addCommandHandler("togglea", toggleAdminChat, false, false)
+--addCommandHandler("toga", toggleAdminChat, false, false)
+--addCommandHandler("togglea", toggleAdminChat, false, false)
 
 function toggleGMChat(thePlayer, commandName)
 	local logged = getElementData(thePlayer, "loggedin")
@@ -2313,8 +2313,8 @@ function toggleGMChat(thePlayer, commandName)
 		outputChatBox("Gamemaster Chat - "..(hideg and "SHOWING" or "HIDDEN").." /togg to toggle it.",thePlayer)
 	end
 end
-addCommandHandler("togg", toggleGMChat, false, false)
-addCommandHandler("toggleg", toggleGMChat, false, false)
+--addCommandHandler("togg", toggleGMChat, false, false)
+--addCommandHandler("toggleg", toggleGMChat, false, false)
 
 
 function toggleOOC(thePlayer, commandName)
@@ -2372,9 +2372,8 @@ function toggleOOC(thePlayer, commandName)
 		end
 	end
 end
-
-addCommandHandler("togooc", toggleOOC, false, false)
-addCommandHandler("stogooc", toggleOOC, false, false)
+--addCommandHandler("togooc", toggleOOC, false, false)
+--addCommandHandler("stogooc", toggleOOC, false, false)
 
 function togglePM(thePlayer, commandName)
 	local logged = getElementData(thePlayer, "loggedin")
@@ -2393,7 +2392,7 @@ function togglePM(thePlayer, commandName)
 			exports.donators:updatePerkValue(thePlayer, 1, 1)
 		end
 	else
-		outputChatBox("You don't have this perk activated. Please visit discord store under F10 menu.", thePlayer)
+		outputChatBox("Você não tem esse benefício.", thePlayer)
 	end
 end
 addEvent("chat:togpm", true)
@@ -2414,7 +2413,7 @@ function toggleAds(thePlayer, commandName)
 			exports.donators:updatePerkValue(thePlayer, 2, 1)
 		end
 	else
-		outputChatBox("You don't have this perk activated. Please visit OwlGaming store under F10 menu.", thePlayer)
+		outputChatBox("Você não tem esse benefício.", thePlayer)
 	end
 end
 addEvent("chat:togad", true)
@@ -2711,8 +2710,8 @@ function togNews(thePlayer, commandName)
 		end
 	end
 end
-addCommandHandler("tognews", togNews, false, false)
-addCommandHandler("togglenews", togNews, false, false)
+--addCommandHandler("tognews", togNews, false, false)
+--addCommandHandler("togglenews", togNews, false, false)
 
 
 -- /startinterview
@@ -2730,15 +2729,15 @@ function StartInterview(thePlayer, commandName, targetPartialPlayer)
 					local targetLogged = getElementData(targetPlayer, "loggedin")
 					if (targetLogged==1) then
 						if(getElementData(targetPlayer,"interview"))then
-							outputChatBox("This player is already being interviewed.", thePlayer, 255, 0, 0)
+							outputChatBox("Este jogador já está sendo entrevistado.", thePlayer, 255, 0, 0)
 						else
 							exports.anticheat:changeProtectedElementDataEx(targetPlayer, "interview", true, false)
 							local playerName = getPlayerName(thePlayer)
-							outputChatBox(playerName .." has offered you for an interview.", targetPlayer, 0, 255, 0)
-							outputChatBox("((Use /i to talk during the interview.))", targetPlayer, 0, 255, 0)
+							outputChatBox(playerName .." quer te entrevistar.", targetPlayer, 0, 255, 0)
+							outputChatBox("((Use /i para falar durante a entrevista.))", targetPlayer, 0, 255, 0)
 							local NewsFaction = exports.factions:getPlayersInFaction(20)
 							for key, value in ipairs(NewsFaction) do
-								outputChatBox("((".. playerName .." has invited " .. targetPlayerName .. " for an interview.))", value, 0, 255, 0)
+								outputChatBox("((".. playerName .." convidou " .. targetPlayerName .. " para uma entrevista.))", value, 0, 255, 0)
 							end
 						end
 					end
@@ -2748,6 +2747,7 @@ function StartInterview(thePlayer, commandName, targetPartialPlayer)
 	end
 end
 addCommandHandler("interview", StartInterview, false, false)
+addCommandHandler("entrevistar", StartInterview, false, false)
 
 -- /endinterview
 function endInterview(thePlayer, commandName, targetPartialPlayer)
@@ -2762,15 +2762,15 @@ function endInterview(thePlayer, commandName, targetPartialPlayer)
 					local targetLogged = getElementData(targetPlayer, "loggedin")
 					if (targetLogged==1) then
 						if not(getElementData(targetPlayer,"interview"))then
-							outputChatBox("This player is not being interviewed.", thePlayer, 255, 0, 0)
+							outputChatBox("Este jogador não está sendo entrevistado.", thePlayer, 255, 0, 0)
 						else
 							exports.anticheat:changeProtectedElementDataEx(targetPlayer, "interview", false, false)
 							local playerName = getPlayerName(thePlayer)
-							outputChatBox(playerName .." has ended your interview.", targetPlayer, 255, 0, 0)
+							outputChatBox(playerName .." sua entrevista acabou.", targetPlayer, 255, 0, 0)
 
 							local NewsFaction = exports.factions:getPlayersInFaction(20)
 							for key, value in ipairs(NewsFaction) do
-								outputChatBox("((".. playerName .." has ended " .. targetPlayerName .. "'s interview.))", value, 255, 0, 0)
+								outputChatBox("((".. playerName .." terminou a entrevista com " .. targetPlayerName .. ".))", value, 255, 0, 0)
 							end
 						end
 					end
@@ -2780,6 +2780,7 @@ function endInterview(thePlayer, commandName, targetPartialPlayer)
 	end
 end
 addCommandHandler("endinterview", endInterview, false, false)
+addCommandHandler("encerrarentrevista", endInterview, false, false)
 
 -- /i
 function interviewChat(thePlayer, commandName, ...)
@@ -2792,7 +2793,7 @@ function interviewChat(thePlayer, commandName, ...)
 				local message = table.concat({...}, " ")
 				local name = getPlayerName(thePlayer)
 
-				local finalmessage = "[NEWS] Interview Guest " .. name .." diz: ".. message
+				local finalmessage = "[NEWS] Convidado " .. name .." diz: ".. message
 				if exports.factions:isInFactionType(thePlayer, 6)then -- news faction
 					finalmessage = "[NEWS] " .. name .." diz: ".. message
 				end
@@ -2841,12 +2842,12 @@ function bigEars(thePlayer, commandName, targetPlayerNick)
 			outputChatBox("SYNTAX: /" .. commandName .. " [player]", thePlayer, 255, 194, 14)
 		elseif current and not targetPlayerNick then
 			exports.anticheat:changeProtectedElementDataEx(thePlayer, "bigears", false, false)
-			outputChatBox("Big Ears turned off.", thePlayer, 255, 0, 0)
+			outputChatBox("Big Ears desligado.", thePlayer, 255, 0, 0)
 		else
 			local targetPlayer, targetPlayerName = exports.global:findPlayerByPartialNick(thePlayer, targetPlayerNick)
 
 			if targetPlayer then
-				outputChatBox("Now Listening to " .. targetPlayerName .. ".", thePlayer, 0, 255, 0)
+				outputChatBox("Agora ouvindo a " .. targetPlayerName .. ".", thePlayer, 0, 255, 0)
 				exports.logs:dbLog(thePlayer, 4, targetPlayer, "BIGEARS "..targetPlayerName)
 				exports.anticheat:changeProtectedElementDataEx(thePlayer, "bigears", targetPlayer, false)
 			end
@@ -2859,7 +2860,7 @@ function removeBigEars()
 	for key, value in pairs( getElementsByType( "player" ) ) do
 		if isElement( value ) and getElementData( value, "bigears" ) == source then
 			exports.anticheat:changeProtectedElementDataEx( value, "bigears", false, false )
-			outputChatBox("Big Ears turned off (Player Left).", value, 255, 0, 0)
+			outputChatBox("Big Ears desligado (Jogador desconectou).", value, 255, 0, 0)
 		end
 	end
 end
@@ -2873,13 +2874,13 @@ function bigEarsFaction(thePlayer, commandName, factionID)
 			outputChatBox("SYNTAX: /" .. commandName .. " [faction id]", thePlayer, 255, 194, 14)
 		elseif current and not factionID then
 			exports.anticheat:changeProtectedElementDataEx(thePlayer, "bigearsfaction", false, false)
-			outputChatBox("Big Ears turned off.", thePlayer, 255, 0, 0)
+			outputChatBox("Big Ears desligado.", thePlayer, 255, 0, 0)
 		else
 			local team = exports.pool:getElement("team", factionID)
 			if not team then
-				outputChatBox("No faction with that ID found.", thePlayer, 255, 0, 0)
+				outputChatBox("ID invalido.", thePlayer, 255, 0, 0)
 			else
-				outputChatBox("Now Listening to " .. getTeamName(team) .. " OOC Chat.", thePlayer, 0, 255, 0)
+				outputChatBox("Agora ouvido a " .. getTeamName(team) .. " OOC Chat.", thePlayer, 0, 255, 0)
 				exports.anticheat:changeProtectedElementDataEx(thePlayer, "bigearsfaction", team, false)
 				exports.logs:dbLog(thePlayer, 4, team, "BIGEARSF "..getTeamName(team))
 			end
@@ -2932,8 +2933,8 @@ function focus(thePlayer, commandName, targetPlayer, r, g, b)
 		outputChatBox( "To add someone, /" .. commandName .. " [player] [optional red/green/blue], to remove just /" .. commandName .. " [player] again.", thePlayer, 255, 194, 14)
 	end
 end
-addCommandHandler("focus", focus)
-addCommandHandler("highlight", focus)
+--addCommandHandler("focus", focus)
+--addCommandHandler("highlight", focus)
 
 addEventHandler("onPlayerQuit", root,
 	function( )
@@ -3002,7 +3003,7 @@ function staffChat(thePlayer, commandName, ...)
 		end
 	end
 end
-addCommandHandler( "st", staffChat, false, false)
+--addCommandHandler( "st", staffChat, false, false)
 
 function toggleStaffChat(thePlayer, commandName)
 	local logged = getElementData(thePlayer, "loggedin")
@@ -3012,9 +3013,9 @@ function toggleStaffChat(thePlayer, commandName)
 		outputChatBox("Staff Chat - "..(hideStaffChat and "SHOWING" or "HIDDEN").." /"..commandName.." to toggle it.",thePlayer)
 	end
 end
-addCommandHandler("togglestaff", toggleStaffChat, false, false)
-addCommandHandler("togst", toggleStaffChat, false, false)
-addCommandHandler("togglest", toggleStaffChat, false, false)
+--addCommandHandler("togglestaff", toggleStaffChat, false, false)
+--addCommandHandler("togst", toggleStaffChat, false, false)
+--addCommandHandler("togglest", toggleStaffChat, false, false)
 
 
 -- END of /st and /togglest and /togst
@@ -3059,7 +3060,7 @@ function businessOOC(thePlayer, commandName, business, ...)
 		end
 	end
 end
-addCommandHandler("bu", businessOOC, false, false)
+--addCommandHandler("bu", businessOOC, false, false)
 
 function toggleBusinessSelf(thePlayer, commandName)
 	local logged = getElementData(thePlayer, "loggedin")
@@ -3076,15 +3077,15 @@ function toggleBusinessSelf(thePlayer, commandName)
 		end
 	end
 end
-addCommandHandler("togglebusinesschat", toggleBusinessSelf)
-addCommandHandler("togglebusiness", toggleBusinessSelf)
-addCommandHandler("togbusiness", toggleBusinessSelf)
+--addCommandHandler("togglebusinesschat", toggleBusinessSelf)
+--addCommandHandler("togglebusiness", toggleBusinessSelf)
+--addCommandHandler("togbusiness", toggleBusinessSelf)
 
 local mir = {
-	"You have the right to remain silent.",
-	"Anything you say or do may be used against you in a court of law.",
-	"You have the right to an attorney.",
-	"If you cannot afford an attorney, one will be appointed for you.",
+	"Você tem o direito de ficar calado.",
+	"Tudo o que disser pode e será usado contra você no tribunal.",
+	"Você tem o direito a um advogado.",
+	"Se você não puder pagar um advogado, um será nomeado para você.",
 }
 
 function pdmir(source)
