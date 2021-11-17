@@ -24,11 +24,13 @@ function jailPlayer(thePlayer, commandName, who, minutes, ...)
 				detachElements(targetPlayer)
 
 				if (minutes>=999) then
-					mysql:query_free("UPDATE accounts SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='1', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE id='" .. mysql:escape_string(accountID) .. "'")
+					mysql:query_free("UPDATE account_details SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='1', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE account_id='" .. mysql:escape_string(accountID) .. "'")
+					--dbExec(exports.mysql:getConn("mta"), "UPDATE `account_details` SET `adminjail`= ? `adminjail_time`=? `adminjail_permanent`=? `adminjail_by`=? `adminjail_reason`=? WHERE `id`=?", 1, mysql:escape_string(minutes), 1, mysql:escape_string(playerName), mysql:escape_string(reason), mysql:escape_string(accountID))
 					minutes = "indefinido."
 					exports.anticheat:changeProtectedElementDataEx(targetPlayer, "jailtimer", true, false)
 				else
-					mysql:query_free("UPDATE accounts SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='0', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE id='" .. mysql:escape_string(tonumber(accountID)) .. "'")
+					mysql:query_free("UPDATE account_details SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='0', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE account_id='" .. mysql:escape_string(tonumber(accountID)) .. "'")
+					--dbExec(exports.mysql:getConn("mta"), "UPDATE `account_details` SET `adminjail`= ? `adminjail_time`=? `adminjail_permanent`=? `adminjail_by`=? `adminjail_reason`=? WHERE `id`=?", 1, mysql:escape_string(minutes), 0, mysql:escape_string(playerName), mysql:escape_string(reason), mysql:escape_string(accountID))
 					local theTimer = setTimer(timerUnjailPlayer, 60000, 1, targetPlayer)
 					setElementData(targetPlayer, "jailtimer", theTimer, false)
 					exports.anticheat:changeProtectedElementDataEx(targetPlayer, "jailserved", 0, false)
@@ -71,6 +73,7 @@ function jailPlayer(thePlayer, commandName, who, minutes, ...)
 						end
 					end
 					exports.logs:dbLog(thePlayer, 4, targetPlayer,commandName.." por "..minutes.." mins, Razão: "..reason)
+					exports.serp_logsDiscord:adminlogsMessage(playerName.. " deu /ajail em ".. targetPlayerName .." por "..minutes.." minuto(s), Razão: "..reason)
 				end
 
 
@@ -115,6 +118,7 @@ function offlineJailPlayer(thePlayer, commandName, who, minutes, ...)
 			end
 			-- if player is acutally offline.
 			local row = mysql:query_fetch_assoc("SELECT `id`, `username`, `mtaserial`, `admin` FROM `accounts` WHERE `username`='".. mysql:escape_string( who ) .."' LIMIT 1")
+			--local row = dbQuery(exports.mysql:getConn("core"), "SELECT `id`,`username`, `mtaserial`, `admin` FROM `accounts` WHERE `username`=? LIMIT 1",  mysql:escape_string( who ))
 			local accountID = false
 			local accountUsername = false
 			if row and row.id ~= mysql_null() then
@@ -128,11 +132,13 @@ function offlineJailPlayer(thePlayer, commandName, who, minutes, ...)
 			local playerName = getPlayerName(thePlayer)
 
 			if (minutes>=999) then
-				mysql:query_free("UPDATE accounts SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='1', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE id='" .. mysql:escape_string(accountID) .. "'")
+				mysql:query_free("UPDATE account_details SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='1', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE account_id='" .. mysql:escape_string(accountID) .. "'")
+				--dbExec(exports.mysql:getConn("mta"), "UPDATE `account_details` SET `adminjail`= ? `adminjail_time`=? `adminjail_permanent`=? `adminjail_by`=? `adminjail_reason`=? WHERE `id`=?", 1, mysql:escape_string(minutes), 1, mysql:escape_string(playerName), mysql:escape_string(reason), mysql:escape_string(accountID))
 				minutes = 9999999
 				minutesString = "indefinido."
 			else
-				mysql:query_free("UPDATE accounts SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='0', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE id='" .. mysql:escape_string(tonumber(accountID)) .. "'")
+				mysql:query_free("UPDATE account_details SET adminjail='1', adminjail_time='" .. mysql:escape_string(minutes) .. "', adminjail_permanent='0', adminjail_by='" .. mysql:escape_string(playerName) .. "', adminjail_reason='" .. mysql:escape_string(reason) .. "' WHERE account_id='" .. mysql:escape_string(tonumber(accountID)) .. "'")
+				--dbExec(exports.mysql:getConn("mta"), "UPDATE `account_details` SET `adminjail`= ? `adminjail_time`=? `adminjail_permanent`=? `adminjail_by`=? `adminjail_reason`=? WHERE `id`=?", 1, mysql:escape_string(minutes), 0, mysql:escape_string(playerName), mysql:escape_string(reason), mysql:escape_string(accountID))
 				minutesString = minutes .. " minuto(s)."
 			end
 
@@ -152,6 +158,7 @@ function offlineJailPlayer(thePlayer, commandName, who, minutes, ...)
 				outputChatBox("[ADMIN-JAIL]: Razão: " .. reason, root, 255, 0, 0)
 			end
 			exports.logs:dbLog(thePlayer, 4, thePlayer,commandName.." "..accountUsername.." por "..minutes.." mins, Razão: "..reason)
+			exports.serp_logsDiscord:adminlogsMessage(playerName.. " deu /ojail em "..accountUsername.." por "..minutes.." minuto(s), Razão: "..reason)
 			exports.announcement:makePlayerNotification(accountID, "Você recebeu uma sentença de prisão por "..exports.global:getPlayerFullIdentity(thePlayer, 1, true)..".", "Razão: "..reason)
 		end
 	end
@@ -170,7 +177,8 @@ function timerUnjailPlayer(jailedPlayer)
 			exports.anticheat:changeProtectedElementDataEx(jailedPlayer, "jailtime", timeLeft, false)
 
 			if (timeLeft<=0) and not (getElementData(jailedPlayer, "pd.jailtime")) then
-				local query = mysql:query_free("UPDATE accounts SET adminjail_time='0', adminjail='0' WHERE id='" .. mysql:escape_string(accountID) .. "'")
+				local query = mysql:query_free("UPDATE account_details SET adminjail_time='0', adminjail='0' WHERE account_id='" .. mysql:escape_string(accountID) .. "'")
+				--local query = dbExec(exports.mysql:getConn("mta"), "UPDATE `account_details` SET `adminjail_time`=? `adminjail`= ? WHERE `id`=?", 0, 0, mysql:escape_string(accountID))
 				exports.anticheat:changeProtectedElementDataEx(jailedPlayer, "jailtimer", false, false)
 				exports.anticheat:changeProtectedElementDataEx(jailedPlayer, "adminjailed", false, false)
 				exports.anticheat:changeProtectedElementDataEx(jailedPlayer, "jailreason", false, false)
@@ -199,7 +207,8 @@ function timerUnjailPlayer(jailedPlayer)
 				exports.global:sendMessageToAdmins("[PRISÂO]: " .. getPlayerName(jailedPlayer):gsub("_", " ") .. " serviu " .. genderm .. " tempo de prisão.")
 				--triggerClientEvent(jailedPlayer, "updateAdminJailCounter", jailedPlayer, nil)
 			else
-				local query = mysql:query_free("UPDATE accounts SET adminjail_time='" .. mysql:escape_string(timeLeft) .. "' WHERE id='" .. mysql:escape_string(accountID) .. "'")
+				local query = mysql:query_free("UPDATE account_details SET adminjail_time='" .. mysql:escape_string(timeLeft) .. "' WHERE account_id='" .. mysql:escape_string(accountID) .. "'")
+				--local query = dbExec(exports.mysql:getConn("mta"), "UPDATE `account_details` SET `adminjail_time`=? WHERE `id`=?", mysql:escape_string(timeLeft), mysql:escape_string(accountID))
 				local theTimer = setTimer(timerUnjailPlayer, 60000, 1, jailedPlayer)
 				setElementData(jailedPlayer, "jailtimer", theTimer, false)
 				local jailCounter = {}
@@ -220,6 +229,7 @@ function unjailPlayer(thePlayer, commandName, who)
 			outputChatBox("SYNTAX: /" .. commandName .. " [Nome Parcial Player/ID]", thePlayer, 255, 194, 14)
 		else
 			local targetPlayer, targetPlayerName = exports.global:findPlayerByPartialNick(thePlayer, who)
+			local playerName = getPlayerName(thePlayer)
 
 			if (targetPlayer) then
 				local jailed = getElementData(targetPlayer, "jailtimer", nil)
@@ -229,7 +239,7 @@ function unjailPlayer(thePlayer, commandName, who)
 				if not (jailed) then
 					outputChatBox(targetPlayerName .. " não esta preso.", thePlayer, 255, 0, 0)
 				else
-					local query = mysql:query_free("UPDATE account_details SET adminjail_time='0', adminjail='0' WHERE id='" .. mysql:escape_string(accountID) .. "'")
+					local query = mysql:query_free("UPDATE account_details SET adminjail_time='0', adminjail='0' WHERE account_id='" .. mysql:escape_string(accountID) .. "'")
 
 					if isTimer(jailed) then
 						killTimer(jailed)
@@ -257,6 +267,7 @@ function unjailPlayer(thePlayer, commandName, who)
 
 					outputChatBox("Você foi solto por "..adminTitle..", comporte-se da próxima vez!", targetPlayer, 0, 255, 0)
 					exports.global:sendMessageToAdmins("AdmCmd: " .. targetPlayerName .. " foi solto por "..adminTitle..".")
+					exports.serp_logsDiscord:adminlogsMessage(playerName.. " deu /unjail em ".. targetPlayerName)
 					exports.logs:dbLog(thePlayer, 4, targetPlayerName,commandName)
 				end
 			end

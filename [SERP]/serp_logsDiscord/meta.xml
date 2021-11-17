@@ -1,0 +1,8 @@
+<meta>
+<min_mta_version server="1.5.5-9.14060"></min_mta_version>
+<info author="MrZsemle" name="Discord webhook messages" />
+<script src="webhookS.lua"/>
+
+<export function="adminlogsMessage" type="shared" />
+<export function="adminlogsInterior" type="shared" />
+</meta>

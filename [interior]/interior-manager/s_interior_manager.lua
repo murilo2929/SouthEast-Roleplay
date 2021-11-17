@@ -247,6 +247,7 @@ function setInteriorFaction(thePlayer, cmd, ...)
 		local factionId = getElementData(theFaction, "id")
 		local factionName = getTeamName(theFaction)
 		local intName = getElementData(interiorElement, "name")
+		local playerName = getPlayerName(thePlayer)
 
 		if not mysql:query_free( "UPDATE interiors SET owner='-1', faction='"..factionId.."', locked=0 WHERE id='" .. dbid .. "'") then
 			outputChatBox("Internal Error.", thePlayer, 255, 0, 0 )
@@ -257,6 +258,8 @@ function setInteriorFaction(thePlayer, cmd, ...)
 		exports.global:giveItem(thePlayer, interiorType == 1 and 5 or 4, dbid)
 
 		exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "SETINTFACTION INTERIOR ID#"..dbid.." PARA FACÇÂO '"..factionName.."'")
+		exports.serp_logsDiscord:adminlogsInterior("ADMcmd: "..playerName.." setou o interior ID#"..dbid.." para facção "..factionName..".")
+
 		exports.interior_system:realReloadInterior(tonumber(dbid))
 		triggerClientEvent(thePlayer, "createBlipAtXY", thePlayer, entrance.type, entrance.x, entrance.y)
 		exports.global:sendMessageToAdmins("[INTERIOR] "..exports.global:getPlayerFullIdentity(thePlayer).." transferiu a propriedade do interior '"..intName.."' ID #"..dbid.." para a facção '"..factionName.."'.")
@@ -324,13 +327,15 @@ function setInteriorToMyFaction(thePlayer, cmd, fID)
 	exports.global:giveItem(thePlayer, interiorType == 1 and 5 or 4, dbid)
 
 	exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "SETINTTOMYFACTION INTERIOR ID#"..dbid.." TO FACTION '"..factionName.."'")
+
 	exports.interior_system:realReloadInterior(tonumber(dbid))
 	triggerClientEvent(thePlayer, "createBlipAtXY", thePlayer, entrance.type, entrance.x, entrance.y)
-	exports.global:sendMessageToAdmins("[INTERIOR] "..exports.global:getPlayerFullIdentity(thePlayer).." transferred the ownership of interior '"..intName.."' ID #"..dbid.." to his faction '"..factionName.."'.")
+	exports.global:sendMessageToAdmins("[INTERIOR] "..exports.global:getPlayerFullIdentity(thePlayer).." transferiu a propiedade '"..intName.."' ID #"..dbid.." para sua facção '"..factionName.."'.")
 	outputChatBox("Você configurou este interior para facção " .. factionName .. ".", thePlayer, 0, 255, 0)
 	return true
 end
 addCommandHandler("setinttomyfaction", setInteriorToMyFaction, false, false)
+addCommandHandler("transferirminhafac", setInteriorToMyFaction, false, false)
 
 function cloneNote(player)
 	if getElementData(player, "account:id") ~= 1 then

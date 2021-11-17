@@ -6,6 +6,9 @@
 * Proprietary and confidential
 * ***********************************************************************************************************************
 ]]
+local nome = getPlayerName(playerSource)
+
+
 
 function getNearbyInteriors(thePlayer, commandName)
 	if (exports.integration:isPlayerHeadAdmin(thePlayer) or exports.integration:isPlayerMappingTeamMember(thePlayer)) then
@@ -58,6 +61,7 @@ function delNearbyInteriors(thePlayer, commandName)
 						local interiorName = getElementData(interior, "name")
 						if deleteInterior(thePlayer, "mass" , dbid) then
 							exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , commandName)
+							exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." deletou alguns interiores próximos dele.")
 							count = count + 1
 						end
 					end
@@ -67,20 +71,21 @@ function delNearbyInteriors(thePlayer, commandName)
 		exports.anticheat:changeProtectedElementDataEx(thePlayer, "interiormarker", false, false, false)
 
 		if (count==0) then
-			outputChatBox("   None was deleted", thePlayer, 255, 126, 0)
+			outputChatBox("   Nenhum interior deletado", thePlayer, 255, 126, 0)
 		else
-			outputChatBox("   "..count.." interiors have been deleted!", thePlayer, 255, 126, 0)
+			outputChatBox("   "..count.." interior(es) deletado(s)!", thePlayer, 255, 126, 0)
 		end
 	end
 end
 addCommandHandler("delnearbyinteriors", delNearbyInteriors, false, false)
 addCommandHandler("delnearbyints", delNearbyInteriors, false, false)
+addCommandHandler("removerintproximo", delNearbyInteriors, false, false)
 
 function gotoHouse( thePlayer, commandName, houseID, target )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerSupporter(thePlayer) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local houseID = tonumber( houseID )
 		if not houseID then
-			outputChatBox( "SYNTAX: /" .. commandName .. " [House/Biz ID] (Player)", thePlayer, 255, 194, 14 )
+			outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Biz ID] (Player)", thePlayer, 255, 194, 14 )
 		else
 			local dbid, entrance, exit, type, interiorElement = findProperty( thePlayer, houseID )
 			if entrance then
@@ -110,7 +115,7 @@ function gotoHouse( thePlayer, commandName, houseID, target )
 					return true
 				end
 			else
-				outputChatBox( "Invalid House.", thePlayer, 255, 0, 0 )
+				outputChatBox( "Casa invalida.", thePlayer, 255, 0, 0 )
 				return false
 			end
 		end
@@ -123,7 +128,7 @@ function gotoHouseInside( thePlayer, commandName, houseID, target )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local houseID = tonumber( houseID )
 		if not houseID then
-			outputChatBox( "SYNTAX: /" .. commandName .. " [House/Biz ID] (Player)", thePlayer, 255, 194, 14 )
+			outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID] (Player)", thePlayer, 255, 194, 14 )
 		else
 			local dbid, entrance, exit, type, interiorElement = findProperty( thePlayer, houseID )
 			if exit then
@@ -154,13 +159,13 @@ function gotoHouseInside( thePlayer, commandName, houseID, target )
 					return true
 				end
 			else
-				outputChatBox( "Invalid House.", thePlayer, 255, 0, 0 )
+				outputChatBox( "Casa invalida.", thePlayer, 255, 0, 0 )
 				return
 			end
 		end
 	end
 end
-addCommandHandler( "gotointi", gotoHouseInside )
+--addCommandHandler( "gotointi", gotoHouseInside )
 
 function setInteriorID( thePlayer, commandName, interiorID )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
@@ -195,27 +200,29 @@ function setInteriorID( thePlayer, commandName, interiorID )
 						end
 					end
 
-					outputChatBox( "You have sucessfully changed interior of house #"..dbid.." to ID "..interiorID..".", thePlayer, 0, 255, 0 )
+					outputChatBox( "Você mudou o interior da casa #"..dbid.." para o ID "..interiorID..".", thePlayer, 0, 255, 0 )
 					exports.logs:dbLog(thePlayer, 4, { "in"..tostring(dbid) } , "SETINTERIORID "..interiorID)
+					exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou o interior #"..dbid.." para o ID "..interiorID..".")
+
 					local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
 					local adminTitle = exports.global:getPlayerAdminTitle(thePlayer)
 					local adminUsername = getElementData(thePlayer, "account:username")
 
 					if hiddenAdmin == 0 then
-						exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").." ("..adminUsername..") has changed interior of house #"..dbid.." to ID "..interiorID..".")
+						exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").." ("..adminUsername..") mudou o interior da casa #"..dbid.." para o ID "..interiorID..".")
 					else
-						exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has changed interior of house #"..dbid.." to ID "..interiorID..".")
+						exports.global:sendMessageToAdmins("[INTERIOR]: Um admin oculto trocou o interior da casa #"..dbid.." para o ID "..interiorID..".")
 					end
 
 					exports["interior-manager"]:addInteriorLogs(dbid, commandName.." "..interiorID, thePlayer)
 
 					return true
 				else
-					outputChatBox( "Interior Update failed.", thePlayer, 255, 0, 0 )
+					outputChatBox( "Error.", thePlayer, 255, 0, 0 )
 					return false
 				end
 			else
-				outputChatBox( "You are not in an interior.", thePlayer, 255, 0, 0 )
+				outputChatBox( "Você não esta em um interior.", thePlayer, 255, 0, 0 )
 				return false
 			end
 		end
@@ -228,7 +235,7 @@ function setInteriorPrice( thePlayer, commandName, cost )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		cost = tonumber( cost )
 		if not cost then
-			outputChatBox( "SYNTAX: /" .. commandName .. " [price]", thePlayer, 255, 194, 14 )
+			outputChatBox( "SYNTAX: /" .. commandName .. " [preço]", thePlayer, 255, 194, 14 )
 		else
 			local dbid, entrance, exit, interiorType, interiorElement = findProperty( thePlayer )
 			if exit then
@@ -237,7 +244,7 @@ function setInteriorPrice( thePlayer, commandName, cost )
 					local interiorStatus = getElementData(interiorElement, "status")
 					interiorStatus.cost = cost
 					exports.anticheat:changeProtectedElementDataEx(interiorElement, "status", interiorStatus, true)
-					outputChatBox( "Interior cost is now $" .. exports.global:formatMoney(cost) .. ".", thePlayer, 0, 255, 0 )
+					outputChatBox( "Interior custa agora $" .. exports.global:formatMoney(cost) .. ".", thePlayer, 0, 255, 0 )
 					local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
 					local adminTitle = exports.global:getPlayerAdminTitle(thePlayer)
 					local adminUsername = getElementData(thePlayer, "account:username")
@@ -245,17 +252,18 @@ function setInteriorPrice( thePlayer, commandName, cost )
 					if hiddenAdmin == 0 then
 						exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").." ("..adminUsername..") has changed interior price of house #"..dbid.." to $"..cost..".")
 					else
-						exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has changed interior price of house #"..dbid.." to $"..cost..".")
+						exports.global:sendMessageToAdmins("[INTERIOR]: Admin oculto mudou preço do interior #"..dbid.." para $"..cost..".")
 					end
 
 					exports["interior-manager"]:addInteriorLogs(dbid, commandName.." "..tostring(cost), thePlayer)
 					exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , commandName.." "..tostring(cost))
+					exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou o preço do interior #"..dbid.." para $"..cost..".")
 					return true
 				else
-					outputChatBox( "Interior Update failed.", thePlayer, 255, 0, 0 )
+					outputChatBox( "Error.", thePlayer, 255, 0, 0 )
 				end
 			else
-				outputChatBox( "You are not in an interior.", thePlayer, 255, 0, 0 )
+				outputChatBox( "Você não esta em um interior.", thePlayer, 255, 0, 0 )
 			end
 		end
 	end
@@ -268,9 +276,9 @@ function getInteriorPrice( thePlayer )
 		local dbid, entrance, exit, interiorType, interiorElement = findProperty( thePlayer )
 		if exit then
 			local interiorStatus = getElementData(interiorElement, "status")
-			outputChatBox( "This Interior costs $" .. exports.global:formatMoney(interiorStatus.cost) .. ".", thePlayer, 255, 194, 14 )
+			outputChatBox( "Esse interior custa $" .. exports.global:formatMoney(interiorStatus.cost) .. ".", thePlayer, 255, 194, 14 )
 		else
-			outputChatBox( "You are not in an interior.", thePlayer, 255, 0, 0 )
+			outputChatBox( "Você não esta em um interior.", thePlayer, 255, 0, 0 )
 		end
 	end
 end
@@ -290,13 +298,13 @@ function setInteriorType( thePlayer, commandName, type )
 					if query then
 						local interiorStatus = getElementData(interiorElement, "status")
 						interiorStatus.type = type
-						outputChatBox( "Interior type is now " .. type .. ".", thePlayer, 0, 255, 0 )
+						outputChatBox( "Tipo do interior foi mudado para " .. type .. ".", thePlayer, 0, 255, 0 )
 						exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "SETINTERIORTYPE "..type .. " (was "..interiorType.." / ".. interiorStatus.owner ..")")
 						if type == 2 then
 							local query2 = mysql:query_free("UPDATE interiors SET owner=0 WHERE id='" .. mysql:escape_string(dbid) .."'")
 							if query2 then
 								interiorStatus.owner = 0
-								outputChatBox( "Set the interior type to no-one due interior type 2.", thePlayer, 0, 255, 0 )
+								outputChatBox( "Interior setado para nenhum devido interior tipo 2.", thePlayer, 0, 255, 0 )
 							end
 						end
 						local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
@@ -306,21 +314,22 @@ function setInteriorType( thePlayer, commandName, type )
 						if hiddenAdmin == 0 then
 							exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").." ("..adminUsername..") has changed interior type of house #"..dbid.." to type "..type..".")
 						else
-							exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has changed interior type of house #"..dbid.." to type "..type..".")
+							exports.global:sendMessageToAdmins("[INTERIOR]: Admin oculto mudou interior #"..dbid.." para tipo "..type..".")
 						end
 						exports.anticheat:changeProtectedElementDataEx(interiorElement, "status", interiorStatus, true)
 
 						exports["interior-manager"]:addInteriorLogs(dbid, commandName.." "..tostring(type), thePlayer)
+						exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou interior #"..dbid.." para tipo "..type..".")
 
 						return true
 					else
-						outputChatBox( "Interior Update failed.", thePlayer, 255, 0, 0 )
+						outputChatBox( "Error.", thePlayer, 255, 0, 0 )
 					end
 				else
-					outputChatBox( "Interior has this type already.", thePlayer, 255, 0, 0 )
+					outputChatBox( "Interior já tem esse tipo.", thePlayer, 255, 0, 0 )
 				end
 			else
-				outputChatBox( "You are not in an interior.", thePlayer, 255, 0, 0 )
+				outputChatBox( "Você não esta em um interior.", thePlayer, 255, 0, 0 )
 			end
 		end
 	end
@@ -332,9 +341,9 @@ function getInteriorType( thePlayer )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local dbid, entrance, exit, interiorType, interiorElement = findProperty( thePlayer )
 		if exit then
-			outputChatBox( "This Interior's type is " .. interiorType .. ".", thePlayer, 255, 194, 14 )
+			outputChatBox( "Este interior tem o tipo " .. interiorType .. ".", thePlayer, 255, 194, 14 )
 		else
-			outputChatBox( "You are not in an interior.", thePlayer, 255, 0, 0 )
+			outputChatBox( "Você não esta em um interior.", thePlayer, 255, 0, 0 )
 		end
 	end
 end
@@ -365,7 +374,7 @@ function getInteriorID( thePlayer, commandName )
 	if theId then
 		outputChatBox( "Interior ID: " .. theId, thePlayer )
 	else
-		outputChatBox( "Interior ID not found.", thePlayer, 255,0,0 )
+		outputChatBox( "Interior ID não encontrado.", thePlayer, 255,0,0 )
 	end
 end
 addCommandHandler( "getinteriorid", getInteriorID )
@@ -386,24 +395,26 @@ function toggleInterior( thePlayer, commandName, id )
 
 				if interiorStatus.disabled then
 					mysql:query_free("UPDATE interiors SET disabled = 0 WHERE id = " .. dbid )
-					outputChatBox("Interior "..dbid.." is now enabled", thePlayer)
+					outputChatBox("Interior "..dbid.." foi ativado", thePlayer)
 					if hiddenAdmin == 0 then
 						exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").." ("..adminUsername..") has enabled Interior #"..dbid..".")
 					else
-						exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has enabled Interior #"..dbid..".")
+						exports.global:sendMessageToAdmins("[INTERIOR]: Um admin oculto ativou o interior #"..dbid..".")
 					end
 
 					exports["interior-manager"]:addInteriorLogs(dbid, commandName.." on", thePlayer)
+					exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." ativou o interior #"..dbid..".")
 				else
 					mysql:query_free("UPDATE interiors SET disabled = 1 WHERE id = " .. dbid )
-					outputChatBox("Interior "..dbid.." is now disabled", thePlayer)
+					outputChatBox("Interior "..dbid.." foi desativado", thePlayer)
 					if hiddenAdmin == 0 then
 						exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").." ("..adminUsername..") has disabled Interior #"..dbid..".")
 					else
-						exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has disabled Interior #"..dbid..".")
+						exports.global:sendMessageToAdmins("[INTERIOR]: Um admin oculto desativou o interior #"..dbid..".")
 					end
 
 					exports["interior-manager"]:addInteriorLogs(dbid, commandName.." off", thePlayer)
+					exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." desativou o interior #"..dbid..".")
 				end
 				realReloadInterior(dbid)
 				exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "TOGGLEINTERIOR "..dbid)
@@ -422,10 +433,10 @@ function reloadInterior(thePlayer, commandName, interiorID)
 			local dbid, entrance, exit, interiorType = findProperty( thePlayer, tonumber(interiorID) )
 			if dbid ~= 0 then
 				realReloadInterior(dbid)
-				outputChatBox("Reloaded Interior #" .. dbid, thePlayer, 0, 255, 0)
+				outputChatBox("Interior recarregado #" .. dbid, thePlayer, 0, 255, 0)
 			else
 				if exports.interior_load:loadOne(tonumber(interiorID), false) then
-					outputChatBox("Loaded Interior #" .. tonumber(interiorID), thePlayer, 0, 255, 0)
+					outputChatBox("Interior carregado #" .. tonumber(interiorID), thePlayer, 0, 255, 0)
 				end
 			end
 		end
@@ -438,19 +449,19 @@ function deleteInterior( thePlayer, commandName, houseID )
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		houseID = tonumber( houseID )
 		if not houseID then
-			outputChatBox( "SYNTAX: /" .. commandName .. " [House/Biz ID]", thePlayer, 255, 194, 14 )
+			outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID]", thePlayer, 255, 194, 14 )
 			return false
 		else
 			local dbid, entrance, exit, type, interiorElement = findProperty( thePlayer, tonumber(houseID) )
 			local protected, details = isProtected(interiorElement)
 			if protected then
-				outputChatBox("This interior is protected. Inactivity protection remaining: "..details, thePlayer, 255, 0,0)
+				outputChatBox("Este interior esta protegido. Proteção contra inatividade faltante: "..details, thePlayer, 255, 0,0)
 				return false
 			end
 			local active, details2 = isActive(interiorElement)
 			if commandName ~= 'mass' and active and getElementData(thePlayer, "confirm:delint") ~= houseID then
-				outputChatBox("You are about to delete an interior while it's appearing to be an active interior.", thePlayer)
-				outputChatBox("Please type /"..commandName.." "..houseID.." once again to proceed.", thePlayer)
+				outputChatBox("Você esta preste a deletar um interior ativo.", thePlayer)
+				outputChatBox("Digite /"..commandName.." "..houseID.." novamente para proceder.", thePlayer)
 				setElementData(thePlayer, "confirm:delint", houseID)
 				return false
 			end
@@ -466,12 +477,13 @@ function deleteInterior( thePlayer, commandName, houseID )
 				exports.interior_load:unload( dbid )
 
 				-- notify
-				outputChatBox("[DELINT] Interior #" .. dbid .. " has been deleted!", thePlayer, 0, 255, 0)
-				outputChatBox("To restore this interior, do '/restoreint " .. dbid .. "'.", thePlayer, 255, 194, 14 )
-				exports.global:sendMessageToAdmins("[INTERIOR] "..exports.global:getPlayerFullIdentity( thePlayer ).." has deleted Interior #"..dbid..".")
+				outputChatBox("[DELINT] Interior #" .. dbid .. " foi deletado!", thePlayer, 0, 255, 0)
+				outputChatBox("Para restaurar este interior, use '/restoreint " .. dbid .. "'.", thePlayer, 255, 194, 14 )
+				exports.global:sendMessageToAdmins("[INTERIOR] "..exports.global:getPlayerFullIdentity( thePlayer ).." deletou interior #"..dbid..".")
 
 				-- logs
 				exports.logs:dbLog( thePlayer, 37, { "in"..tostring(dbid) } , "DELETEINTERIOR "..dbid )
+				exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." deletou o interior #"..dbid..".")
 				exports["interior-manager"]:addInteriorLogs( dbid, commandName, thePlayer )
 
 				removeElementData( thePlayer, "confirm:delint" )
@@ -490,7 +502,7 @@ function restoreInt(thePlayer, commandName, houseID)
 		if not showLoadingProgressTimer then
 			houseID = tonumber( houseID )
 			if not houseID then
-				outputChatBox( "SYNTAX: /" .. commandName .. " [House/Biz ID]", thePlayer, 255, 194, 14 )
+				outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID]", thePlayer, 255, 194, 14 )
 			else
 				if houseID ~= 0 then
 					local query = mysql:query("SELECT `deleted` FROM interiors WHERE id='" .. houseID .. "'")
@@ -499,16 +511,16 @@ function restoreInt(thePlayer, commandName, houseID)
 						row = mysql:fetch_assoc(query)
 						mysql:free_result(query)
 					else
-						outputChatBox("[RESTOREINT] Int #"..houseID.." not found in Database!", thePlayer, 255, 0 ,0)
+						outputChatBox("[RESTOREINT] Int #"..houseID.." não encontrado na database!", thePlayer, 255, 0 ,0)
 						return
 					end
 
 					if not row then
-						outputChatBox("[RESTOREINT] Int #"..houseID.." not found in Database!", thePlayer, 255, 0 ,0)
+						outputChatBox("[RESTOREINT] Int #"..houseID.." não encontrado na database!", thePlayer, 255, 0 ,0)
 						return
 					else
 						if row["deleted"] == "0" then
-							outputChatBox("[RESTOREINT] Interior #"..houseID.." isn't deleted!", thePlayer, 255, 0 ,0)
+							outputChatBox("[RESTOREINT] Interior #"..houseID.." não esta deletado!", thePlayer, 255, 0 ,0)
 							return
 						end
 					end
@@ -516,8 +528,9 @@ function restoreInt(thePlayer, commandName, houseID)
 					local query = mysql:query_free("UPDATE `interiors` SET `deleted` = '0' WHERE id='" .. houseID .. "' ")
 					if (query) then
 						exports.interior_load:loadOne(houseID)
-						outputChatBox("[RESTOREINT] Interior #" .. houseID .. " has been restored!", thePlayer, 0, 255, 0)
+						outputChatBox("[RESTOREINT] Interior #" .. houseID .. " foi restaurado!", thePlayer, 0, 255, 0)
 						exports.logs:dbLog(thePlayer, 37, { "in"..tostring(houseID) } , "RESTOREINT "..houseID)
+						exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." restaurou o interior #"..houseID..".")
 						local adminUsername = getElementData(thePlayer, "account:username")
 						local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
 						local adminTitle = exports.global:getPlayerAdminTitle(thePlayer)
@@ -525,7 +538,7 @@ function restoreInt(thePlayer, commandName, houseID)
 						if hiddenAdmin == 0 then
 							exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").. " ("..adminUsername..") has restored Interior #"..houseID..".")
 						else
-							exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has restored Interior #"..houseID..".")
+							exports.global:sendMessageToAdmins("[INTERIOR]: Um admin oculto restaurou o interior #"..houseID..".")
 						end
 
 						exports["interior-manager"]:addInteriorLogs(houseID, commandName, thePlayer)
@@ -537,7 +550,7 @@ function restoreInt(thePlayer, commandName, houseID)
 				end
 			end
 		else
-			outputChatBox("Please wait until the interior system loading is done..", thePlayer, 255, 0, 0)
+			--outputChatBox("Please wait until the interior system loading is done..", thePlayer, 255, 0, 0)
 			return false
 		end
 	end
@@ -546,11 +559,11 @@ addCommandHandler("restoreint", restoreInt, false, false)
 addCommandHandler("restoreinterior", restoreInt, false, false)
 
 function removeInterior(thePlayer, commandName, houseID)
-	if exports.integration:isPlayerLeadAdmin( thePlayer ) or commandName == "MOVETOLS" then
+	if exports.integration:isPlayerScripter( thePlayer ) or commandName == "MOVETOLS" then
 		if not showLoadingProgressTimer then
 			houseID = tonumber( houseID ) or getElementData(thePlayer, "mostRecentDeletedInterior")
 			if not houseID then
-				outputChatBox( "SYNTAX: /" .. commandName .. " [House/Biz ID]", thePlayer, 255, 194, 14 )
+				outputChatBox( "SYNTAX: /" .. commandName .. " [Casa/Neg ID]", thePlayer, 255, 194, 14 )
 			else
 				if houseID ~= 0 then
 					if commandName ~= "MOVETOLS" then
@@ -560,16 +573,16 @@ function removeInterior(thePlayer, commandName, houseID)
 							row = mysql:fetch_assoc(query)
 							mysql:free_result(query)
 						else
-							outputChatBox("[REMOVEINT] Int #"..houseID.." not found in Database!", thePlayer, 255, 0 ,0)
+							outputChatBox("[REMOVEINT] Int #"..houseID.." não encontrado na database!", thePlayer, 255, 0 ,0)
 							return
 						end
 
 						if not row then
-							outputChatBox("[REMOVEINT] Int #"..houseID.." not found in Database!", thePlayer, 255, 0 ,0)
+							outputChatBox("[REMOVEINT] Int #"..houseID.." não encontrado na database!", thePlayer, 255, 0 ,0)
 							return
 						else
 							if row["deleted"] == "0" then
-								outputChatBox("[REMOVEINT] To remove this Interior permanently from Database, please use '/delint "..houseID.."' first.", thePlayer, 255, 0 ,0)
+								outputChatBox("[REMOVEINT] Para remover este interior permanente da database, use '/delint "..houseID.."' first.", thePlayer, 255, 0 ,0)
 								return
 							end
 						end
@@ -581,7 +594,7 @@ function removeInterior(thePlayer, commandName, houseID)
 						clearSafe( houseID, true )
 						intTable[houseID] = nil
 						cleanupProperty(houseID)
-						outputChatBox("[REMOVEINT] Interior #" .. houseID .. " has been removed completely from Database!", thePlayer, 0, 255, 0)
+						outputChatBox("[REMOVEINT] Interior #" .. houseID .. " foi removido da database!", thePlayer, 0, 255, 0)
 						exports.logs:dbLog(thePlayer, 37, { "in"..tostring(houseID) } , "REMOVEINT "..houseID)
 						local adminUsername = getElementData(thePlayer, "account:username")
 						local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
@@ -624,7 +637,7 @@ function removeInterior(thePlayer, commandName, houseID)
 				end
 			end
 		else
-			outputChatBox("Please wait until the interior system loading is done..", thePlayer, 255, 0, 0)
+			--outputChatBox("Please wait until the interior system loading is done..", thePlayer, 255, 0, 0)
 			return false
 		end
 	end
@@ -633,10 +646,10 @@ addCommandHandler("removeint", removeInterior, false, false)
 addCommandHandler("removeinterior", removeInterior, false, false)
 
 function removeDeletedInteriors(thePlayer, commandName)
-	if exports.integration:isPlayerLeadAdmin( thePlayer ) then
+	if exports.integration:isPlayerScripter( thePlayer ) then
 		if not getElementData(thePlayer, "confirm:removeDeletedInteriors") then
-			outputChatBox( "Removes all deleted interiors completely and permanently from SQL.", thePlayer, 255, 194, 14 )
-			outputChatBox( "And there will be no way to recover them, /"..commandName.." again to start it. /cancelremovedeletedints to cancel.", thePlayer, 255, 194, 14 )
+			outputChatBox( "Remove todos os interiors da database.", thePlayer, 255, 194, 14 )
+			outputChatBox( "Sem chance de recuperar, use /"..commandName.." para começar. /cancelremovedeletedints para cancelar.", thePlayer, 255, 194, 14 )
 			setElementData(thePlayer, "confirm:removeDeletedInteriors", true)
 		else
 			removeElementData(thePlayer, "confirm:removeDeletedInteriors")
@@ -654,9 +667,9 @@ function removeDeletedInteriors(thePlayer, commandName)
 				local adminTitle = exports.global:getPlayerAdminTitle(thePlayer)
 				local adminUsername = getElementData(thePlayer, "account:username")
 				if hiddenAdmin == 0 then
-					exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").. " ("..adminUsername..") has executed a massive int remove command on "..count.." deleted interiors permanently from database.", root, 255,0,0)
+					--exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").. " ("..adminUsername..") executou "..count.." deleted interiors permanently from database.", root, 255,0,0)
 				else
-					exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has executed a massive int remove command on "..count.." deleted interiors permanently from database.", root, 255,0,0)
+					exports.global:sendMessageToAdmins("[INTERIOR]: Deletou uma quantia de "..count.." interiores já deletados da database.", root, 255,0,0)
 				end
 			end
 		end
@@ -666,7 +679,7 @@ addCommandHandler("removedeletedints", removeDeletedInteriors, false, false)
 addCommandHandler("removedeletedinteriors", removeDeletedInteriors, false, false)
 
 function removeForSaleInteriors(thePlayer, commandName)
-	if exports.integration:isPlayerLeadAdmin( thePlayer ) then
+	if exports.integration:isPlayerScripter( thePlayer ) then
 		if not getElementData(thePlayer, "confirm:removeForSaleInteriors") then
 			outputChatBox( "Removes all for-sale interiors completely and permanently from SQL.", thePlayer, 255, 194, 14 )
 			outputChatBox( "And there will be no way to recover them, /"..commandName.." again to start it. /cancelremoveforsaleints to cancel.", thePlayer, 255, 194, 14 )
@@ -700,9 +713,9 @@ addCommandHandler("removeforsaleinteriors", removeForSaleInteriors, false, false
 
 
 function cancelRemoveDeletedInts(thePlayer)
-	if exports.integration:isPlayerLeadAdmin( thePlayer ) and getElementData(thePlayer, "confirm:removeDeletedInteriors") then
+	if exports.integration:isPlayerScripter( thePlayer ) and getElementData(thePlayer, "confirm:removeDeletedInteriors") then
 		if removeElementData(thePlayer, "confirm:removeDeletedInteriors") then
-			outputChatBox("Request to remove all deleted interiors has been cancelled.", thePlayer)
+			outputChatBox("Cancelado.", thePlayer)
 		end
 	end
 end
@@ -710,7 +723,7 @@ addCommandHandler("cancelremovedeletedints", cancelRemoveDeletedInts, false, fal
 addCommandHandler("cancelremovedeletedints", cancelRemoveDeletedInts, false, false)
 
 function cancelRemoveForSaleInts(thePlayer)
-	if exports.integration:isPlayerLeadAdmin( thePlayer ) and getElementData(thePlayer, "confirm:removeForSaleInteriors") then
+	if exports.integration:isPlayerScripter( thePlayer ) and getElementData(thePlayer, "confirm:removeForSaleInteriors") then
 		if removeElementData(thePlayer, "confirm:removeForSaleInteriors") then
 			outputChatBox("Request to remove all for-sale interiors has been cancelled.", thePlayer)
 		end
@@ -721,11 +734,11 @@ addCommandHandler("cancelremoveforsaleints", cancelRemoveForSaleInts, false, fal
 ---
 
 function deleteThisInterior(thePlayer, commandName)
-	if exports.integration:isPlayerHeadAdmin( thePlayer )   then
+	if exports.integration:isPlayerScripter( thePlayer )   then
 		local interior = getElementInterior(thePlayer)
 
 		if (interior==0) then
-			outputChatBox("You are not in an interior.", thePlayer, 255, 0, 0)
+			outputChatBox("Você não esta em um interior.", thePlayer, 255, 0, 0)
 		else
 			local dbid, entrance, exit = findProperty( thePlayer )
 			deleteInterior(thePlayer, "delint" , dbid)
@@ -753,16 +766,17 @@ function updateInteriorEntrance(thePlayer, commandName, intID)
 				if (query) then
 					realReloadInterior(dbid)
 
-					outputChatBox("Interior Entrance #" .. dbid .. " has been Updated!", thePlayer, 0, 255, 0)
+					outputChatBox("Entrada interior #" .. dbid .. " atualizada!", thePlayer, 0, 255, 0)
 					exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "SETINTERIORENTRANCE ("..dw.."/"..iw..") "..x.."/"..y.."/"..z)
+					exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." moveu a entrada do interior #"..dbid.." para dim: ("..dw..") int: ("..iw..") "..x.."/"..y.."/"..z)
 					local adminUsername = getElementData(thePlayer, "account:username")
 					local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
 					local adminTitle = exports.global:getPlayerAdminTitle(thePlayer)
 
 					if hiddenAdmin == 0 then
-						exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").. " ("..adminUsername..") has moved Interior #"..dbid.." to new location.")
+						exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").. " ("..adminUsername..") moveu a entrada do interior #"..dbid.." para uma nova localização.")
 					else
-						exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has moved Interior #"..dbid.." to new location.")
+						exports.global:sendMessageToAdmins("[INTERIOR]: Um admin oculto moveu a entrada do interior #"..dbid.." para uma nova localização.")
 					end
 
 
@@ -773,7 +787,7 @@ function updateInteriorEntrance(thePlayer, commandName, intID)
 					outputChatBox("Error with the query.", thePlayer, 255, 0, 0)
 				end
 			else
-				outputChatBox( "Invalid Interior ID.", thePlayer, 255, 0, 0 )
+				outputChatBox( "ID invalido.", thePlayer, 255, 0, 0 )
 			end
 		end
 	end
@@ -785,20 +799,20 @@ function createInterior(thePlayer, commandName, interiorId, inttype, cost, ...)
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local cost = tonumber(cost)
 		if (not (interiorId) or not (inttype) or not (cost) or not (...) or ((tonumber(inttype)<0) or (tonumber(inttype)>3))) and (commandName:lower() == "addint" or commandName:lower() == "addinterior") then
-			outputChatBox("SYNTAX: /" .. commandName .. " [Interior ID] [TYPE] [Cost] [Name] [Admin Note - Optional]", thePlayer, 255, 194, 14)
-			outputChatBox("TYPE 0: House", thePlayer, 255, 194, 14)
-			outputChatBox("TYPE 1: Business", thePlayer, 255, 194, 14)
-			outputChatBox("TYPE 2: Government (Unbuyable)", thePlayer, 255, 194, 14)
-			outputChatBox("TYPE 3: Rentable", thePlayer, 255, 194, 14)
-			outputChatBox("/addnewint to create an interior quickly.", thePlayer, 255, 194, 0)
+			outputChatBox("SYNTAX: /" .. commandName .. " [Interior ID] [TIPO] [Preço] [Nome] [Nota Admin - Opcional]", thePlayer, 255, 194, 14)
+			outputChatBox("TYPE 0: Casa", thePlayer, 255, 194, 14)
+			outputChatBox("TYPE 1: Negócio", thePlayer, 255, 194, 14)
+			outputChatBox("TYPE 2: Governo (Não pode ser comprado)", thePlayer, 255, 194, 14)
+			outputChatBox("TYPE 3: Alugavel", thePlayer, 255, 194, 14)
+			--outputChatBox("/addnewint to create an interior quickly.", thePlayer, 255, 194, 0)
 		else
 			local owner, locked = nil, nil
 			local x, y, z = getElementPosition(thePlayer)
 			local dimension = getElementDimension(thePlayer)
 			local interiorwithin = getElementInterior(thePlayer)
 
-			if commandName:lower() == "addnewint" then
-				name = "Garage"
+			if commandName:lower() == "addgaragem" then
+				name = "Garagem"
 				inttype = 0
 				owner = -1
 				locked = 1
@@ -839,8 +853,8 @@ function createInterior(thePlayer, commandName, interiorId, inttype, cost, ...)
 					local uid = tonumber(inserted_id)
 					if(uid and uid > 20000) then
 						--All scripts handles interiors over ID 20,000 as vehicle interiors.
-						outputChatBox("Failed to create interior: Reached max limit.", thePlayer, 255, 0, 0)
-						outputChatBox("This script version supports a maximum of 20,000 interiors (current: "..tostring(uid)..").", thePlayer, 255, 0, 0)
+						outputChatBox("Error: limite maximo de interior atingido (20,000).", thePlayer, 255, 0, 0)
+						--outputChatBox("This script version supports a maximum of 20,000 interiors (current: "..tostring(uid)..").", thePlayer, 255, 0, 0)
 						dbExec( exports.mysql:getConn('mta'), "DELETE FROM `interiors` WHERE `id`=? LIMIT 1;", inserted_id )
 						dbFree( qh )
 						return false
@@ -848,38 +862,40 @@ function createInterior(thePlayer, commandName, interiorId, inttype, cost, ...)
 					if tonumber(inttype) == 1 then
 						dbExec( exports.mysql:getConn('mta'), "INSERT INTO `interior_business` SET `intID`=? ", inserted_id )
 					end
-					outputChatBox("Created Interior with ID " .. inserted_id .. ".", thePlayer, 255, 194, 14)
+					outputChatBox("Criou interior com o ID " .. inserted_id .. ".", thePlayer, 255, 194, 14)
 					exports.logs:dbLog(thePlayer, 37, { "in"..tostring(inserted_id) } , "ADDINTERIOR T:".. inttype .." I:"..interiorId.." C:"..cost)
 					exports.interior_load:loadOne( inserted_id )
-					exports.global:sendMessageToAdmins("[INTERIOR]: "..exports.global:getPlayerFullIdentity( thePlayer ).." has created Interior #"..inserted_id.." with name '"..name.."', type "..inttype..", price: $"..cost..").")
-					exports["interior-manager"]:addInteriorLogs(inserted_id, commandName.." - id "..interiorId.." - price $"..cost.." - name "..name, thePlayer)
+					exports.global:sendMessageToAdmins("[INTERIOR]: "..exports.global:getPlayerFullIdentity( thePlayer ).." criou interior ID #"..inserted_id.." com o nome '"..name.."', tipo "..inttype..", preço: $"..cost..").")
+					exports["interior-manager"]:addInteriorLogs(inserted_id, commandName.." - id "..interiorId.." - preço $"..cost.." - nome "..name, thePlayer)
+					exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." criou o interior ID #"..interiorID.." - preço $"..cost.." - nome "..name)
 					return true
 				end
 				dbFree( qh )
 			else
-				outputChatBox("Failed to create interior - There is no such interior (" .. ( interiorID or "??" ) .. ").", thePlayer, 255, 0, 0)
+				outputChatBox("Error - não exite interior (" .. ( interiorID or "??" ) .. ").", thePlayer, 255, 0, 0)
 			end
 		end
 	end
 end
 addCommandHandler("addinterior", createInterior, false, false)
 addCommandHandler("addint", createInterior, false, false)
-addCommandHandler("addnewint", createInterior, false, false)
+addCommandHandler("addgaragem", createInterior, false, false)
 
 function updateInteriorExit(thePlayer, commandName)
 	if exports.integration:isPlayerHeadAdmin( thePlayer ) or exports.integration:isPlayerMappingTeamMember(thePlayer) then
 		local dimension = getElementDimension(thePlayer)
 
 		if (dimension==0) then
-			outputChatBox("You are not in an interior.", thePlayer, 255, 0, 0)
+			outputChatBox("Você não esta em um interior.", thePlayer, 255, 0, 0)
 		else
 			local dbid = getElementDimension(thePlayer)
 			local x, y, z = getElementPosition(thePlayer)
 			local interior = getElementInterior(thePlayer)
 			local _, _, rot = getElementRotation(thePlayer)
 			local query = mysql:query_free("UPDATE interiors SET interiorx='" .. x .. "', interiory='" .. y .. "', interiorz='" .. z .. "', angleexit='" .. rot .. "', `interior`='".. tostring(interior) .."' WHERE id='" .. dbid .. "'")
-			outputChatBox("Interior Exit Position Updated!", thePlayer, 0, 255, 0)
+			outputChatBox("Saida do interior atualizada!", thePlayer, 0, 255, 0)
 			exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "SETINTERIOREXIT "..x.."/"..y.."/"..z)
+			exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou a saida do interior #"..interior.." para int:("..interior..") dim:("" "..x.."/"..y.."/"..z)
 
 			exports["interior-manager"]:addInteriorLogs(dbid, commandName, thePlayer)
 
@@ -895,23 +911,24 @@ function changeInteriorName( thePlayer, commandName, ...)
 	if (exports.integration:isPlayerHeadAdmin(thePlayer) or exports.integration:isPlayerMappingTeamMember(thePlayer)) then -- Is the player an admin?
 		local id = getElementDimension(thePlayer)
 		if not (...) then -- is the command complete?
-			outputChatBox("SYNTAX: /" .. commandName .." [New Name]", thePlayer, 255, 194, 14) -- if command is not complete show the syntax.
+			outputChatBox("SYNTAX: /" .. commandName .." [Novo nome]", thePlayer, 255, 194, 14) -- if command is not complete show the syntax.
 		elseif (dimension==0) then
-			outputChatBox("You are not inside an interior.", thePlayer, 255, 0, 0)
+			outputChatBox("Você não esta dentro de um interior.", thePlayer, 255, 0, 0)
 		else
 			name = table.concat({...}, " ")
 
 			mysql:query_free("UPDATE interiors SET name='" .. mysql:escape_string( name) .. "' WHERE id='" .. id .. "'") -- Update the name in the sql.
-			outputChatBox("Interior name changed to ".. name ..".", thePlayer, 0, 255, 0) -- Output confirmation.
+			outputChatBox("Nome do interior mudado para ".. name ..".", thePlayer, 0, 255, 0) -- Output confirmation.
 			exports.logs:dbLog(thePlayer, 37, { "in"..tostring(dbid) } , "SETINTERIORNAME '"..name.."'")
+			exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou o nome do interior #"..id.." para "..name..".")
 			local adminUsername = getElementData(thePlayer, "account:username")
 			local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
 			local adminTitle = exports.global:getPlayerAdminTitle(thePlayer)
 
 			if hiddenAdmin == 0 then
-				exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").. " ("..adminUsername..") has changed Interior #"..id.."'s name to '"..name.."'.")
+				exports.global:sendMessageToAdmins("[INTERIOR]: "..adminTitle.." ".. getPlayerName(thePlayer):gsub("_", " ").. " ("..adminUsername..") mudou o nome do interior #"..id.." para '"..name.."'.")
 			else
-				exports.global:sendMessageToAdmins("[INTERIOR]: A hidden admin has changed Interior #"..id.."'s name to '"..name.."'.")
+				exports.global:sendMessageToAdmins("[INTERIOR]: Um admin oculto mudou o nome do interior #"..id.." para '"..name.."'.")
 			end
 
 
@@ -926,14 +943,14 @@ addCommandHandler("setinteriorname", changeInteriorName, false, false) -- the co
 addCommandHandler("setintname", changeInteriorName, false, false)
 
 function forceSellProperty(thePlayer, commandName, intID)
-	if exports.integration:isPlayerHeadAdmin(thePlayer)  then
+	if exports.integration:isPlayerScripter(thePlayer)  then
 		if not intID and getElementDimension(thePlayer) > 0 then
 			intID = getElementDimension(thePlayer)
 		end
 
 		if not intID or not tonumber(intID) or (tonumber(intID)%1 ~= 0) or (tonumber(intID) <= 0) then
 			outputChatBox("SYNTAX: /" .. commandName .." [ID]", thePlayer, 255, 194, 14)
-			outputChatBox("Force sells a property.", thePlayer, 200, 194, 14)
+			outputChatBox("Força a venda de uma propiedade.", thePlayer, 200, 194, 14)
 			return
 		end
 		local possibleInteriors = exports.pool:getPoolElementsByType('interior')
@@ -945,18 +962,18 @@ function forceSellProperty(thePlayer, commandName, intID)
 			end
 		end
 		if not foundInt then
-			outputChatBox("Interior ID not found in game.", thePlayer, 255, 0,0)
+			outputChatBox("ID não encontrado.", thePlayer, 255, 0,0)
 			return
 		end
 		local protected, details = isProtected(foundInt)
 		if protected then
-			outputChatBox("This interior is protected. Inactivity protection remaining: "..details, thePlayer, 255, 0,0)
+			outputChatBox("Interior protegido, tempo de contra inatividade restante: "..details, thePlayer, 255, 0,0)
 			return false
 		end
 		local active, details2 = isActive(foundInt)
 		if active and getElementData(thePlayer, "confirm:fsell") ~= intID then
-			outputChatBox("You are about to forcesell an interior while it's appearing to be an active interior.", thePlayer)
-			outputChatBox("Please type /"..commandName.." "..intID.." once again to proceed.", thePlayer)
+			outputChatBox("Você esta forçando uma venda em uma interior ativo.", thePlayer)
+			outputChatBox("Digite /"..commandName.." "..intID.." denovo para proceder.", thePlayer)
 			setElementData(thePlayer, "confirm:fsell", intID)
 			return false
 		end
@@ -966,9 +983,9 @@ function forceSellProperty(thePlayer, commandName, intID)
 		local interiorStatus = getElementData(foundInt, "status")
 
 		if interiorStatus.type == 2 then
-			outputChatBox("You cannot force-sell a government property.", thePlayer, 255, 0, 0)
+			outputChatBox("Não pode forçar a venda de uma propiedade do governo.", thePlayer, 255, 0, 0)
 		elseif interiorStatus.owner < 1 and interiorStatus.faction < 1 then
-			outputChatBox("This property is not owned by anyone at the moment.", thePlayer, 255, 0, 0)
+			outputChatBox("Essa propiedade não é de ninguem.", thePlayer, 255, 0, 0)
 		else
 			publicSellProperty(thePlayer, tonumber(intID), true, false, "FORCESELL")
 			cleanupProperty(tonumber(intID), true)
@@ -1015,6 +1032,7 @@ function forcesellFactionInterior(factionId, intId)
 		else
 			publicSellProperty(source, tonumber(intId), false, false, "FORCESELL")
 			exports["interior-manager"]:addInteriorLogs(intId, "Interior forcesold upon faction deletion (Faction ID: " .. factionId .. ").", source)
+			exports.serp_logsDiscord:adminlogsInterior("Interior foi forçado a venda devido a remoção da facção (Facção ID: " .. factionId .. ").")
 			cleanupProperty(tonumber(intId), true)
 		end
 	end
@@ -1023,7 +1041,7 @@ addEvent("interior_system:factionfsell", false)
 addEventHandler("interior_system:factionfsell", root, forcesellFactionInterior)
 
 function changeInteriorAddress( thePlayer, commandName, id, ...) --MS: Adding command for setting address + logging it
-	if (exports.integration:isPlayerHeadAdmin(thePlayer)) or (exports.integration:isPlayerMappingTeamMember(thePlayer)) then -- Is the player a Trial Admin+ or Mapping Team?
+	if (exports.integration:isPlayerScripter(thePlayer)) then -- Is the player a Trial Admin+ or Mapping Team?
 		if not id or not (...) then -- is the command complete?
 			outputChatBox("SYNTAX: /" .. commandName .." [Interior ID] [Address or 'reset']", thePlayer, 255, 194, 14) -- if command is not complete show the syntax.
 			outputChatBox("SYNTAX: 'reset' will remove the interiors address.", thePlayer, 255, 194, 14)
@@ -1068,16 +1086,16 @@ addCommandHandler("setintaddress", changeInteriorAddress)
 function teleportToMarker( thePlayer, commandName )
 
 	if getElementData(thePlayer, "recovery") then 
-		return outputChatBox("You cannot use this command while in recovery!", thePlayer, 255, 194, 14)
+		return outputChatBox("Não pode usar esse comando enquanto esta de recuperação!", thePlayer, 255, 194, 14)
 	end
 
 	if getElementData(thePlayer, "jailed") then
-		return outputChatBox("You cannot use this command in jail!", thePlayer, 255, 194, 14)
+		return outputChatBox("Não pode usar esse comando na cadeia!", thePlayer, 255, 194, 14)
 	end
 
     local houseID = getElementDimension(thePlayer)
     if not houseID or houseID == 0 then
-        outputChatBox( "This command only works inside an interior.", thePlayer, 255, 0, 0 )
+        outputChatBox( "Só funciona dentro de um interior.", thePlayer, 255, 0, 0 )
     else
 
         local dbid, entrance, exit, type, interiorElement = findProperty( thePlayer, houseID )
@@ -1091,7 +1109,7 @@ function teleportToMarker( thePlayer, commandName )
 				pos[i] = v
 			end
 			if dbid ~= houseID then
-				outputChatBox("ERROR: Report at bugs.owlgaming.net", thePlayer, 255, 0, 0)
+				outputChatBox("ERROR: Reporte no discord", thePlayer, 255, 0, 0)
 				return
 			end
 			
@@ -1112,7 +1130,7 @@ function teleportToMarker( thePlayer, commandName )
 					local logged = getElementData(value, "loggedin")
 					if (logged==1) then
 						table.insert(affectedElements, value)
-						outputChatBox("(( ".. getPlayerName(thePlayer):gsub("_", " ") .."'s vehicle ("..getElementData(theVehicle, "dbid").. ") teleported to the vehicle respawn point. ))", value, 196, 255, 255)
+						outputChatBox("(( ".. getPlayerName(thePlayer):gsub("_", " ") .."'s veículo ("..getElementData(theVehicle, "dbid").. ") teleportado para a posição de spawn. ))", value, 196, 255, 255)
 					end
 				end
 			end
@@ -1134,7 +1152,7 @@ function teleportToMarker( thePlayer, commandName )
 				local logged = getElementData(value, "loggedin")
 				if (logged==1) then
 					table.insert(affectedElements, value)
-					outputChatBox("(( ".. getPlayerName(thePlayer):gsub("_", " ") .." teleported to the interior entrance. ))", value, 196, 255, 255)
+					outputChatBox("(( ".. getPlayerName(thePlayer):gsub("_", " ") .." teleportado para a entrada do interior. ))", value, 196, 255, 255)
 				end
 			end
 		end
