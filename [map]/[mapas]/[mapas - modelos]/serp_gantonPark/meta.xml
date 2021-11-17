@@ -1,0 +1,11 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="hub_alpha.txd" type="client"/>
+    <file src="hubst3_alpha.dff" type="client"/>
+
+    <file src="landhub.txd" type="client"/>
+    <file src="Lae2_landHUB02.dff" type="client"/>
+    <file src="Lae2_landHUB02.col" type="client"/>
+
+</meta> 

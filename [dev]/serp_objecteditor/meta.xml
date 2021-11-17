@@ -1,0 +1,17 @@
+<meta>
+    <info author="iDannz" />
+    <min_mta_version client="1.5.8-9.20704"></min_mta_version>
+    
+    <script type="shared" cache="false" src="config.lua" />
+    
+    <script type="server" src="scripts/s.main.lua" />
+    <script type="shared" cache="false" src="scripts/g.main.lua" />
+    <script type="client" cache="false" src="scripts/c.main.lua" />
+    <script type="client" cache="false" src="scripts/c.edit.lua" />
+    
+    <export type="shared" function="AttachToBone" />
+    <export type="shared" function="DetachFromBone" />
+    <export type="shared" function="UpdateAttachmentInfo" />
+    <export type="shared" function="GetAttachmentInfo" />
+    <export type="shared" function="GetElementsAttachedTo" />
+</meta>

@@ -1,0 +1,15 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="landlae2e.txd" type="client"/>
+    <file src="lae2_ground04.dff" type="client"/>
+    <file src="lae2_ground04.col" type="client"/>
+
+    <file src="lae2billboards.txd" type="client"/>
+    <file src="lae2billbrds3.dff" type="client"/>
+    <file src="lae2billbrds3.col" type="client"/>
+
+    <file src="furniture_lae2.txd" type="client"/>
+    <file src="cluckinbell1_lae.dff" type="client"/>
+
+</meta> 

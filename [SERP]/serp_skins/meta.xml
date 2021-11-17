@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<meta>
+     <info author="EU" type="misc" name="Eu" description="EU" />
+     <script src="script.lua" type="client" />
+	 
+    <file src="[LSPD]/masculina/GED/gedM1.dff" type="client" />
+	<file src="[LSPD]/masculina/GED/gedM1.txd" type="client" />
+	<file src="[LSPD]/masculina/GED/gedM2.dff" type="client" />
+	<file src="[LSPD]/masculina/GED/gedM2.txd" type="client" />
+	
+	<file src="[LSPD]/masculina/MARY/maryM1.dff" type="client" />
+	<file src="[LSPD]/masculina/MARY/maryM1.txd" type="client" />
+	
+	<file src="[LSPD]/masculina/PATROL/patrolM1.dff" type="client" />
+	<file src="[LSPD]/masculina/PATROL/patrolM1.txd" type="client" />
+	<file src="[LSPD]/masculina/PATROL/patrolM2.dff" type="client" />
+	<file src="[LSPD]/masculina/PATROL/patrolM2.txd" type="client" />
+	
+	<file src="[LSPD]/feminina/GED/gedF1.dff" type="client" />
+	<file src="[LSPD]/feminina/GED/gedF1.txd" type="client" />
+	<file src="[LSPD]/feminina/GED/gedF2.dff" type="client" />
+	<file src="[LSPD]/feminina/GED/gedF2.txd" type="client" />
+	
+	<file src="[LSPD]/feminina/MARY/maryF1.dff" type="client" />
+	<file src="[LSPD]/feminina/MARY/maryF1.txd" type="client" />
+
+	<file src="[LSPD]/feminina/PATROL/patrolF1.dff" type="client" />
+	<file src="[LSPD]/feminina/PATROL/patrolF1.txd" type="client" />
+	<file src="[LSPD]/feminina/PATROL/patrolF2.dff" type="client" />
+	<file src="[LSPD]/feminina/PATROL/patrolF2.txd" type="client" />
+	
+	
+	
+	<file src="[LSPD]/swat6branco.dff" type="client" />
+	<file src="[LSPD]/swat6branco.txd" type="client" />
+	<file src="[LSPD]/swat6negro.dff" type="client" />
+	<file src="[LSPD]/swat6negro.txd" type="client" />
+</meta>

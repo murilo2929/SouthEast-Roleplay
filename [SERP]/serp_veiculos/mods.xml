@@ -1,0 +1,12 @@
+<mods>
+<mod txd="files/Policia/copbike.txd" dff="files/Policia/copbike.dff" model="523" />
+<mod txd="files/Policia/copcarla.txd" dff="files/Policia/copcarla.dff" model="596" />
+<mod txd="files/Policia/copcarvg.txd" dff="files/Policia/copcarvg.dff" model="597" />
+<mod txd="files/Policia/copcarsf.txd" dff="files/Policia/copcarsf.dff" model="598" />
+<mod txd="files/Policia/copcarru.txd" dff="files/Policia/copcarru.dff" model="599" />
+<mod txd="files/Policia/enforcer.txd" dff="files/Policia/enforcer.dff" model="427" />
+<mod txd="files/Policia/premier.txd" dff="files/Policia/premier.dff" model="426" />
+<mod txd="files/Policia/polmav.txd" dff="files/Policia/polmav.dff" model="497" />
+<mod txd="files/Policia/fbiranch.txd" dff="files/Policia/fbiranch.dff" model="490" />
+<mod txd="files/Policia/fbitruck.txd" dff="files/Policia/fbitruck.dff" model="528" />
+</mods>

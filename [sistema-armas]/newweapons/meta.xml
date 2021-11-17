@@ -1,0 +1,98 @@
+<meta>
+	<info author="Furzy" type="script" name="new-weps" version="1.0.0"/>
+	<script src="c_weapon.lua" type="client" cache="false" />
+	<script src="s_weapon.lua" type="server" />
+        <file src="models/None.txd" />
+        <file src="models/None.dff" />
+		
+		<!-----M4------------------------>
+        <file src="models/M4A1.txd" />
+        <file src="models/M4A1.dff" />
+		
+        <file src="models/M4A3CCO.txd" />
+        <file src="models/M4A3CCO.dff" />
+		
+		<file src="models/AKSGold.txd" />
+        <file src="models/AKSGold.dff" />
+		
+		<file src="models/FNFAL.txd" />
+        <file src="models/FNFAL.dff" />
+		
+	    <file src="models/M4A1CCOSD.txd" />
+        <file src="models/M4A1CCOSD.dff" />
+		
+		<file src="models/ar15Laser.txd" />
+        <file src="models/ar15Laser.dff" />
+		<!------------------------------------------------------------>
+		
+		
+		
+		<!-----DESERT------------------------>
+		<file src="models/1920.txd" />
+        <file src="models/1920.dff" />
+		
+		<file src="models/Desert.txd" />
+        <file src="models/Desert.dff" />
+		
+		<file src="models/revolvergold.txd" />
+        <file src="models/revolvergold.dff" />
+		
+		<file src="models/glockpd.txd" />
+        <file src="models/glockpd.dff" />
+		
+		<file src="models/berreta93r.txd" />
+        <file src="models/berreta93r.dff" />
+		<!------------------------------------------------------------>
+	
+
+	
+		<!-----Taco Baseball------------------------>
+		
+		<file src="models/tacomadeira.dff" />
+		<file src="models/tacomadeira.txd" />
+		<!------------------------------------------------------------>
+		
+		
+		<!-----UZI------------------------>
+		<file src="models/uzigol.txd" />
+        <file src="models/uzigol.dff" />
+		
+		<file src="models/uzibet.txd" />
+        <file src="models/uzibet.dff" />
+		
+		<file src="models/uzipadrao.txd" />
+        <file src="models/uzipadrao.dff" />
+		<!------------------------------------------------------------>
+		
+		<!-----MP5------------------------>
+		<file src="models/mp7.txd" />
+        <file src="models/mp7.dff" />
+		
+		<file src="models/hekmp5.txd" />
+        <file src="models/hekmp5.dff" />
+		<!------------------------------------------------------------>
+		
+		
+	<file src="Sounds/Primary/M4A1.wav" cache="false"/>
+	<file src="Sounds/Primary/M4A3CCO.wav" cache="false"/>
+	<file src="Sounds/Primary/M4A1CCOSD.wav" cache="false"/>
+	<file src="Sounds/Primary/AKSGold.wav" cache="false"/>
+	<file src="Sounds/Primary/AK-74.wav" cache="false"/>
+	<file src="Sounds/Primary/M240.wav" cache="false"/>
+	<file src="Sounds/Primary/PKP.wav" cache="false"/>
+	<file src="Sounds/Primary/FNFAL.wav" cache="false"/>
+	
+	 <export function="giveNewWeapon" type="server" />
+	 <export function="giveNewWeaponTaco" type="server" />
+	 <export function="giveNewWeaponDesert" type="server" />
+	 <export function="giveNewWeaponUZI" type="server" />
+	 <export function="giveNewWeaponMP5" type="server" />
+	 <export function="removeQuit" type="server" />
+
+		
+	<script src="bone_attach/bone_attach.lua"/>
+	<script src="bone_attach/bone_attach_c.lua" type="client" cache="false"/>
+	<script src="bone_attach/attach_func.lua"/>
+	<script src="bone_attach/attach_func.lua" type="client" cache="false"/>
+	<script src="bone_attach/bone_pos_rot.lua" type="client" cache="false"/>
+</meta>

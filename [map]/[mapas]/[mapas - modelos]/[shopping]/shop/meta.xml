@@ -1,0 +1,24 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="lsmall.txd" type="client"/>
+    <file src="lsmall_1.dff" type="client"/>
+    <file src="lsmall_1.col" type="client"/>
+
+    <file src="lsmall.txd" type="client"/>
+    <file src="lsmall_2.dff" type="client"/>
+    <file src="lsmall_2.col" type="client"/>
+
+    <file src="lsmall.txd" type="client"/>
+    <file src="lsmall_3.dff" type="client"/>
+    <file src="lsmall_3.col" type="client"/>
+
+    <file src="lsmall.txd" type="client"/>
+    <file src="lsmall_4.dff" type="client"/>
+    <file src="lsmall_4.col" type="client"/>
+
+    <file src="lsmall.txd" type="client"/>
+    <file src="lsmall_5.dff" type="client"/>
+    <file src="lsmall_5.col" type="client"/>
+
+</meta> 

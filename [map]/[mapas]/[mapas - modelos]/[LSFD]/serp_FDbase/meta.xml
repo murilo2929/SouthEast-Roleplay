@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<meta>
+     <info author="Croak" type="misc" name="Casa-INT" description="Casa-INT" />
+     <script src="script.lua" type="client" />
+     <file src="super.txd" />
+     <file src="super.dff" />
+     <file src="super.col" />
+</meta>

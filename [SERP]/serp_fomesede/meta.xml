@@ -1,0 +1,14 @@
+<meta>
+	
+	<script src="sourceC.lua" type="client" cache="false" />
+	<script src="sourceS.lua" type="server" />
+	
+	
+
+	
+	<export function="giveHunger" type="server" />
+	<export function="giveThrink" type="server" />
+	
+	<export function="giveHunger" type="client" />
+	<export function="giveThrink" type="client" />
+</meta>

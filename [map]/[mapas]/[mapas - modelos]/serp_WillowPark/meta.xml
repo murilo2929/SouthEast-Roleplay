@@ -1,0 +1,7 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="ground2_las2.txd" type="client"/>
+    <file src="las2stripbar1.dff" type="client"/>
+    <file src="las2stripbar1.col" type="client"/>
+</meta> 

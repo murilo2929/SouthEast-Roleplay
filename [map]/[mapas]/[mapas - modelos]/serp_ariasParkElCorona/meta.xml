@@ -1,0 +1,8 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="railway_las.txd" type="client"/>
+    <file src="unionstwarc2_las.dff" type="client"/>
+    <file src="unionstwarc2_las.col" type="client"/>
+
+</meta> 

@@ -1,0 +1,34 @@
+<meta>
+	<info author="MTA-Servers.ru/?resourcemaster" type="script" description="Упрощенное добавление модов"/>
+	<script src="client_vehicles.lua" type="client" />
+	<file src="mods.xml" type="client" />
+	<file src="files/Policia/copcarla.txd" type="client" />
+	<file src="files/Policia/copcarla.dff" type="client" />
+	
+	<file src="files/Policia/copcarru.txd" type="client" />
+	<file src="files/Policia/copcarru.dff" type="client" />
+	
+	<file src="files/Policia/copcarsf.txd" type="client" />
+	<file src="files/Policia/copcarsf.dff" type="client" />
+	
+	<file src="files/Policia/copcarvg.txd" type="client" />
+	<file src="files/Policia/copcarvg.dff" type="client" />
+	
+	<file src="files/Policia/copbike.txd" type="client" />
+	<file src="files/Policia/copbike.dff" type="client" />
+	
+	<file src="files/Policia/enforcer.txd" type="client" />
+	<file src="files/Policia/enforcer.dff" type="client" />
+	
+	<file src="files/Policia/premier.txd" type="client" />
+	<file src="files/Policia/premier.dff" type="client" />
+	
+	<file src="files/Policia/polmav.txd" type="client" />
+	<file src="files/Policia/polmav.dff" type="client" />
+	
+	<file src="files/Policia/fbiranch.txd" type="client" />
+	<file src="files/Policia/fbiranch.dff" type="client" />
+	
+	<file src="files/Policia/fbitruck.txd" type="client" />
+	<file src="files/Policia/fbitruck.dff" type="client" />
+</meta>

@@ -1,0 +1,15 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="laecrackmotel4.dff" type="client"/>
+    <file src="laecrackmotel4.col" type="client"/>
+
+    <file src="glenpark1_lae.txd" type="client"/>
+    <file src="laejeffers01.dff" type="client"/>
+    <file src="laejeffers01.col" type="client"/>
+
+    <file src="jeffers5a_lae.txd" type="client"/>
+    <file src="laejeffers02.dff" type="client"/>
+    <file src="laejeffers02.col" type="client"/>
+
+</meta> 
