@@ -1,0 +1,4 @@
+
+# ignore stored graffitis in graffiti system
+\[SERP\]/serp_graffiti/storedServerGraffitis.json
+\[SERP\]/serp_graffiti/files/server_graffitis/
