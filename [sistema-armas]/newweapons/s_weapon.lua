@@ -1,5 +1,5 @@
 
--- Furzy weapons system.
+-- TESTE
 
 armas = {
 {"M4A1",2726},  -- Weapon, Object
