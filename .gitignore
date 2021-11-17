@@ -4,3 +4,18 @@
 \[SERP\]/serp_graffiti/files/server_graffitis/
 # ignore all the log's
 logs/logs/* 
+
+# cache
+cache/images_cache/
+cache/images/
+# clothing textures
+clothes/cache/
+# clothing textures new
+clothes/cache/
+
+# object/vehicle textures
+item-texture/cache/
+item-texture/tmp_cache/
+# object/vehicle textures new
+item-texture/cache/
+item-texture/tmp_cache/
