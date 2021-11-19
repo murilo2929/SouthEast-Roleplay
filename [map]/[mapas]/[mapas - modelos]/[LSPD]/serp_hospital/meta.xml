@@ -1,8 +1,0 @@
-<meta>
-    <oop>true</oop>
-    <info type="map" version="1.0.0"></info>
-	<map src="Int-hospital.map" dimension="60"></map>
-    
-    <script src="mapEditorScriptingExtension_s.lua" type="server"></script>
-    <script src="mapEditorScriptingExtension_c.lua" type="client" validate="false"></script>
-</meta>

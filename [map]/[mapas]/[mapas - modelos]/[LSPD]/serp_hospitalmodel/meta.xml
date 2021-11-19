@@ -1,9 +1,0 @@
-<meta>
-    
-    <script src="server.lua" type="client" />
-    
-    <file src="hosp.txd" />
-    <file src="hosp.dff" />
-    <file src="hosp.col" />
-    
-</meta>
