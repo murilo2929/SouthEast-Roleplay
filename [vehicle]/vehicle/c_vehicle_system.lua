@@ -40,7 +40,7 @@ function build_SaleGUI(itemValue)
 	gui["lineEdit"] = guiCreateEdit(30, 155, 231, 21, "", false, gui["_root"])
 	guiEditSetMaxLength(gui["lineEdit"], 32767)
 
-	gui["label_4"] = guiCreateLabel(30, 135, 150, 16, "Nome do dono novo", false, gui["_root"])
+	gui["label_4"] = guiCreateLabel(30, 135, 150, 16, "Nome do novo dono", false, gui["_root"])
 	guiLabelSetHorizontalAlign(gui["label_4"], "left", false)
 	guiLabelSetVerticalAlign(gui["label_4"], "center")
 

@@ -344,14 +344,14 @@ bindKey( "accelerate", "down",
 		if veh and getVehicleOccupant( veh ) == getLocalPlayer( ) then
 			if isElementFrozen( veh ) and getVehicleEngineState( veh ) then
 				if getVehicleType(veh) == 'veh' or getVehicleType(veh) == 'Bike' then
-					exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Pézinho esta abaixado. Use 'G' para levantar." )
+					--exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Pézinho esta abaixado. Use 'G' para levantar." )
 				elseif getVehicleType(veh) == 'Boat' then
-					exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Sua ancora esta abaixada. Use 'G' para levantar." )
+					--exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Sua ancora esta abaixada. Use 'G' para levantar." )
 				else
-					exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Seu freio de mão esta levantado. Use 'G' para abaixar." )
+					--exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Seu freio de mão esta levantado. Use 'G' para abaixar." )
 				end
 			elseif not getVehicleEngineState( veh ) and getVehicleType(veh) ~= 'Bike' and getVehicleType(veh) ~= 'BMX' then
-				exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Seu motor está desligado. Pressione 'J' para ligar." )
+				--exports.hud:sendBottomNotification(localPlayer, "Departamento de Veículos Motorizados", "Seu motor está desligado. Pressione 'J' para ligar." )
 			end
 		end
 	end
