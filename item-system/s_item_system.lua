@@ -1231,7 +1231,7 @@ function showInventoryRemote(thePlayer, commandName, targetPlayer)
 					triggerEvent("subscribeToInventoryChanges",thePlayer,targetPlayer)
 					triggerClientEvent(thePlayer,"showInventory",thePlayer,targetPlayer, "admin")
 				else
-					outputChatBox("AVISO: Admin " ..getPlayerName(thePlayer).. "tentou ver seu inventario.", targetPlayer, 255, 194, 14)	
+					outputChatBox("AVISO: Admin " ..getPlayerName(thePlayer).. " tentou ver seu inventario.", targetPlayer, 255, 255, 255)	
 				end
 			end
 		end
