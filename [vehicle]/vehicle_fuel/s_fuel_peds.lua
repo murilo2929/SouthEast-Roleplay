@@ -514,7 +514,7 @@ function createFuelPed(skin, posX, posY, posZ, rotZ, name, int, dim, id, shop_li
 	setElementInterior(theNewPed, int)
 	setElementDimension(theNewPed, dim)
 	exports.anticheat:changeProtectedElementDataEx(theNewPed, "dbid",id, true)
-	createBlip(posX, posY, posZ, 55, 2, 255, 0, 0, 255, 0, 300)
+	--createBlip(posX, posY, posZ, 55, 2, 255, 0, 0, 255, 0, 300)
 	return theNewPed
 end
 

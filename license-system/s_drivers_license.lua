@@ -43,7 +43,7 @@ function checkDoLCars(player, seat)
 	-- aka civilian previons
 	if getElementData(source, "owner") == -2 and getElementData(source, "faction") == -1 and getElementModel(source) == 410 then
 		if exports.global:isPlayerScripter(player) or getElementData(player,"license.car") == 3 then
-			if getElementData(player, "license.car.cangetin") then
+			if getElementData(player, "license.car.cangetin") or exports.global:isPlayerScripter(player) then
 				exports.hud:sendBottomNotification(player, "Departamento de Veículos Motorizados", "Você pode usar 'J' para ligar o motor e 'G' para abaixar o freio de mão." )
 				setVehicleLocked( source, false )
 				setElementFrozen( source, false )

@@ -9,7 +9,7 @@ function getPosition(thePlayer, commandName)
 		outputChatBox("Rotation: " .. rx .. ", " .. ry .. ", " .. rz, thePlayer, 255, 194, 14)
 		outputChatBox("Dimension: " .. dimension, thePlayer, 255, 194, 14)
 		outputChatBox("Interior: " .. interior, thePlayer, 255, 194, 14)
-		local prepairedText = " "..interior.." "..dimension.." "..x.." "..y.." "..z
+		local prepairedText = " "..interior..", "..dimension..", "..x..", "..y..", "..z
 		outputChatBox("'"..prepairedText.."' - copied to clipboard", thePlayer, 200, 200, 200)
 		triggerClientEvent(thePlayer, "copyPosToClipboard", thePlayer, prepairedText)
 	--end
