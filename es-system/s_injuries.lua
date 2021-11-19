@@ -337,7 +337,7 @@ function lvesHeal(thePlayer, commandName, targetPartialNick, price)
 	
 			if (logged==1) then
 				if not (exports.factions:isInFactionType(thePlayer, 4)) then
-					outputChatBox("Você não tem habilidades médicas básicas, entre em contato com o ES.", thePlayer, 255, 0, 0)
+					outputChatBox("Você não tem habilidades médicas básicas.", thePlayer, 255, 0, 0)
 				elseif (targetPlayer == thePlayer) then
 					outputChatBox("Você não pode se curar.", thePlayer, 255, 0, 0)
 				elseif (isPedDead(targetPlayer)) then
@@ -371,7 +371,7 @@ function lvesHeal(thePlayer, commandName, targetPartialNick, price)
 									local tax = exports.global:getTaxAmount()
 									
 									exports.global:giveMoney( exports.factions:getFactionFromID(2), math.ceil((1-tax)*price) )
-									exports.global:giveMoney( getTeamFromName("Government of Los Santos"), math.ceil(tax*price) )
+									exports.global:giveMoney( getTeamFromName("Los Santos City Government"), math.ceil(tax*price) )
 									
 									setElementHealth(targetPlayer, 100)
 									triggerEvent("onPlayerHeal", targetPlayer, true)
@@ -384,12 +384,12 @@ function lvesHeal(thePlayer, commandName, targetPartialNick, price)
 									else
 										exports.global:takeItem(thePlayer, 70, itemValue)
 										if not exports.global:hasItem(thePlayer, 70) then
-											outputChatBox("Aviso, você está sem kits de primeiros socorros. vá até ao armario de equipamentos pegar mais.", thePlayer, 255, 0, 0)
+											outputChatBox("Aviso, você está sem kits de primeiros socorros.", thePlayer, 255, 0, 0)
 										end
 									end
 								end
 							else
-								outputChatBox("Você precisa de um kit de primeiros socorros para curar pessoas.", thePlayer, 255, 0, 0)
+								outputChatBox("Você precisa de um kit de primeiros.", thePlayer, 255, 0, 0)
 							end
 						end
 					end
@@ -413,7 +413,7 @@ function lvesExamine(thePlayer, commandName, targetPartialNick)
 			if logged==1 then
 				
 				if not (exports.factions:isInFactionType(thePlayer, 4)) then
-					outputChatBox("Você não tem habilidades médicas básicas, entre em contato com o ES.", thePlayer, 255, 0, 0)
+					outputChatBox("Você não tem habilidades médicas básicas.", thePlayer, 255, 0, 0)
 				else
 					local x, y, z = getElementPosition(thePlayer)
 					local tx, ty, tz = getElementPosition(targetPlayer)

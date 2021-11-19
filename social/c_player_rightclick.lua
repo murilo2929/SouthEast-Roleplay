@@ -67,13 +67,13 @@ function showPlayerMenu(targetPlayer, friend)
 		addEventHandler("onClientGUIClick", bAddToGame, function() triggerServerEvent("cards:invite_player", localPlayer, targetPlayer) end, false)
 	end
 	
-	if not friend then
+	--[[if not friend then
 		bAddAsFriend = exports['rightclick']:addRow("Adicionar como amigo")
 		addEventHandler("onClientGUIClick", bAddAsFriend, caddFriend, false)
 	else
 		bAddAsFriend = exports['rightclick']:addRow("Remover dos amigos")
 		addEventHandler("onClientGUIClick", bAddAsFriend, cremoveFriend, false)
-	end
+	end]]
 
 	-- FRISK
 	bFrisk = exports['rightclick']:addRow("Inventario")
@@ -113,7 +113,7 @@ function showPlayerMenu(targetPlayer, friend)
 	end
 
 	if (blindfold) and (blindfold == 1) then
-		bBlindfold = exports['rightclick']:addRow("Desvendar")
+		bBlindfold = exports['rightclick']:addRow("Tirar venda")
 		addEventHandler("onClientGUIClick", bBlindfold, cremoveBlindfold, false)
 	end
 	
@@ -196,7 +196,7 @@ function cStabilize(button, state)
 			local caido = getElementData(player, "PlayerCaido")
 			
 			if not knockedout and not caido then
-				outputChatBox("Este jogador não está nocauteado.", 255, 0, 0)
+				outputChatBox("Este jogador não está ferido.", 255, 0, 0)
 				hidePlayerMenu()
 			else
 				triggerServerEvent("stabilizePlayer", getLocalPlayer(), player)
