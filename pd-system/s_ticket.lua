@@ -1,6 +1,6 @@
 local pedname = "Sargento E. Stone"
 local JFOX_MDC = 532
-addCommandHandler("ticket", function(thePlayer, command, vin)
+addCommandHandler("multar", function(thePlayer, command, vin)
 	if getElementData(thePlayer, "loggedin") == 1 then
 		local inFaction = exports.factions:isPlayerInFaction(thePlayer, 1) or exports.factions:isPlayerInFaction(thePlayer, 2) or exports.factions:isPlayerInFaction(thePlayer, 50)
 		if inFaction then -- LEO faction
@@ -33,12 +33,12 @@ addEventHandler("fetchTickets", getRootElement(), function()
 			local quotes = {
 				"Não sou muito experiente em computadores, por favor, seja paciente.",
 				"Meu nome é Emma, em que posso te ajudar " .. (getElementData(source, "gender") == 1 and "Sra" or "sr") .. "?",
-				"Você tem " .. #tickets .. " ticket(s) sem pagar" .. (#tickets > 1 and "s" or "") .. ", você gostaria de pagar " .. (#tickets == 1 and "ele" or "eles") .. "?"
+				"Você tem " .. #tickets .. " multa(s) sem pagar" .. (#tickets > 1 and "s" or "") .. ", você gostaria de pagar " .. (#tickets == 1 and "ela" or "elas") .. "?"
 			}
 			outputChatBox(" [English] " .. pedname .. " diz: " .. quotes[math.random(1, 3)], source, 255, 255, 255)
 			triggerClientEvent(source, "showPayGUI", source, tickets)
 		else
-			outputChatBox(" [English] " .. pedname .. " diz: Desculpa. Você não tem tickets para pagar.", source, 255, 255, 255)
+			outputChatBox(" [English] " .. pedname .. " diz: Desculpa. Você não tem multas para pagar.", source, 255, 255, 255)
 		end
 	end
 end)
@@ -57,8 +57,8 @@ addEventHandler("givePlayerTicket", getRootElement(), function(player, fine, off
 	local timestamp = getRealTime().timestamp
 	dbExec(exports.mysql:getConn('mta'), "INSERT INTO `mdc_crimes` ( `crime`, `punishment`, `character`, `officer`, `timestamp` ) VALUES ( ?, ?, ?, ?, ? )", "Ticket: " .. offences, "Fine: $" .. fine .. " (UNPAID)", getElementData(player, "dbid"), officer, timestamp)
 
-	triggerEvent("sendAme", source, "arranca um bilhete de seu livro de bilhetes e o emite para " .. getPlayerName(player):gsub("_", " ") .. ".")
-	outputChatBox("Você emitiou um ticket de $" .. exports.global:formatMoney(fine) .. " para " .. getPlayerName(player):gsub("_", " ") .. ".", source, 0, 255, 0)
+	triggerEvent("sendAme", source, "arranca um bilhete de sua caderneta e da para " .. getPlayerName(player):gsub("_", " ") .. ".")
+	outputChatBox("Você emitiu uma multa de $" .. exports.global:formatMoney(fine) .. " para " .. getPlayerName(player):gsub("_", " ") .. ".", source, 0, 255, 0)
 end)
 
 addEvent("giveVehicleTicket", true)
@@ -76,8 +76,8 @@ addEventHandler("giveVehicleTicket", getRootElement(), function(vehicle, info, f
 	local timestamp = getRealTime().timestamp
 	dbExec(exports.mysql:getConn('mta'), "INSERT INTO `mdc_crimes` ( `crime`, `punishment`, `character`, `officer`, `timestamp` ) VALUES ( ?, ?, ?, ?, ? )", "Ticket: " .. offences, "Fine: $" .. fine .. " (UNPAID)", owner, officer, timestamp)
 
-	triggerEvent("sendAme", source, "arranca um bilhete de sua carteira e o cola no para-brisa do " .. getElementData(vehicle, "year") .. " " .. getElementData(vehicle, "brand") .. " " .. getElementData(vehicle, "maximemodel") .. ".")
-	outputChatBox("Você emitiu um ticked de $" .. exports.global:formatMoney(fine) .. " para o " .. getElementData(vehicle, "year") .. " " .. getElementData(vehicle, "brand") .. " " .. getElementData(vehicle, "maximemodel") .. " com a placa " .. info .. ".", source, 0, 255, 0)
+	triggerEvent("sendAme", source, "arranca um bilhete de sua caderneta e cola no para-brisa do(a) " .. getElementData(vehicle, "year") .. " " .. getElementData(vehicle, "brand") .. " " .. getElementData(vehicle, "maximemodel") .. ".")
+	outputChatBox("Você emitiu uma multa de $" .. exports.global:formatMoney(fine) .. " para o(a) " .. getElementData(vehicle, "year") .. " " .. getElementData(vehicle, "brand") .. " " .. getElementData(vehicle, "maximemodel") .. " com a placa " .. info .. ".", source, 0, 255, 0)
 end)
 
 addEvent("chargePlayer", true)
@@ -105,6 +105,6 @@ end)
 
 addEventHandler("onVehicleEnter", getRootElement(), function(thePlayer)
 	if exports['item-system']:hasItem(source, 267) then
-		outputChatBox("★ Um ticket branco é visível no para-brisa do veículo.", thePlayer, 255, 51, 102)
+		outputChatBox("★ Uma multa é visível no para-brisa do veículo.", thePlayer, 255, 51, 102)
 	end
 end)

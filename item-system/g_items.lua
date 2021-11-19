@@ -285,7 +285,7 @@ g_items = {
 	[264] = { "VMAT ADS-B", "Airport ground vehicle tracking unit.", 6, 2886, 0, 0, 180, 0.1, weight = 0.9, preventSpawn = true }, --Exciter
 	[265] = { "Saint Ernest Medical Center Staff ID", "#v", 10, 1581, 270, 270, 0, 0, weight = 0.3 }, --Exciter
 	[266] = { "SAAN Staff ID", "#v", 10, 1581, 270, 270, 0, 0, weight = 0.3, image = 129 },
-	[267] = { "Citação", "Um bilhete emitido pelas autoridades.", 4, 2894, 0, 0, 0, -0.01, weight = 0.01 },
+	[267] = { "Multa", "Um bilhete emitido pelas autoridades.", 4, 2894, 0, 0, 0, -0.01, weight = 0.01 },
 	[268] = { "Prancha de Surfe", "Uma prancha de surfe.", 4, 2406, 0, 0, 0, 1.2, weight = 2 }, --Exciter
 	[269] = { "Sirene de Emergência (Ambulância)", "Uma sirene de emergência para colocar no seu carro.", 7, 330, 90, 90, 0, -0.05, weight = 0.2, image = 85 }, -- Hurley
 	[270] = { "Luvas", "Um par de luvas que você pode usar.", 6, 2386, 0, 0, 0, 0.1, weight = 0.1, hideItemValue = true, metadata = { item_name = { type = 'string', rank = 'player', max_length = 50 } } }, -- Hurley

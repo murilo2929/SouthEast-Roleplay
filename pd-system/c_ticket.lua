@@ -24,7 +24,7 @@ addEventHandler("showPayGUI", getRootElement(), function(tickets)
 	if GUIEditor.window[2] and isElement(GUIEditor.window[2]) then
 		destroyElement(GUIEditor.window[2])
 	else
-        GUIEditor.window[2] = guiCreateWindow(501, 210, 637, 342, "Tickets Não Pagos", false)
+        GUIEditor.window[2] = guiCreateWindow(501, 210, 637, 342, "Multas Não Pagas", false)
 		exports.global:centerWindow( GUIEditor.window[2] )
 		guiWindowSetSizable(GUIEditor.window[2], false)
 
@@ -101,16 +101,16 @@ addEventHandler("showTicketGUI", getRootElement(), function(vehicle)
 		showCursor(true)
 		guiSetInputEnabled(true)
 
-		GUIEditor.window[1] = guiCreateWindow(1075, 186, 377, 332, "Livro de Ticket", false)
+		GUIEditor.window[1] = guiCreateWindow(1075, 186, 377, 332, "Multa", false)
 		exports.global:centerWindow( GUIEditor.window[1] )
 		guiWindowSetSizable(GUIEditor.window[1], false)
 
-		GUIEditor.label[5] = guiCreateLabel(38, 30, 104, 15, "Ticket para:", false, GUIEditor.window[1])
+		GUIEditor.label[5] = guiCreateLabel(38, 30, 104, 15, "Multa para:", false, GUIEditor.window[1])
         GUIEditor.radiobutton[1] = guiCreateRadioButton(233, 30, 83, 15, "Pessoa", false, GUIEditor.window[1])
         --[[ 1st ]] GUIEditor.edit[1] = guiCreateEdit(10, 79, 172, 24, "", false, GUIEditor.window[1])
         GUIEditor.label[1] = guiCreateLabel(15, 61, 143, 18, "Placa:", false, GUIEditor.window[1])
         GUIEditor.radiobutton[2] = guiCreateRadioButton(152, 30, 71, 15, "Veículo", false, GUIEditor.window[1])
-        GUIEditor.label[2] = guiCreateLabel(200, 61, 143, 18, "Valor Multa:", false, GUIEditor.window[1])
+        GUIEditor.label[2] = guiCreateLabel(200, 61, 143, 18, "Valor:", false, GUIEditor.window[1])
         --[[ fine ]] GUIEditor.edit[2] = guiCreateEdit(195, 79, 172, 24, "", false, GUIEditor.window[1])
 		GUIEditor.label[4] = guiCreateLabel(15, 113, 143, 18, "Data & Hora:", false, GUIEditor.window[1])
         --[[ date ]] GUIEditor.edit[3] = guiCreateEdit(10, 131, 172, 24, getShortTime(getRealTime().timestamp), false, GUIEditor.window[1])
