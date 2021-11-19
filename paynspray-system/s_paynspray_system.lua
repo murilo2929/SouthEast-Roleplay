@@ -28,7 +28,7 @@ function createSpray(thePlayer, commandName)
 
 	end
 end
-addCommandHandler("makepaynspray", createSpray, false, false)
+--addCommandHandler("makepaynspray", createSpray, false, false)
 
 function loadAllSprays(res)
 	-- Set Garages Open
