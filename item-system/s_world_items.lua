@@ -539,25 +539,25 @@ function doItemGiveawayChecks(player, itemID, itemValue)
 		if (gender==0) then -- MALE
 			if (skincolor==0) then -- BLACK
 				--setElementModel(source, 80)
-				local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 				setElementData(source, data_name, 80) -- sets the skin ID data
 			elseif (skincolor==1 or skincolor==2) then -- WHITE
 				--setElementModel(source, 252)
-				local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 				setElementData(source, data_name, 252) -- sets the skin ID data
 			end
 		elseif (gender==1) then -- FEMALE
 			if (skincolor==0) then -- BLACK
 				--setElementModel(source, 139)
-				local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 				setElementData(source, data_name, 139) -- sets the skin ID data
 			elseif (skincolor==1) then -- WHITE
 				--setElementModel(source, 138)
-				local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 				setElementData(source, data_name, 138) -- sets the skin ID data
 			elseif (skincolor==2) then -- ASIAN
 				--setElementModel(source, 140)
-				local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 				setElementData(source, data_name, 140) -- sets the skin ID data
 			end
 		end

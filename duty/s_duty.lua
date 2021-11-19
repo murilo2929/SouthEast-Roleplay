@@ -45,7 +45,7 @@ function dutyRequest(grantID, itemTable, skinID, factionID)
 			local skinData = split(skinID, ':')
 			savedSkin = tonumber(skinData[1])
 			--setElementModel(thePlayer, savedSkin)
-			local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 			setElementData(thePlayer, data_name, savedSkin) -- sets the skin ID data
 			if #skinData > 1 then
 				savedClothing = tonumber(skinData[2])
@@ -114,7 +114,7 @@ function dutyOffduty()
 		-- reset the skin to the first found in the inventory
 		if savedSkin then
 			--setElementModel(thePlayer, savedSkin)
-			local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 			setElementData(thePlayer, data_name, savedSkin) -- sets the skin ID data
 			setElementData(thePlayer, 'clothing:id', savedClothing)
 

@@ -169,6 +169,7 @@ function createPermanentVehicle(player, command, ...)
 			end
 
 			exports.logs:dbLog(player, 6, { "ve" .. last_insert_id }, "SPAWNVEH '"..vehicleName.."' $"..cost.." "..owner )
+			exports.serp_logsDiscord:adminlogsMakeveh("AdmCmd: "..getPlayerName(player).." spawnou um(a) "..vehicleName.." (ID #" ..last_insert_id..") para "..owner.." por $"..cost..".")
 
 			local hiddenAdmin = getElementData(player, "hiddenadmin")
 			local adminTitle = exports.global:getPlayerAdminTitle(player)
@@ -810,7 +811,7 @@ function sellVehicle(thePlayer, commandName, targetPlayerName, itemValue)
 												exports.logs:dbLog(thePlayer, 6, { theVehicle, thePlayer, targetPlayer }, "SELL '".. getVehicleName(theVehicle).."' '".. (getPlayerName(thePlayer):gsub("_", " ")) .."' => '".. targetPlayerName .."'")
 
 											else
-												outputChatBox("Unable to process request - report on http:breve", thePlayer, 255, 0, 0)
+												--outputChatBox("Unable to process request - report on http:breve", thePlayer, 255, 0, 0)
 											end
 										--else
 											--outputChatBox("You can not sell special vehicles. Contact an admin via F2 to have it refunded.", thePlayer, 255, 0, 0)
@@ -827,7 +828,7 @@ function sellVehicle(thePlayer, commandName, targetPlayerName, itemValue)
 								outputChatBox("Você não pode vender seu próprio veículo para si mesmo.", thePlayer, 255, 0, 0)
 							end
 						else
-							outputChatBox("This vehicle is not yours.", thePlayer, 255, 0, 0)
+							outputChatBox("Esse veículo não é seu.", thePlayer, 255, 0, 0)
 						end
 					else
 						outputChatBox("Você precisa estar em um veículo.", thePlayer, 255, 0, 0)

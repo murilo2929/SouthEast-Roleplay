@@ -49,7 +49,7 @@ function Characters_showSelection()
 		for _, v in ipairs(characterList) do
 			local thePed = createPed(0, x, y, z)
 			if thePed and isElement( thePed ) then
-				local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 			 	setElementData(thePed, data_name, tonumber(v[9])) -- sets the skin ID data
 				setPedRotation(thePed, rot)
 				setElementFrozen(thePed, true)

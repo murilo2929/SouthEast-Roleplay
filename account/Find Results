@@ -1,0 +1,42 @@
+Searching 2292 files for "newmodels"
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\account\c_characters.lua:
+   52: 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\account\c_create_character.lua:
+  295: 		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\account\s_characters.lua:
+  272: 		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\admin-system\Player\s_player_commands.lua:
+  983: 					local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\duty\s_duty.lua:
+   48: 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  117: 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\es-system\s_es_system.lua:
+   10: 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  165: 		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  297: 		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  494: 					local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\item-system\s_item_system.lua:
+  267: 			local fits = exports.newmodels:isCustomModID("ped", skin) or exports.newmodels:isDefaultID("ped", skin)
+  269: 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\item-system\s_world_items.lua:
+  542: 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  546: 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  552: 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  556: 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+  560: 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\resources\saveplayer-system\s_saveplayer_system.lua:
+   52: 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+
+E:\Program Files (x86)\MTA San Andreas 1.5\SouthEast Roleplay\mods\deathmatch\mtaserver.conf:
+  146:     <resource src="newmodels" startup="1" />
+
+20 matches across 10 files

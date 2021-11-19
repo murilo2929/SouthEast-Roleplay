@@ -7,7 +7,7 @@ function playerDeath(totalAmmo, killer, killerWeapon)
 			spawnPlayer(source, 263.821807, 77.848365, 1001.0390625, 270) --, team)
 
 			--setElementModel(source,getElementModel(source))
-			local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 			setElementData(source, data_name, getElementModel(source)) -- sets the skin ID data
 			--setPlayerTeam(source, team)
 			setElementInterior(source, 6)
@@ -162,7 +162,7 @@ function fallProtection(intx, inty, intz)
 
 		local skin = getElementModel(client)
 		--setElementModel(client,skin)
-		local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 		setElementData(client, data_name, skin) -- sets the skin ID data
 
 		triggerEvent("updateLocalGuns", client)
@@ -294,7 +294,7 @@ function respawnPlayer(thePlayer, victimDropItem)
 
 		spawnPlayer(thePlayer, 1176.892578125, -1323.828125, 14.04377746582, 275)--, theTeam)
 		--setElementModel(thePlayer,theSkin)
-		local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 		setElementData(thePlayer, data_name, theSkin) -- sets the skin ID data
 		--setPlayerTeam(thePlayer, theTeam)
 		setElementInterior(thePlayer, 0)
@@ -491,7 +491,7 @@ function revivePlayerFromPK(thePlayer, commandName, targetPlayer)
 					spawnPlayer(targetPlayer, x, y, z, 0)--, team)
 
 					--setElementModel(targetPlayer,skin)
-					local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+					local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 					setElementData(targetPlayer, data_name, skin) -- sets the skin ID data
 					--setPlayerTeam(targetPlayer, team)
 					setElementInterior(targetPlayer, int)

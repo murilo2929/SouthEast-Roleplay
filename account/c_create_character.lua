@@ -292,7 +292,7 @@ function newCharacter_changeSkin(diff)
 
 	if skin ~= nil then
 		--setElementModel(dummyPed, tonumber(skin))
-		local data_name = exports.test_skins:getDataNameFromType("ped") -- gets the correct data name
+		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 		setElementData(dummyPed, data_name, tonumber(skin)) -- sets the skin ID 
 	end
 end

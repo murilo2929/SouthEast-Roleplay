@@ -5,4 +5,5 @@
 
 <export function="adminlogsMessage" type="shared" />
 <export function="adminlogsInterior" type="shared" />
+<export function="adminlogsMakeveh" type="shared" />
 </meta>
