@@ -22,15 +22,15 @@ end
 
 function sendCKRequest(target, text)
 	showCursor(target, false)
-	outputChatBox("Your request has been sent to any online administrators, please standby.", target, 0, 255, 0)
-	outputChatBox("If you'd like to cancel your request, use /cancelck.", target, 255, 255, 0)
+	outputChatBox("Seu pedido foi encaminhado aos administradores online.", target, 0, 255, 0)
+	outputChatBox("Se você quiser cancelar seu pedido, use /cancelarck.", target, 255, 255, 0)
 	local playerID = getElementData(target, "playerid")
 	local charID = getElementData(target, "dbid")
 	for key, value in ipairs(exports.global:getAdmins()) do
 		local adminduty = getElementData(value, "duty_admin")
 		if adminduty == 1 then
-			outputChatBox("[SELF-CK] " .. getPlayerName( target ):gsub("_", " ") .. " (" .. playerID .. ") requests to Self-CK themselves for the reason '" .. (text or "N/A") .. "'.", value, 255, 0, 0)
-			outputChatBox("[SELF-CK] Use /cka [id] to accept the request, or /ckd [id] to deny it.", value, 255, 255, 255)
+			outputChatBox("[SELF-CK] " .. getPlayerName( target ):gsub("_", " ") .. " (" .. playerID .. ") fez um pedido de auto CK pelo motivo: '" .. (text or "N/A") .. "'.", value, 255, 0, 0)
+			outputChatBox("[SELF-CK] Use /cka [id] para aceitar o pedido, ou /ckd [id] para recusar.", value, 255, 255, 255)
 		end
 		triggerClientEvent( value, "addOneToCKCount", value )
 	end
@@ -54,7 +54,7 @@ function approveCK(thePlayer, commandName, targetPlayer)
 			local actualCharID = getElementData(targetPlayer, "dbid")
 			if piss=="requested" then
 				if (logged==0) then
-					outputChatBox("That player is not logged in, automatically cancelling their request.", thePlayer, 255, 0, 0)
+					outputChatBox("O jogador não está online, cancelando o pedido automaticamente.", thePlayer, 255, 0, 0)
 					setElementData(targetPlayer, "ckstatus", 0)
 					setElementData(targetPlayer, "ckreason", 0)
 					triggerClientEvent( value, "subtractOneFromCKCount", value )
@@ -75,16 +75,16 @@ function approveCK(thePlayer, commandName, targetPlayer)
 							for key, value in ipairs(exports.global:getAdmins()) do
 								local adminduty = getElementData(value, "duty_admin")
 								if adminduty == 1 then
-									outputChatBox("[SELF-CK] " .. getPlayerName(targetPlayer):gsub("_", " ") .. "'s Self-CK request was accepted by " .. getPlayerName(thePlayer):gsub("_", " ") .. ".", value, 255, 0, 0)
+									outputChatBox("[SELF-CK] " .. getPlayerName(targetPlayer):gsub("_", " ") .. " teve seu pedido de auto CK aceito por " .. getPlayerName(thePlayer):gsub("_", " ") .. ".", value, 255, 0, 0)
 								end
 								triggerClientEvent( value, "subtractOneFromCKCount", value )
 							end
-						exports.logs:dbLog(thePlayer, 4, targetPlayer, "Self-CK with reason: "..mysql:escape_string(tostring(info)))
+						exports.logs:dbLog(thePlayer, 4, targetPlayer, "Auto CK com o motivo: "..mysql:escape_string(tostring(info)))
 						triggerClientEvent("showCkWindow", targetPlayer)
 						--triggerEvent("updateCharacters", targetPlayer)
 						--triggerClientEvent(targetPlayer, "accounts:logout", targetPlayer)
 					else
-						outputChatBox("This player forgot to close their CK request before changing character. Closing CK request now.", thePlayer, 255, 0, 0)
+						outputChatBox("Jogador esqueceu de cancelar o pedido antes de trocar de personagem, cancelando pedido automaticamente.", thePlayer, 255, 0, 0)
 						setElementData(targetPlayer, "ckstatus", 0)
 						setElementData(targetPlayer, "ckreason", 0)
 						setElementData(targetPlayer, "ckchar", 0)
@@ -94,7 +94,7 @@ function approveCK(thePlayer, commandName, targetPlayer)
 					end
 				end
 			else
-				outputChatBox("This player did not request to be CK'd.", thePlayer, 255, 0, 0)
+				outputChatBox("Esse jogador não fez um pedido de auto ck.", thePlayer, 255, 0, 0)
 			end
 		end
 	end
@@ -122,9 +122,9 @@ function declineCK(thePlayer, commandName, targetPlayer)
 						end
 						triggerClientEvent( value, "subtractOneFromCKCount", value )
 					end
-					outputChatBox("Your CK request was denied by " .. adminTitle .. " " .. getPlayerName(thePlayer):gsub("_", " ") .. ".", targetPlayer, 255, 0, 0)
+					outputChatBox("Seu pedido de auto ck foi recusado por " .. adminTitle .. " " .. getPlayerName(thePlayer):gsub("_", " ") .. ".", targetPlayer, 255, 0, 0)
 				else
-					outputChatBox("This player forgot to close their CK request before changing character. Closing CK request now.", thePlayer, 255, 0, 0)
+					outputChatBox("Jogador esqueceu de cancelar o pedido antes de trocar de personagem, cancelando pedido automaticamente.", thePlayer, 255, 0, 0)
 					setElementData(targetPlayer, "ckstatus", 0)
 					setElementData(targetPlayer, "ckreason", 0)
 					setElementData(targetPlayer, "ckchar", 0)
@@ -133,7 +133,7 @@ function declineCK(thePlayer, commandName, targetPlayer)
 					end
 				end
 			else
-				outputChatBox(getPlayerName(targetPlayer):gsub("_", " ") .. " does not have a CK request open.", thePlayer, 255, 0, 0)
+				outputChatBox(getPlayerName(targetPlayer):gsub("_", " ") .. " não tem um pedido de auto ck aberto.", thePlayer, 255, 0, 0)
 			end
 		end
 	end
@@ -146,19 +146,19 @@ function cancelCkRequest(thePlayer)
 			setElementData(thePlayer, "ckstatus", 0)
 			setElementData(thePlayer, "ckreason", 0)
 			setElementData(thePlayer, "ckchar", 0)
-			outputChatBox("You have successfully cancelled your CK request.", thePlayer, 0, 255, 0)
+			outputChatBox("Você cancelou seu pedido de auto ck com sucesso.", thePlayer, 0, 255, 0)
 			for key, value in ipairs(exports.global:getAdmins()) do
 				local adminduty = getElementData(value, "duty_admin")
 				if adminduty == 1 then
-					outputChatBox("[SELF-CK] " .. getPlayerName(thePlayer):gsub("_", " ") .. " has cancelled their CK request.", value, 255, 0, 0)
+					outputChatBox("[SELF-CK] " .. getPlayerName(thePlayer):gsub("_", " ") .. " cancelou o pedido de auto ck.", value, 255, 0, 0)
 				end
 				triggerClientEvent( value, "subtractOneFromCKCount", value )
 			end
 		else
-			outputChatBox("You don't currently have a CK request pending.", thePlayer, 255, 0, 0)
+			outputChatBox("Você não tem um pedido de auto ck ativo no momento.", thePlayer, 255, 0, 0)
 		end
 end
-addCommandHandler("cancelck", cancelCkRequest)
+addCommandHandler("cancelarck", cancelCkRequest)
 
 function clearCKRequest(player)
 	setElementData(thePlayer, "ckstatus", 0)

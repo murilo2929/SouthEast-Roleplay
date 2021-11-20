@@ -12,18 +12,18 @@ function showCkMainUI()
 				GUIEditor = {
 					label = {},
 				}
-				ckWindow = guiCreateWindow(741, 434, 416, 166, "Self CK Menu", false)
+				ckWindow = guiCreateWindow(741, 434, 416, 166, "Character-Kill", false)
 					guiWindowSetMovable(ckWindow, false)
 					guiWindowSetSizable(ckWindow, false)
 					guiSetAlpha(ckWindow, 0.87)
-				lWelcome = guiCreateLabel(114, 25, 186, 16, "Welcome to the Self-CK system!", false, ckWindow)
+				lWelcome = guiCreateLabel(114, 25, 186, 16, "Bem vindo ao sistema de auto CK!", false, ckWindow)
 					guiSetFont(lWelcome, "default-bold-small")
 					guiLabelSetHorizontalAlign(lWelcome, "center", false)
 				bCK = guiCreateButton(232, 128, 126, 18, "Next", false, ckWindow)
 					addEventHandler("onClientGUIClick", bCK, displayWarning, true)
 					guiSetProperty(bCK, "NormalTextColour", "FFAAAAAA")
-				lCause = guiCreateLabel(111, 51, 199, 25, "Please explain your cause of death:", false, ckWindow)
-				bClose = guiCreateButton(56, 128, 128, 18, "Cancel", false, ckWindow)
+				lCause = guiCreateLabel(111, 51, 199, 25, "Por favor explique o motivo de sua morte:", false, ckWindow)
+				bClose = guiCreateButton(56, 128, 128, 18, "Cancelar", false, ckWindow)
 					addEventHandler("onClientGUIClick", bClose, closeMenu, true)
 					guiSetProperty(bClose, "NormalTextColour", "FFAAAAAA")
 				memo = guiCreateEdit(56, 76, 302, 40, "", false, ckWindow)
@@ -44,7 +44,7 @@ function showCkMainUI()
 			end
 		end
 	else
-		outputChatBox("You already have a pending Self-CK request, please use /cancelck to cancel your current one.", getLocalPlayer(), 255, 255, 0)
+		outputChatBox("Você já tem um pedido de CK ativo, use /cancelarck para cancelar o mesmo.", getLocalPlayer(), 255, 255, 0)
 	end
 end
 addCommandHandler("selfck", showCkMainUI)
@@ -55,20 +55,20 @@ function displayWarning()
 	GUIEditor = {
 		label = {},
 	}
-	wConfirm = guiCreateWindow(786, 298, 370, 153, "Confirm your CK", false)
+	wConfirm = guiCreateWindow(786, 298, 370, 153, "Confirmar seu CK", false)
 	guiWindowSetSizable(wConfirm, false)
 
-	lWarning = guiCreateLabel(19, 38, 325, 20, "You are about to CK your character, '", false, wConfirm)
+	lWarning = guiCreateLabel(19, 38, 325, 20, "Você esta prestes a dar CK em seu personagem, '", false, wConfirm)
 	lName = guiCreateLabel(227, 38, 167, 21, "N/A", false, wConfirm)
 		guiSetText(lName, getPlayerName(thePlayer):gsub("_", " ") .. "'.")
-	lConfirm = guiCreateLabel(141, 69, 182, 25, "Are you sure?", false, wConfirm)
-	bYes = guiCreateButton(41, 104, 129, 30, "Yes", false, wConfirm)
+	lConfirm = guiCreateLabel(141, 69, 182, 25, "Tem certeza?", false, wConfirm)
+	bYes = guiCreateButton(41, 104, 129, 30, "Sim", false, wConfirm)
 		guiSetProperty(bYes, "NormalTextColour", "FFAAAAAA")
 		addEventHandler("onClientGUIClick", bYes, showCKWarn, true)
-	bNo = guiCreateButton(188, 104, 140, 31, "No", false, wConfirm)
+	bNo = guiCreateButton(188, 104, 140, 31, "Não", false, wConfirm)
 		guiSetProperty(bNo, "NormalTextColour", "FFAAAAAA")
 		addEventHandler("onClientGUIClick", bNo, closeWarning, true)
-	lReason = guiCreateLabel(52, 58, 224, 17, "Reason:", false, wConfirm)
+	lReason = guiCreateLabel(52, 58, 224, 17, "Razão:", false, wConfirm)
 		guiSetAlpha(lReason, 0.00)
 		guiSetFont(lReason, "default-bold-small")
 		lMemo = guiCreateLabel(53, 0, 167, 15, "Error.", false, lReason)
@@ -85,7 +85,7 @@ function showCKWarn()
 		destroyElement(wConfirm)
 		ckWindow = nil
 	else
-		outputChatBox("You did not enter a reason.", player)
+		outputChatBox("Você não explicou o motivo.", player)
 	end
 end
 
