@@ -82,6 +82,10 @@ function reconPlayer(commandName, targetPlayer)
 				return outputChatBox("Player não esta logado.", 255, 0, 0)
 			end
 
+			if exports.integration:isPlayerScripter(targetPlayer) then
+				return outputChatBox("Você não pode assitir este jogador.", 255,0,0)
+			end
+
 			if targetPlayer == localPlayer then
 				return outputChatBox("Você não pode assitir você mesmo.", 255,0,0)
 			end
