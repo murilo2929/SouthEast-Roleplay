@@ -21,16 +21,16 @@
 --
 local objs = {
 	--model, 			x,y,z, 									rx,ry,rz, 	int,dim,  scale, distance
-	{19833, 	35.4443359375, 26, 5, 							0,0,90, 	0,0, 		10},
-	{19833, 	51.6201171875, 11.4931640625, 5, 				0,0,120, 	0,0, 		5},
-	{18801, 	6.576171875, -62.5546875, 24.6, 				0,0,90, 	0,0, 		1, 500},
-	{18859, 	80.3837890625, -76.3359375, 11, 				0,0,-90, 	0,0, 		1, 500},
-	{18850, 	19.701171875, -3.705078125, 13.5, 				0,0,0, 		0,0, 		1, 500},
-	{19338, 	79.9638671875, -15.5849609375, 19.061399, 		0,0,0, 		0,0, 		1, 500},
-	{19335, 	43.5693359375, -125.1123046875, 31.1265449, 	0,0,0, 		0,0, 		1, 500},
-	{19076, 	37.6865234375, -37.0576171875, 0.5, 			0,0,0, 		0,0, 		1, 300, true},
-	{18880, 	7.861328125, -24.2509765625, 2, 				0,0,0, 		0,0, 		1, 400, true},
-	{19967, 	-13.4482421875, 20.7470703125, 1.5, 			0,0,90,		0,0, 		1, 300, true},
+	--{19833, 	35.4443359375, 26, 5, 							0,0,90, 	0,0, 		10},
+	--{19833, 	51.6201171875, 11.4931640625, 5, 				0,0,120, 	0,0, 		5},
+	--{18801, 	6.576171875, -62.5546875, 24.6, 				0,0,90, 	0,0, 		1, 500},
+	--{18859, 	80.3837890625, -76.3359375, 11, 				0,0,-90, 	0,0, 		1, 500},
+	--{18850, 	19.701171875, -3.705078125, 13.5, 				0,0,0, 		0,0, 		1, 500},
+	--{19338, 	79.9638671875, -15.5849609375, 19.061399, 		0,0,0, 		0,0, 		1, 500},
+	--{19335, 	43.5693359375, -125.1123046875, 31.1265449, 	0,0,0, 		0,0, 		1, 500},
+	--{19076, 	37.6865234375, -37.0576171875, 0.5, 			0,0,0, 		0,0, 		1, 300, true},
+	--{18880, 	7.861328125, -24.2509765625, 2, 				0,0,0, 		0,0, 		1, 400, true},
+	--{19967, 	-13.4482421875, 20.7470703125, 1.5, 			0,0,90,		0,0, 		1, 300, true},
 }
 
 --
@@ -68,8 +68,10 @@ end
 -- 	Command to destroy objects and output count
 --
 local function destroyObjs(cmd)
-	local a,b = destroyAllSpawnedSAMP()
-	outputChatBox("Destroyed "..a.." SA-MP objects, "..b.." of which had LOD", 0,255,0)
+	if exports.integration:isPlayerScripter(localPlayer) then
+		local a,b = destroyAllSpawnedSAMP()
+		outputChatBox("Destroyed "..a.." SA-MP objects, "..b.." of which had LOD", 0,255,0)
+	end
 end
 addCommandHandler("dobjs", destroyObjs, false)
 
@@ -78,33 +80,35 @@ addCommandHandler("dobjs", destroyObjs, false)
 --
 local cTimer
 local function spawnObject(cmd, model)
-	if not tonumber(model) then
-		outputChatBox("SYNTAX: /"..cmd.." [Object ID]", 255,194,14)
-		outputChatBox("See: https://dev.prineside.com/en/gtasa_samp_model_id/", 255,126,14)
-		return
-	end
-	model = tonumber(model)
-	local x,y,z = getElementPosition(localPlayer)
-	local rx,ry,rz = getElementRotation(localPlayer)
-	local i,d = getElementInterior(localPlayer), getElementDimension(localPlayer)
-
-	local obj,lod = lib:CreateNewObject(model,x,y,z,0,0,rz)
-	if obj then
-		if isTimer(cTimer) then killTimer(cTimer) end
-		setElementCollidableWith(localPlayer, obj, false)
-		cTimer = setTimer(setElementCollidableWith, 2000, 1, localPlayer, obj, true)
-
-		spawned[obj] = { blip = createBlip(x,y,z, 0, 1, 255,126,0,200) }
-
-		setElementInterior(obj, i)
-		setElementDimension(obj, d)
-		if lod then
-			spawned[obj].lod = lod
+	if exports.integration:isPlayerScripter(localPlayer) then
+		if not tonumber(model) then
+			outputChatBox("SYNTAX: /"..cmd.." [Object ID]", 255,194,14)
+			outputChatBox("See: https://dev.prineside.com/en/gtasa_samp_model_id/", 255,126,14)
+			return
 		end
-		
-		outputChatBox("Spawn a SA-MP Object ID "..model.." at "..x..", "..y..", "..z.." (int: "..i.." & dim: "..d..")", 25,255,0)
-	else
-		outputChatBox("Failed to spawn SA-MP Object ID "..model..". Check for debug error messages.", 255,0,0)
+		model = tonumber(model)
+		local x,y,z = getElementPosition(localPlayer)
+		local rx,ry,rz = getElementRotation(localPlayer)
+		local i,d = getElementInterior(localPlayer), getElementDimension(localPlayer)
+
+		local obj,lod = lib:CreateNewObject(model,x,y,z,0,0,rz)
+		if obj then
+			if isTimer(cTimer) then killTimer(cTimer) end
+			setElementCollidableWith(localPlayer, obj, false)
+			cTimer = setTimer(setElementCollidableWith, 2000, 1, localPlayer, obj, true)
+
+			spawned[obj] = { blip = createBlip(x,y,z, 0, 1, 255,126,0,200) }
+
+			setElementInterior(obj, i)
+			setElementDimension(obj, d)
+			if lod then
+				spawned[obj].lod = lod
+			end
+			
+			outputChatBox("Spawn a SA-MP Object ID "..model.." at "..x..", "..y..", "..z.." (int: "..i.." & dim: "..d..")", 25,255,0)
+		else
+			outputChatBox("Failed to spawn SA-MP Object ID "..model..". Check for debug error messages.", 255,0,0)
+		end
 	end
 end
 addCommandHandler("spawnobject", spawnObject, false)

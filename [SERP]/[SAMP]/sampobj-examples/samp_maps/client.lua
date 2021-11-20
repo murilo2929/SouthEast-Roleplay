@@ -15,9 +15,11 @@ local last_object
 local modelsFolder = "samp_maps/models"
 
 function listMaps(cmd)
-    for k, map in pairs(mapList) do
-        local status = loaded_maps[map.id] and ("#89ff6b[LOADED] #d1d1d1("..(#(loaded_maps[map.id].objects).." objects)")) or "#ff9c9c[NOT LOADED]"
-        outputChatBox(status.." #ffc67a(ID "..map.id..") #ffa126'"..map.name.."' #ffffffint: "..map.int.." dim: "..map.dim, 255,126,0, true)
+    if exports.integration:isPlayerScripter(localPlayer) then
+        for k, map in pairs(mapList) do
+            local status = loaded_maps[map.id] and ("#89ff6b[LOADED] #d1d1d1("..(#(loaded_maps[map.id].objects).." objects)")) or "#ff9c9c[NOT LOADED]"
+            outputChatBox(status.." #ffc67a(ID "..map.id..") #ffa126'"..map.name.."' #ffffffint: "..map.int.." dim: "..map.dim, 255,126,0, true)
+        end
     end
 end
 addCommandHandler("listmaps", listMaps, false)

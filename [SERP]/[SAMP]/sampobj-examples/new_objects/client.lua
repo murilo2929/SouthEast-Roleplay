@@ -34,7 +34,7 @@ local modelList = {
 --
 local objs = {
 	--model, 			x,y,z, 									rx,ry,rz, 	int,dim,  scale, distance
-	{50001, 	-8.412109375, 6.44921875, 2.15, 			0,0,0, 		0,0},
+	--{50001, 	-8.412109375, 6.44921875, 2.15, 			0,0,0, 		0,0},
 }
 
 --
@@ -51,8 +51,10 @@ local allocated = {}
 -- 	Command to list all loaded new objects
 --
 function myNewObjects(cmd)
-	for newid,allocated_id in pairs(allocated) do
-		outputChatBox(newid.." - Allocated ID: "..allocated_id)
+	if exports.integration:isPlayerScripter(localPlayer) then
+		for newid,allocated_id in pairs(allocated) do
+			outputChatBox(newid.." - Allocated ID: "..allocated_id)
+		end
 	end
 end
 addCommandHandler("newmodels", myNewObjects, false)
@@ -87,8 +89,10 @@ end
 -- 	Command to destroy the new objects and output count
 --
 local function destroyNewObjs(cmd)
-	local a,b = destroyAllSpawnedNew()
-	outputChatBox("Destroyed "..a.." new objects, "..b.." of which had LOD", 0,255,0)
+	if exports.integration:isPlayerScripter(localPlayer) then
+		local a,b = destroyAllSpawnedNew()
+		outputChatBox("Destroyed "..a.." new objects, "..b.." of which had LOD", 0,255,0)
+	end
 end
 addCommandHandler("dnewobjs", destroyNewObjs, false)
 
