@@ -179,7 +179,7 @@ function (startedResource)
 		end
 	end
 
-	print("Spawned "..count.." SA-MP objects, "..count_lod.." of which have LOD")
+	--print("Spawned "..count.." SA-MP objects, "..count_lod.." of which have LOD")
 end)
 
 --

@@ -180,7 +180,7 @@ function parseTextureStudioMaps()
 		local path = ":"..resName.."/"..map.path
 		local parsed, reason, objects_used = lib:parseTextureStudioMap(path)
 		if not (type(parsed)=="table") then
-			outputDebugString("Failed to parse map ID "..map.id.." ('"..map.path.."'), reason: "..reason, 1)
+			--outputDebugString("Failed to parse map ID "..map.id.." ('"..map.path.."'), reason: "..reason, 1)
 		else
 
 			-- objects IDs used by this map

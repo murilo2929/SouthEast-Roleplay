@@ -210,7 +210,7 @@ function SetObjectMaterial(object,mat_index,model_id,tex_name,color)  -- [Export
             return { matShader, matTexture }
         else
             local model = getSAMPOrDefaultModel(object)
-            outputDebugMsg(string.format( "Unknown material on model: %s, index: %s", tostring(model),tostring(mat_index)), 2)
+            --outputDebugMsg(string.format( "Unknown material on model: %s, index: %s", tostring(model),tostring(mat_index)), 2)
             return false
         end
     end

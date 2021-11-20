@@ -146,7 +146,7 @@ function (startedResource)
 		end
 	end
 
-	print("Loaded "..count.." new objects")
+	--print("Loaded "..count.." new objects")
 
 	local count2 = 0
 	local count2_lod = 0
@@ -173,7 +173,7 @@ function (startedResource)
 		end
 	end
 
-	print("Spawned "..count.." new objects, "..count2_lod.." of which have LOD")
+	--print("Spawned "..count.." new objects, "..count2_lod.." of which have LOD")
 end)
 
 
