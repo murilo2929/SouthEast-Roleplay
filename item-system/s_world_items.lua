@@ -536,31 +536,30 @@ function doItemGiveawayChecks(player, itemID, itemValue)
 		local skincolor = tonumber(result["skincolor"])
 		local gender = tonumber(result["gender"])
 
+		local setskinid = 0
 		if (gender==0) then -- MALE
 			if (skincolor==0) then -- BLACK
-				--setElementModel(source, 80)
-				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-				setElementData(source, data_name, 80) -- sets the skin ID data
+				setskinid = 80
 			elseif (skincolor==1 or skincolor==2) then -- WHITE
-				--setElementModel(source, 252)
-				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-				setElementData(source, data_name, 252) -- sets the skin ID data
+				setskinid = 252
 			end
 		elseif (gender==1) then -- FEMALE
 			if (skincolor==0) then -- BLACK
-				--setElementModel(source, 139)
-				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-				setElementData(source, data_name, 139) -- sets the skin ID data
+				setskinid = 139
 			elseif (skincolor==1) then -- WHITE
-				--setElementModel(source, 138)
-				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-				setElementData(source, data_name, 138) -- sets the skin ID data
+				setskinid = 138
 			elseif (skincolor==2) then -- ASIAN
-				--setElementModel(source, 140)
-				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-				setElementData(source, data_name, 140) -- sets the skin ID data
+				setskinid = 140
 			end
 		end
+
+		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+	    if exports.newmodels:isCustomModID(setskinid) then
+		  setElementData(source, data_name, setskinid) -- custom id
+	    else
+	      setElementModel(source, setskinid) -- default id
+	    end
+
 		--exports.mysql:query_free( "UPDATE characters SET skin = '" .. exports.mysql:escape_string(getElementModel(source)) .. "' WHERE id = '" .. exports.mysql:escape_string(getElementData( source, "dbid" )).."'" )
 		exports.anticheat:changeProtectedElementDataEx(source, 'clothing:id', nil, true)
 		exports.mysql:query_free( "UPDATE characters SET skin = '" .. exports.mysql:escape_string(getElementModel(source)) .. "', clothingid = NULL WHERE id = '" .. exports.mysql:escape_string(getElementData( source, "dbid" )).."'" )

@@ -49,9 +49,17 @@ function Characters_showSelection()
 		for _, v in ipairs(characterList) do
 			local thePed = createPed(0, x, y, z)
 			if thePed and isElement( thePed ) then
+
 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-			 	setElementData(thePed, data_name, tonumber(v[9])) -- sets the skin ID data
-				setPedRotation(thePed, rot)
+				local skin = tonumber(v[9])
+
+				if exports.newmodels:isCustomModID(skin) then
+			 		setElementData(thePed, data_name, skin) -- sets the skin ID data
+			 	else
+			 		setElementModel( thePed, skin )
+			 	end
+
+				setElementRotation(thePed, 0,0,rot, "default", true)
 				setElementFrozen(thePed, true)
 				setElementDimension(thePed, 1)
 				setElementInterior(thePed, 0)

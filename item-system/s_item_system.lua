@@ -264,10 +264,20 @@ function useItem(itemSlot, additional)
 			clothingid = tonumber(clothingid) or nil
 			local fits = false
 
-			local fits = exports.newmodels:isCustomModID("ped", skin) or exports.newmodels:isDefaultID("ped", skin)
+			local iscustom = exports.newmodels:isCustomModID(skin)
+			local isdefault = exports.newmodels:isDefaultID("ped", skin)
+
+
+			local fits = iscustom or isdefault
 			if clothingid or fits then
+				
 				local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-				setElementData(source, data_name, tonumber(skin)) -- sets the skin ID data
+		        if iscustom then
+				  setElementData(source, data_name, skin) -- custom id
+		        else
+		          setElementModel(source, skin) -- default id
+		        end
+
 				exports.anticheat:setEld(source, "clothing:id", clothingid, 'all')
 				dbExec ( exports.mysql:getConn('mta') , "UPDATE characters SET skin=?, clothingid="..( clothingid or 'NULL' ) .. " WHERE id=?", skin, getElementData( source, "dbid" ) )
 				triggerEvent('sendAme', source, "muda de roupa.")

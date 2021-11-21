@@ -6,9 +6,17 @@ function playerDeath(totalAmmo, killer, killerWeapon)
 			--local team = getPlayerTeam(source)
 			spawnPlayer(source, 263.821807, 77.848365, 1001.0390625, 270) --, team)
 
-			--setElementModel(source,getElementModel(source))
 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-			setElementData(source, data_name, getElementModel(source)) -- sets the skin ID data
+			local skincustom = getElementData(source, data_name) or getElementModel(source)
+
+			--setElementModel(source,getElementModel(source))
+
+		    if exports.newmodels:isCustomModID(skincustom) then
+			  setElementData(source, data_name, skincustom) -- custom id
+		    else
+		      setElementModel(source, skincustom) -- default id
+		    end
+
 			--setPlayerTeam(source, team)
 			setElementInterior(source, 6)
 			setElementDimension(source, getElementData(source, "playerid")+65400)
@@ -160,10 +168,13 @@ function fallProtection(intx, inty, intz)
 		setCameraTarget(client, client)
 		spawnPlayer(client, intx, inty, intz, 0)
 
-		local skin = getElementModel(client)
-		--setElementModel(client,skin)
 		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-		setElementData(client, data_name, skin) -- sets the skin ID data
+		local skin = getElementData(client, data_name) or getElementModel(client)
+		if exports.newmodels:isCustomModID(skin) then
+			setElementData(client, data_name, skin) -- custom id
+		else
+		    setElementModel(client, skin) -- default id
+		end
 
 		triggerEvent("updateLocalGuns", client)
 		exports.global:sendMessageToAdmins("AdmCmd: Proteção contra quedas revivida "..tostring(getPlayerName(client))..".")
@@ -286,16 +297,21 @@ function respawnPlayer(thePlayer, victimDropItem)
 			logMe(death)
 		end
 
-		local theSkin = getPedSkin(thePlayer)
-		--local theTeam = getPlayerTeam(thePlayer)
+		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+		local theSkin = getElementData(thePlayer, data_name) or getElementModel(thePlayer)
 
 		local fat = getPedStat(thePlayer, 21)
 		local muscle = getPedStat(thePlayer, 23)
 
 		spawnPlayer(thePlayer, 1176.892578125, -1323.828125, 14.04377746582, 275)--, theTeam)
 		--setElementModel(thePlayer,theSkin)
-		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-		setElementData(thePlayer, data_name, theSkin) -- sets the skin ID data
+
+		if exports.newmodels:isCustomModID(theSkin) then
+			setElementData(thePlayer, data_name, theSkin) -- custom id
+		else
+		    setElementModel(thePlayer, theSkin) -- default id
+		end
+
 		--setPlayerTeam(thePlayer, theTeam)
 		setElementInterior(thePlayer, 0)
 		setElementDimension(thePlayer, 0)
@@ -479,10 +495,11 @@ function revivePlayerFromPK(thePlayer, commandName, targetPlayer)
 						killTimer(changeDeathViewTimer)
 					end
 
+					local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 					local x,y,z = getElementPosition(targetPlayer)
 					local int = getElementInterior(targetPlayer)
 					local dim = getElementDimension(targetPlayer)
-					local skin = getElementModel(targetPlayer)
+					local skin = getElementData(targetPlayer, data_name) or getElementModel(targetPlayer)
 					--local team = getPlayerTeam(targetPlayer)
 
 					setPedHeadless(targetPlayer, false)
@@ -490,9 +507,15 @@ function revivePlayerFromPK(thePlayer, commandName, targetPlayer)
 					setCameraTarget(targetPlayer, targetPlayer)
 					spawnPlayer(targetPlayer, x, y, z, 0)--, team)
 
-					--setElementModel(targetPlayer,skin)
-					local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-					setElementData(targetPlayer, data_name, skin) -- sets the skin ID data
+
+				    if exports.newmodels:isCustomModID(skin) then
+					  setElementData(targetPlayer, data_name, skin) -- custom id
+				    else
+				      setElementModel(targetPlayer, skin) -- default id
+				    end
+
+
+
 					--setPlayerTeam(targetPlayer, team)
 					setElementInterior(targetPlayer, int)
 					setElementDimension(targetPlayer, dim)

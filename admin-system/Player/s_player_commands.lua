@@ -981,7 +981,9 @@ function setPlayerSkinCmd(thePlayer, commandName, targetPlayer, skinID, clothing
 					local oldSkin = getElementModel(targetPlayer)
 					--local skin = setElementModel(targetPlayer, tonumber(skinID))
 					local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-					local skin = setElementData(targetPlayer, data_name, tonumber(skinID)) -- sets the skin ID 
+					local skin = setElementData(targetPlayer, data_name, tonumber(skinID)) or setElementModel( targetPlayer, tonumber(skinID))-- sets the skin ID 
+
+
 
 					setPedStat(targetPlayer, 21, fat)
 					setPedStat(targetPlayer, 23, muscle)

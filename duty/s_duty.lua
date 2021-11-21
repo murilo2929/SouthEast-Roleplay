@@ -44,9 +44,14 @@ function dutyRequest(grantID, itemTable, skinID, factionID)
 		if skinID and type(skinID) == 'string' then
 			local skinData = split(skinID, ':')
 			savedSkin = tonumber(skinData[1])
-			--setElementModel(thePlayer, savedSkin)
+			
 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-			setElementData(thePlayer, data_name, savedSkin) -- sets the skin ID data
+		    if exports.newmodels:isCustomModID(savedSkin) then
+			  setElementData(thePlayer, data_name, savedSkin) -- custom id
+		    else
+		      setElementModel(thePlayer, savedSkin) -- default id
+		    end
+
 			if #skinData > 1 then
 				savedClothing = tonumber(skinData[2])
 				setElementData(thePlayer, 'clothing:id', savedClothing)
@@ -113,9 +118,13 @@ function dutyOffduty()
 
 		-- reset the skin to the first found in the inventory
 		if savedSkin then
-			--setElementModel(thePlayer, savedSkin)
 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-			setElementData(thePlayer, data_name, savedSkin) -- sets the skin ID data
+		    if exports.newmodels:isCustomModID(savedSkin) then
+			  setElementData(thePlayer, data_name, savedSkin) -- custom id
+		    else
+		      setElementModel(thePlayer, savedSkin) -- default id
+		    end
+		    
 			setElementData(thePlayer, 'clothing:id', savedClothing)
 
 			exports.mysql:query_free( "UPDATE characters SET skin = '" .. exports.mysql:escape_string(savedSkin) .. "', clothingid = '" .. exports.mysql:escape_string(savedClothing or 0) .. "', duty = '0' WHERE id = '" .. exports.mysql:escape_string(getElementData( thePlayer, "dbid" )).."'" )

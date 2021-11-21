@@ -50,7 +50,7 @@ function savePlayer(reason, player)
 			local d_addiction = ( getElementData(player, "drug.1") or 0 ) .. ";" .. ( getElementData(player, "drug.2") or 0 ) .. ";" .. ( getElementData(player, "drug.3") or 0 ) .. ";" .. ( getElementData(player, "drug.4") or 0 ) .. ";" .. ( getElementData(player, "drug.5") or 0 ) .. ";" .. ( getElementData(player, "drug.6") or 0 ) .. ";" .. ( getElementData(player, "drug.7") or 0 ) .. ";" .. ( getElementData(player, "drug.8") or 0 ) .. ";" .. ( getElementData(player, "drug.9") or 0 ) .. ";" .. ( getElementData(player, "drug.10") or 0 )
 			
 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-    		local skin = getElementData(player, data_name)
+    		local skin = getElementData(player, data_name) or getElementModel(player)
 		
 			if getElementData(player, "help") then
 				dimension, interior, x, y, z = unpack( getElementData(player, "help") )

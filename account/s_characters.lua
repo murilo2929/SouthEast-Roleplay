@@ -269,8 +269,13 @@ function spawnCharacter(characterID, remoteAccountID, theAdmin, targetAccountNam
         locationToSpawn.dim = tonumber(characterData["dimension_id"])
         spawnPlayer(client, locationToSpawn.x ,locationToSpawn.y ,locationToSpawn.z , locationToSpawn.rot, 0)
 
+        local skinid = tonumber(characterData["skin"])
 		local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
-		setElementData(client, data_name, tonumber(characterData["skin"])) -- sets the skin ID data
+        if exports.newmodels:isCustomModID(skinid) then
+		  setElementData(client, data_name, skinid) -- custom id
+        else
+          setElementModel(client, skinid) -- default id
+        end
         
         setElementDimension(client, locationToSpawn.dim)
         setElementInterior(client, locationToSpawn.int , locationToSpawn.x, locationToSpawn.y, locationToSpawn.z)
