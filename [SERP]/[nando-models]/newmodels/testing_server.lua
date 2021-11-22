@@ -9,6 +9,7 @@
 		/makeobject
 		/makevehicle
 		/listmods
+		/vehinfo
 ]]
 
 ---------------------------- TESTING PURPOSES ONLY BELOW ----------------------------
@@ -215,6 +216,21 @@ function listModsCmd(thePlayer, cmd)
 	triggerClientEvent(thePlayer, resName..":openTestWindow", resourceRoot, "listmods", "Total "..count.." Mods", modList)
 end
 addCommandHandler("listmods", listModsCmd, false, false)
+
+
+function showMyVehInfo(thePlayer, cmd)
+	local veh = getPedOccupiedVehicle(thePlayer)
+	if not veh then return outputChatBox("Get inside a vehicle", thePlayer, 255,0,0) end
+
+	local id = tonumber(getElementData(veh, dataNames["vehicle"]))
+	if not id then
+		return outputChatBox("Default vehicle model ID "..getElementModel(veh).." named "..getVehicleNameFromModel(getElementModel(veh)), thePlayer,255,194,14)
+	end
+
+	local base_id = tonumber(getElementData(veh, "base_id"))
+	outputChatBox("Custom vehicle model ID "..id.." on base ID "..(base_id and base_id or "?"), thePlayer,255,126,0)
+end
+addCommandHandler("vehinfo", showMyVehInfo, false, false)
 
 --[[
 -- Get all valid default object IDs

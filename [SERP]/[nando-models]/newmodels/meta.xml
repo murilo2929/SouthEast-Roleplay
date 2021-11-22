@@ -56,4 +56,5 @@
 
     <export type="client" function="isClientReady"/>
     <export type="client" function="forceAllocate"/>
+    <export type="client" function="getElementBaseModel"/>
 </meta>
