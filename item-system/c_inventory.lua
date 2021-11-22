@@ -61,7 +61,7 @@ local actionIcons =
 	
 	[ACTION_DROP] = { -202, tocolor( 127, 255, 127, 63 ), "Soltar Item", "Segure CTRL enquanto seleciona um item para soltá-lo rapidamente." },
 	[ACTION_SHOW] = { -201, tocolor( 127, 127, 255, 63 ), "Mostrar Item" },
-	[ACTION_DESTROY] = { -200, tocolor( 255, 127, 127, 63 ), "Destroy Item", "Segure DELETE enquanto seleciona um item para excluí-lo rapidamente." },
+	[ACTION_DESTROY] = { -200, tocolor( 255, 127, 127, 63 ), "Destruir Item", "Segure DELETE enquanto seleciona um item para excluí-lo rapidamente." },
 	--[ACTION_SPLIT] = { -203, tocolor( 255, 127, 127, 63 ), "Destroy Item", "Press DELETE while selecting an item to automatically delete it." }
 }
 

@@ -23,7 +23,7 @@ function canEnterInterior(theInterior)
 		if interiorStatus.disabled then
 			return false, 1, "Este interior esta desativado."
 		elseif interiorStatus.locked then
-			return false, 2, "Você tenta movimentar a maçaneta, mas ve que a porta esta trancada."
+			return false, 2, "Trancado."
 		end
 		return true
 	end
