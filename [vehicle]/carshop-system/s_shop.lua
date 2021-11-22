@@ -99,7 +99,13 @@ function carshop_updateVehicles( forceUpdate )
 					local model = tonumber(vehicleData.vehmtamodel)
 					--getVehicleModelFromName(data[1]) or tonumber(data[1])
 
-					local vehicle = createVehicle( model , v[1], v[2], v[3], v[4], v[5], v[6], plate  )
+					local vehicle = createVehicle( 400 , v[1], v[2], v[3], v[4], v[5], v[6], plate  )
+					if exports.newmodels:isCustomModID(model) then
+						local data_name = exports.newmodels:getDataNameFromType("vehicle")
+						setElementData(veh, data_name, model)
+					else
+						setElementModel(veh, model)
+					end
 					local vehBrand = vehicleData["vehbrand"]
 					local vehModel = vehicleData["vehmodel"]
 					local vehPrice = tonumber(vehicleData["vehprice"])

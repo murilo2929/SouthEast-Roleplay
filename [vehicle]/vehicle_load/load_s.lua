@@ -90,8 +90,15 @@ function loadOneVehicle(data, loadDeletedOne)
 		end
 
 		-- Spawn the vehicle
-		veh = createVehicle(data.model, data.currx, data.curry, data.currz, data.currrx, data.currry, data.currrz, data.plate, false, var1, var2)
+		veh = createVehicle(400, data.currx, data.curry, data.currz, data.currrx, data.currry, data.currrz, data.plate, false, var1, var2)
 		if veh then
+			if exports.newmodels:isCustomModID(data.model) then
+				local data_name = exports.newmodels:getDataNameFromType("vehicle")
+				setElementData(veh, data_name, data.model)
+			else
+				setElementModel(veh, data.model)
+			end
+
 			-- pool allocation.
 			exports.anticheat:setEld( veh, "dbid", data.id, 'all' )
 			exports.pool:allocateElement( veh, data.id )

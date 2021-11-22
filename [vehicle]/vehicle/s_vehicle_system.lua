@@ -124,11 +124,19 @@ function createPermanentVehicle(player, command, ...)
 		local plate = letter1 .. letter2 .. math.random(0, 9) .. " " .. math.random(1000, 9999)
 
 		-- create a vehicle temporarily so we can get its name, colors and validate that it is an actual vehicle.
-		local veh = createVehicle(id, x, y, z, 0, 0, r, plate)
+		local veh = createVehicle(400, x, y, z, 0, 0, r, plate)
 		if not veh then
 			outputChatBox("Invalid MTA vehicle model specified in vehlib.", player, 255, 100, 100)
 			return
 		end
+
+		if exports.newmodels:isCustomModID(id) then
+			local data_name = exports.newmodels:getDataNameFromType("vehicle")
+			setElementData(veh, data_name, id)
+		else
+			setElementModel(veh, id)
+		end
+
 		-- set the temp vehicle's color to the entered color scheme.
 		setVehicleColor(veh, primaryColor, secondaryColor, primaryColor, secondaryColor)
 
@@ -252,10 +260,17 @@ function createCivilianPermVehicle(thePlayer, commandName, ...)
 			local letter2 = string.char(math.random(65,90))
 			local plate = letter1 .. letter2 .. math.random(0, 9) .. " " .. math.random(1000, 9999)
 
-			local veh = createVehicle(id, x, y, z, 0, 0, r, plate)
+			local veh = createVehicle(400, x, y, z, 0, 0, r, plate)
 			if not (veh) then
 				outputChatBox("Invalid Vehicle ID.", thePlayer, 255, 0, 0)
 			else
+				if exports.newmodels:isCustomModID(id) then
+					local data_name = exports.newmodels:getDataNameFromType("vehicle")
+					setElementData(veh, data_name, id)
+				else
+					setElementModel(veh, id)
+				end
+
 				local vehicleName = getVehicleName(veh)
 				destroyElement(veh)
 
@@ -1026,21 +1041,6 @@ addEventHandler("removeNOS", getRootElement(), removeNOS)
 
 -- /VEHPOS /PARK
 local destroyTimers = { }
---[[
-function createShopVehicle(dbid, ...)
-	local veh = createVehicle(unpack({...}))
-	exports.pool:allocateElement(veh, dbid)
-
-	exports.anticheat:changeProtectedElementDataEx(veh, "dbid", dbid)
-	exports.anticheat:changeProtectedElementDataEx(veh, "requires.vehpos", 1, false)
-	local timer = setTimer(checkVehpos, 3600000, 1, veh, dbid)
-	table.insert(destroyTimers, {timer, dbid})
-
-	exports['vehicle-interiors']:add( veh )
-
-	return veh
-end
-]]
 
 function checkVehpos(veh, dbid)
 	local requires = getElementData(veh, "requires.vehpos")

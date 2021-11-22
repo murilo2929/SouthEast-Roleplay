@@ -377,12 +377,19 @@ function createTempVehicle(thePlayer, commandName, vehShopID)
 			end
 		end
 
-		local veh = createVehicle(vehicleID, x, y, z, 0, 0, r, plate)
+		local veh = createVehicle(400, x, y, z, 0, 0, r, plate)
 
 		if not (veh) then
 			outputDebugString("VEHICLE MANAGER / createTempVehicle / FAILED TO FETCH VEHSHOP DATA")
 			outputChatBox("Ops.. Algo deu errado.", thePlayer, 255, 0, 0)
 			return false
+		end
+
+		if exports.newmodels:isCustomModID(vehicleID) then
+			local data_name = exports.newmodels:getDataNameFromType("vehicle")
+			setElementData(veh, data_name, vehicleID)
+		else
+			setElementModel(veh, vehicleID)
 		end
 
 		if (armoredCars[vehicleID]) then
