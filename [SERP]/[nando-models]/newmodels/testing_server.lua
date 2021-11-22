@@ -227,7 +227,8 @@ function showMyVehInfo(thePlayer, cmd)
 		return outputChatBox("Default vehicle model ID "..getElementModel(veh).." named "..getVehicleNameFromModel(getElementModel(veh)), thePlayer,255,194,14)
 	end
 
-	local base_id = tonumber(getElementData(veh, "base_id"))
+	local isCustom, mod = isCustomModID(id)
+	local base_id = tonumber(mod.base_id)
 	outputChatBox("Custom vehicle model ID "..id.." on base ID "..(base_id and base_id or "?"), thePlayer,255,126,0)
 end
 addCommandHandler("vehinfo", showMyVehInfo, false, false)

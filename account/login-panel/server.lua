@@ -78,8 +78,8 @@ function playerLogin(username,password,checksave)
 					-- Check if old method
 					if not string.find(accountData["password"], "$", 1, true) then -- Plain search, not regex
 						local encryptionRule = accountData["salt"]
+						
 						local encryptedPW = string.lower(md5(string.lower(md5(password))..encryptionRule))
-
 						if accountData["password"] ~= encryptedPW then
 							triggerClientEvent(client,"set_warning_text",client,"Login","A senha (herdada) está incorreta para o nome da conta '".. username .."'!")
 							return false
@@ -87,7 +87,8 @@ function playerLogin(username,password,checksave)
 
 						triggerClientEvent(client,"set_authen_text",client,"Login","Converting Legacy Password..")
 						-- Run conversions // https://docs.djangoproject.com/en/1.10/topics/auth/passwords/#increasing-the-work-factor // Since Django prefixes it's passwords with the type we do this for compatibility
-						local new_pass = "bcrypt_sha256$" .. bcrypt_hashpw(sha256(password):lower(), bcrypt_gensalt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
+						local new
+						_pass = "bcrypt_sha256$" .. bcrypt_hashpw(sha256(password):lower(), bcrypt_gensalt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
 						if not dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=NULL WHERE id=?", new_pass, accountData["id"]) then
 							triggerClientEvent(client,"set_warning_text",client,"Login","A conversão da senha falhou para o nome da conta '".. username .."'!")
 							return false
@@ -370,6 +371,8 @@ function playerRegister(username,password,confirmPassword, email)
 
 				--START CREATING ACCOUNT.
 				local encryptedPW = "bcrypt_sha256$" .. bcrypt_hashpw(sha256(password):lower(), bcrypt_gensalt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
+
+
 				local ipAddress = getPlayerIP(client)
 				preparedQuery3 = "INSERT INTO `accounts` SET `username`=?, `password`=?, `email`=?, `registerdate`=NOW(), `ip`=?, `activated`='1' "
 				local userid = dbExec(exports.mysql:getConn("core"), preparedQuery3, username, encryptedPW, email, ipAddress)
@@ -413,3 +416,38 @@ addEventHandler("accounts:register:attempt",getRootElement(),playerRegister)
 function toSQL(stuff)
 	return mysql:escape_string(stuff)
 end
+
+-- q chato, tem q converter as funcoes mysql ntigas pra dbQuery
+function changeAccountPassword(thePlayer, commandName, accountUsername, newPass, newPassConfirm)
+	if exports.integration:isPlayerLeadAdmin(thePlayer) then
+		if not accountUsername or not newPass or not newPassConfirm then
+			outputChatBox("SYNTAX: /" .. commandName .. " [Account Username] [New Password] [Confirm Pass]", thePlayer, 125, 125, 125)
+		else
+			if (newPass ~= newPassConfirm) then
+				outputChatBox("passwords don't match", thePlayer, 125, 125, 125)
+			elseif (string.len(newPass)<6) then
+				outputChatBox("password too short", thePlayer, 125, 125, 125)
+			elseif (string.len(newPass)>=30) then
+				outputChatBox("passwords too long", thePlayer, 125, 125, 125)
+			elseif (string.find(newPass, ";", 0)) or (string.find(newPass, "'", 0)) or (string.find(newPass, "@", 0)) or (string.find(newPass, ",", 0)) then
+				outputChatBox("password cant contain ;,@'.", thePlayer, 125, 125, 125)
+			else
+
+				local accountID = exports.cache:getIdFromUsername(accountUsername)
+				if not accountID then
+					outputChatBox("account not found", thePlayer, 125, 125, 125)
+					return
+				end
+				local encryptedPW = "bcrypt_sha256$" .. bcrypt_hashpw(sha256(newPass):lower(), bcrypt_gensalt(12))
+
+				local query = dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=NULL WHERE id=?", encryptedPW, accountID)
+				if query then
+					outputChatBox("password changed", thePlayer, 125, 125, 125)
+				else
+					outputChatBox("error", thePlayer, 125, 125, 125)
+				end
+			end
+		end
+	end
+end
+addCommandHandler("setaccountpassword", changeAccountPassword, false, false)

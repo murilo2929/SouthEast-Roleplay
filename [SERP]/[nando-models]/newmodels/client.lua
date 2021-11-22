@@ -170,19 +170,6 @@ function allocateNewMod(element, elementType, id)
 	return allocated_id
 end
 
-function getElementBaseModel(element) -- [Exported]
-	local et = getElementType(element)
-
-	if not isElementTypeSupported(et) then
-		return
-	end
-
-	local id = tonumber(getElementData(element, dataNames[et]))
-	if not (id) then return end -- doesn't have a custom model
-
-	return getElementData(element, "base_id")
-end
-
 function forceAllocate(id) -- [Exported]
 	id = tonumber(id)
 	if not id then return false, "id not number" end

@@ -161,35 +161,12 @@ function showText()
 						local lines = 0
 						local textColor = tocolor(255,255,255,255)
 						if getElementData(theVehicle, "carshop") then
-							local brand, model, year = false, false, false
-							brand = getElementData(theVehicle, "brand") or false
-							if brand then
-								--model = getElementData(theVehicle, "maximemodel")
-								--year = getElementData(theVehicle, "year")
-								model = getVehicleNameFromModel( getElementModel( theVehicle ) )
-								year = getElementData(theVehicle, "year")
-								--local line = year.." "..brand.." "..model
-								--local len = dxGetTextWidth(line)
-								local line = model
-								local len = dxGetTextWidth(line)
-								if len > fontWidth then
-									fontWidth = len
-								end
-								if toBeShowed == "" then -- MODELO E MARCA
-									toBeShowed = toBeShowed..line.."\n"
-									lines = lines + 1
-								else
-									toBeShowed = toBeShowed.."-~-\n"..line.."\n"
-									lines = lines + 2
-								end
+							if toBeShowed == "" then
+								toBeShowed = toBeShowed..exports.global:getVehicleName(theVehicle).."\n"
+								lines = lines + 1
 							else
-								if toBeShowed == "" then
-									toBeShowed = toBeShowed..getVehicleName(theVehicle).."\n"
-									lines = lines + 1
-								else
-									toBeShowed = toBeShowed.."-~-\n"..getVehicleName(theVehicle).."\n"
-									lines = lines + 2
-								end
+								toBeShowed = toBeShowed.."-~-\n"..exports.global:getVehicleName(theVehicle).."\n"
+								lines = lines + 2
 							end
 							local price = getElementData(theVehicle, "carshop:cost") or 0
 							local taxes = getElementData(theVehicle, "carshop:taxcost") or 0
@@ -230,25 +207,14 @@ function showText()
 							end
 
 			
-							
-							
-
-							--GET BRAND, MODEL, YEAR
-							local brand, model, year = false, false, false
-							brand = getElementData(theVehicle, "brand") or false
-							if brand then
-								model = getElementData(theVehicle, "maximemodel")
-								year = getElementData(theVehicle, "year")
-								
-								local line = year.." "..brand.." "..model
-								local len = dxGetTextWidth(line)
-								if len > fontWidth then
-									fontWidth = len
-								end
-								
-								toBeShowed = toBeShowed..line.."\n"
-								lines = lines + 1
+							local line = exports.global:getVehicleName(theVehicle)
+							local len = dxGetTextWidth(line)
+							if len > fontWidth then
+								fontWidth = len
 							end
+							
+							toBeShowed = toBeShowed..line.."\n"
+							lines = lines + 1
 							
 							--GET VIN+PLATE
 							local plate = ""

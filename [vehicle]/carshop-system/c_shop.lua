@@ -1,11 +1,27 @@
 localPlayer = getLocalPlayer()
 function carshop_showInfo(carPrice, taxPrice)
+	
+	local actualmodel = getElementModel(source)
+	local customid = getElementData(source, exports.newmodels:getDataNameFromType("vehicle"))
+	local name = ""
+	if customid then
+		local isCustom, mod = exports.newmodels:isCustomModID(customid)
+		if mod then
+			local base_id = tonumber(mod.base_id)
+			if base_id then
+				name = getVehicleNameFromModel(base_Id) or "?"
+			end
+		end
+	else
+		name = getVehicleNameFromModel(actualmodel) or "?"
+	end
+
 	local isOverlayDisabled = getElementData(localPlayer, "hud:isOverlayDisabled")
 	if isOverlayDisabled then
 		outputChatBox("")
 		outputChatBox("Concessionária de carros")
-		outputChatBox("   - Marca: "..(getElementData(source, "brand") or getVehicleNameFromModel( getElementModel( source ) )) )
-		outputChatBox("   - Modelo: "..(getElementData(source, "maximemodel") or getVehicleNameFromModel( getElementModel( source ) )) )
+		outputChatBox("   - Marca: "..(getElementData(source, "brand") or name) )
+		outputChatBox("   - Modelo: "..(getElementData(source, "maximemodel") or name) )
 		outputChatBox("   - Ano: "..(getElementData(source, "year") or "2015") )
 
 		if getVehicleType(source) ~= 'BMX' then
@@ -13,21 +29,21 @@ function carshop_showInfo(carPrice, taxPrice)
 		end
 		outputChatBox("   - Preço: $"..exports.global:formatMoney(carPrice)  )
 		outputChatBox("   - Imposto: $"..exports.global:formatMoney(taxPrice)  )
-		outputChatBox("   (( MTA Modelo: "..getVehicleNameFromModel( getElementModel( source ) ).."))"  )
+		outputChatBox("   (( MTA Modelo: "..name.."))"  )
 		outputChatBox("Pressione F ou Enter para comprar este veículo")
 	else
 		local content = {}
 		table.insert(content, { getCarShopNicename(getElementData(source, "carshop")) , false, false, false, false, false, false, "title"} )
 		table.insert(content, {" " } )
-		table.insert(content, {"   - Marca: "..(getElementData(source, "brand") or getVehicleNameFromModel( getElementModel( source ) )) } )
-		table.insert(content, {"   - Modelo: "..(getElementData(source, "maximemodel") or getVehicleNameFromModel( getElementModel( source ) ))} )
+		table.insert(content, {"   - Marca: "..(getElementData(source, "brand") or name) } )
+		table.insert(content, {"   - Modelo: "..(getElementData(source, "maximemodel") or name) } )
 		table.insert(content, {"   - Ano: "..(getElementData(source, "year") or "2015")} )
 		if getVehicleType(source) ~= 'BMX' then
 			table.insert(content, {"   - Odometro: "..exports.global:formatMoney(getElementData(source, 'odometer') or 0) .. " miles"})
 		end
 		table.insert(content, {"   - Preço: $"..exports.global:formatMoney(carPrice)  } )
 		table.insert(content, {"   - Imposto: $"..exports.global:formatMoney(taxPrice) } )
-		table.insert(content, {"   (( MTA Modelo: "..getVehicleNameFromModel( getElementModel( source ) ).."))" } )
+		table.insert(content, {"   (( MTA Modelo: "..name.."))" } )
 		table.insert(content, {"Pressione 'F' ou 'Enter' para comprar!" } )
 		exports.hud:sendTopRightNotification( content, localPlayer, 240)
 	end

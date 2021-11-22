@@ -389,39 +389,6 @@ function setCustomElementModel(element, et, id)
 	end
 end
 
-addEventHandler( "onElementDataChange", root, 
-function (theKey, oldValue, newValue) 
-	local et = getElementType(source)
-
-	if not isElementTypeSupported(et) then
-		return
-	end
-
-	local dataName = dataNames[et]
-	if theKey ~= dataName then return end
-
-	local id = tonumber(getElementData(source, dataName))
-	if not (id) then return end -- doesn't have a custom model
-
-	local base_id
-	for elementType,mods in pairs(modList) do
-		for k, mod in pairs(mods) do
-			if mod.id == id then
-				local base_id2 = tonumber(mod.base_id)
-				if base_id2 then
-					base_id = base_id2
-					break
-				end
-			end
-		end
-	end
-
-	if base_id then
-		setElementData(source, "base_id", base_id) -- to be fetched clientside using getElementBaseModel
-		print("Vehicle ID "..id.." has base ID "..base_id)
-	end
-end)
-
 
 local prevent_addrem_spam = {
 	add = {},

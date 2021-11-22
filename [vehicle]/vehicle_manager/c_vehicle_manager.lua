@@ -592,7 +592,22 @@ function createCheckVehWindow(result, adminTitle, history, notes1)
     if result[1][10] or result[1][11] then
         ownerName =(result[1][10] or result[1][11]:gsub("_", " "))
     end
-    guiSetText(lVehModelID, "Nome do Veículo/ID: " ..(getVehicleNameFromModel(result[1][2]) or "Desconhecido") .. " (ID #" ..(result[1][1] or "Desconhecido") .. ")")
+
+    local model = tonumber(result[1][1])
+    local name = ""
+    local isCustom, mod = exports.newmodels:isCustomModID(model)
+    if isCustom then
+        if mod then
+            local base_id = tonumber(mod.base_id)
+            if base_id then
+                name = getVehicleNameFromModel(base_Id) or "?"
+            end
+        end
+    else
+        name = getVehicleNameFromModel(model) or "?"
+    end
+    
+    guiSetText(lVehModelID, "Nome do Veículo/ID: " ..(name) .. " (ID #" ..(model) .. ")")
     guiSetText(lOwner, "Dono: " .. ownerName ..(result[1][14] == "1" and " - Apreendido" or ""))
     guiSetText(lLastUsed, "Ultimo Uso: " .. formartDays(result[1][24] or 0))
     guiSetText(lCarHP, "HP: " .. math.floor(tonumber(result[1][8]) / 10) .. "% (" .. math.floor(tonumber(result[1][8])) .. ")" .. "     " .. "Gasolina: " ..(result[1][6] .. "%" or "Desconhecido") .. "     " .. "Paintjob: " ..(result[1][7] == "0" and "Nenhum" or result[1][7]))

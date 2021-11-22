@@ -189,7 +189,7 @@ function showVehicleMenu(hasRamp)
 	end
 
 	if not isLocked then
-		if (getVehicleType(vehicle) == "Trailer" or getVehicleNameFromModel( 608 ) == getVehicleName( vehicle )) then -- this is a trailer, zomg. But getVehicleType returns "" CLIENT-SIDE. Fine on the server.
+		if (getVehicleType(vehicle) == "Trailer") then
 			row.handbrake = rightclick:addRow("Freio de Mão")
 			addEventHandler("onClientGUIClick", row.handbrake, handbrakeVehicle, false)
 		end

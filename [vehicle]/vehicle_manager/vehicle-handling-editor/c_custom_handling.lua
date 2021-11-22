@@ -44,7 +44,7 @@ function openEditVehicleWindow()
 		GUIEditor_Label[1] = guiCreateLabel(0.0251,0.0867,0.4292,0.0459,"MTA Vehicle Model (Name or ID):",true,GUIEditor_Window["uniqueVehWindow"])
 		guiSetFont(GUIEditor_Label[1],"default-bold-small")
 		GUIEditor_Edit[1] = guiCreateEdit(0.0388,0.1327,0.4155,0.0791,model,true,GUIEditor_Window["uniqueVehWindow"])
-		guiSetEnabled(GUIEditor_Edit[1], false)
+		--guiSetEnabled(GUIEditor_Edit[1], false)
 		GUIEditor_Label[2] = guiCreateLabel(0.0251,0.2372,0.4292,0.0459,"Brand:",true,GUIEditor_Window["uniqueVehWindow"])
 		guiSetFont(GUIEditor_Label[2],"default-bold-small")
 		GUIEditor_Edit[2] = guiCreateEdit(0.0388,0.2832,0.4155,0.0791,getElementData( theVehicle , "brand" ) or "",true,GUIEditor_Window["uniqueVehWindow"])
@@ -120,10 +120,60 @@ function openEditVehicleWindow()
 			function( button )
 				if button == "left" then
 					local veh = {}
+
+					-- verificar se o player ta passando um ID do MTA, ou o nome dum veiculo do MTA
+						-- ou um ID custom, ou o nome dum veiculo custom
+					-- deteta ate se escrever maisuculas errado
+					local modList = exports.newmodels:getModList()
+
+
 					veh.mtaModel = guiGetText(GUIEditor_Edit[1])
 					if not tonumber(veh.mtaModel) then
-						veh.mtaModel = getVehicleModelFromName(veh.mtaModel)
+
+						local foundCustomID
+						for elementType, mods in pairs(modList) do
+							if elementType == "vehicle" then
+								for k,mod in pairs(mods) do
+									if string.lower(mod.name) == string.lower(veh.mtaModel) then
+										foundCustomID = mod.id
+										break
+									end
+								end
+							end
+						end
+						
+						local model = getVehicleModelFromName(veh.mtaModel)
+						if not model and not foundCustomID then
+							return outputChatBox("Nao existe nenhum veiculo chamado: "..veh.mtaModel,255,0,0)
+						elseif not model and foundCustomID then
+							veh.mtaModel = foundCustomID
+						elseif model then
+							veh.mtaModel = model
+						end
+					
+					else
+						local model = tonumber(veh.mtaModel)
+
+						local isCustom, mod, elementType2 = exports.newmodels:isCustomModID(model)
+						if isCustom then
+							if elementType2 ~= "vehicle" then
+								return outputChatBox("Custom ID "..model.." nao é um mod de veiculo",255,0,0)
+							end
+
+							veh.mtaModel = model
+						else
+							local name = getVehicleNameFromModel(model)
+							if not name then
+								return outputChatBox("Nao existe nenhum veiculo com ID: "..veh.mtaModel,255,0,0)
+							end
+
+							veh.mtaModel = model
+						end
 					end
+
+					--outputChatBox(veh.mtaModel)
+
+
 					veh.brand = guiGetText(GUIEditor_Edit[2])
 					veh.model = guiGetText(GUIEditor_Edit[3])
 					veh.year = guiGetText(GUIEditor_Edit[4])

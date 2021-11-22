@@ -41,10 +41,22 @@ end
 local function updateLibraryGrid(vehs)
 	guiGridListClear(VehLibGrid)
 	for i = 1, #vehs do
+
+		local model = tonumber(vehs[i].vehmtamodel)
+	    local name = ""
+	    local isCustom, mod = exports.newmodels:isCustomModID(model)
+	    if isCustom then
+	        if mod then
+	            name = mod.name
+	        end
+	    else
+	        name = getVehicleNameFromModel(model) or "?"
+	    end
+
 		local row = guiGridListAddRow(VehLibGrid)
 		guiGridListSetItemText(VehLibGrid, row, col.id, vehs[i].id or "", false, true)
 		guiGridListSetItemText(VehLibGrid, row, col.enabled, ((vehs[i].enabled == "1") and "Sim" or "Não"), false, true)
-		guiGridListSetItemText(VehLibGrid, row, col.mtamodel, getVehicleNameFromModel(tonumber(vehs[i].vehmtamodel)).." ("..vehs[i].vehmtamodel..")", false, false)
+		guiGridListSetItemText(VehLibGrid, row, col.mtamodel, name.." ("..model..")", false, false)
 		guiGridListSetItemText(VehLibGrid, row, col.brand, vehs[i].vehbrand, false, false)
 		guiGridListSetItemText(VehLibGrid, row, col.model, vehs[i].vehmodel, false, false)
 		guiGridListSetItemText(VehLibGrid, row, col.year, vehs[i].vehyear, false, false)
@@ -409,7 +421,7 @@ function addNewVehicle(veh)
 	guiSetFont(labels[1],"default-bold-small")
 	edits[1] = guiCreateEdit(0.0388,0.11,0.4155,0.06,(veh.mtaModel or ""),true,addVehWindow)
 	if veh.update then
-		guiSetEnabled(edits[1], false)
+		--guiSetEnabled(edits[1], false)
 	end
 	labels[2] = guiCreateLabel(0.0251,0.185,0.4292,0.0459,"Marca:",true,addVehWindow)
 	guiSetFont(labels[2],"default-bold-small")
@@ -637,10 +649,7 @@ function validateCreateVehicle(data)
 	if guiGetText(buttons[9]) == "Criar" or guiGetText(buttons[9]) == "Atualizar" then
 		playSoundCreate()
 		local veh = {}
-		veh.mtaModel = guiGetText(edits[1])
-		if not tonumber(veh.mtaModel) then
-			veh.mtaModel = getVehicleModelFromName(veh.mtaModel)
-		end
+		veh.mtaModel = tonumber(guiGetText(edits[1]))
 		veh.brand = guiGetText(edits[2])
 		veh.model = guiGetText(edits[3])
 		veh.year = guiGetText(edits[4])
@@ -684,26 +693,75 @@ function validateCreateVehicle(data)
 	else
 
 		local allGood = true
+
+
 		--VALIDATE MTA MODEL
+
+		local modelErrado = false
+
 		local input = guiGetText(edits[1])
-		local vehName = getVehicleNameFromModel(input)
-		local vehModel = getVehicleModelFromName(input)
-		if input == "584" or input == "611" or input == "606" or input == "607" or input == "608" or input == "450" then
-			guiSetText(labels[1], "Modelo Veículo MTA (OK!):")
-			guiLabelSetColor(labels[1], 0, 255,0)
-		elseif vehName and vehName ~= "" then
-			guiSetText(labels[1], "Modelo Veículo MTA (OK!):")
-			guiLabelSetColor(labels[1], 0, 255,0)
-		elseif vehModel and tonumber(vehModel) then
-			guiSetText(labels[1], "Modelo Veículo MTA (OK!):")
-			guiLabelSetColor(labels[1], 0, 255,0)
-		elseif exports.integration:isPlayerScripter(getLocalPlayer()) then
-			guiSetText(labels[1], "Modelo Veículo MTA (OK!):")
-			guiLabelSetColor(labels[1], 0, 255,0)
+		-- verificar se o player ta passando um ID do MTA, ou o nome dum veiculo do MTA
+			-- ou um ID custom, ou o nome dum veiculo custom
+		-- deteta ate se escrever maisuculas errado
+		local modList = exports.newmodels:getModList()
+
+		if not tonumber(input) then
+
+			local foundCustomID
+			for elementType, mods in pairs(modList) do
+				if elementType == "vehicle" then
+					for k,mod in pairs(mods) do
+						if string.lower(mod.name) == string.lower(input) then
+							foundCustomID = mod.id
+							break
+						end
+					end
+				end
+			end
+			
+			local model = getVehicleModelFromName(input)
+			if not model and not foundCustomID then
+				outputChatBox("Nao existe nenhum veiculo chamado: "..input,255,0,0)
+				modelErrado = true
+
+			elseif not model and foundCustomID then
+				input = foundCustomID
+			elseif model then
+				input = model
+			end
+		
 		else
+			local model = tonumber(input)
+
+			local isCustom, mod, elementType2 = exports.newmodels:isCustomModID(model)
+			if isCustom then
+				if elementType2 ~= "vehicle" then
+					outputChatBox("Custom ID "..model.." nao é um mod de veiculo",255,0,0)
+					modelErrado = true
+				else
+
+					input = model
+				end
+			else
+				local name = getVehicleNameFromModel(model)
+				if not name then
+					outputChatBox("Nao existe nenhum veiculo com ID: "..input,255,0,0)
+					modelErrado = true
+				else
+					input = model
+				end
+			end
+		end
+
+
+		if modelErrado then
 			guiSetText(labels[1], "Modelo Veículo MTA (Invalido!):")
 			guiLabelSetColor(labels[1], 255, 0,0)
 			allGood = false
+		else
+			guiSetText(labels[1], "Modelo Veículo MTA  (OK!):")
+			guiLabelSetColor(labels[1], 0, 255,0)
+			guiSetText(edits[1], input)
 		end
 
 		--VALIDATE BRAND
