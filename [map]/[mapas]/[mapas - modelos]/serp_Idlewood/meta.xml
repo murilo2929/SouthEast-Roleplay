@@ -1,0 +1,20 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="lasroads_las.txd" type="client"/>
+    <file src="lstrud_las.dff" type="client"/>
+
+    <file src="ground5_las.txd" type="client"/>
+    <file src="snpedland1_LAS.dff" type="client"/>
+    <file src="snpedland1_LAS.col" type="client"/>
+
+    <file src="wiresetc2_las.txd" type="client"/>
+    <file src="snpedteew1_las.dff" type="client"/>
+
+    <file src="wiresetc2_las.txd" type="client"/>
+    <file src="alphbrk2_las.dff" type="client"/>
+
+    <file src="lasroads_las.txd" type="client"/>
+    <file src="btoroad1vb_las.dff" type="client"/>
+
+</meta> 

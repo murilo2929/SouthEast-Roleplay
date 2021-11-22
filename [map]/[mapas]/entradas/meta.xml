@@ -1,6 +1,0 @@
-<meta>
-	<info author="UG MTA Scripting Team" type="script" description="ES System"/>
-	
-	<script src="presidioTwins.lua" type="server" />
-
-</meta>

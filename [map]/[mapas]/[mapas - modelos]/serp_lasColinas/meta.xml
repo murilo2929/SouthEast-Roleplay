@@ -1,0 +1,15 @@
+<meta>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="easthills_lahills.txd" type="client"/>
+    <file src="hillseast05_lae.dff" type="client"/>
+    <file src="hillseast05_lae.col" type="client"/>
+
+    <file src="landlae2c.txd" type="client"/>
+    <file src="lae2_ground15.dff" type="client"/>
+    <file src="lae2_ground15.col" type="client"/>
+
+    <file src="ganghouse1_lax.txd" type="client"/>
+    <file src="ganghous03_lax.dff" type="client"/>
+
+</meta> 
