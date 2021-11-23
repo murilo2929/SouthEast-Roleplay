@@ -327,8 +327,8 @@ function addPrisonerGUI(source, name, cell, days, hours, charges, row, fines, ja
         guiSetFont(newPrisonerGUI.label[8], "default-bold-small")
         guiEditSetMaxLength(newPrisonerGUI.edit[5], 6)
 
-        newPrisonerGUI.label[5] = guiCreateLabel(13, 96, 51, 15, "N/A:", false, newPrisonerGUI.window[1])
-        guiSetFont(newPrisonerGUI.label[5], "default-bold-small")
+        --[[newPrisonerGUI.label[5] = guiCreateLabel(13, 96, 51, 15, "N/A:", false, newPrisonerGUI.window[1])
+        guiSetFont(newPrisonerGUI.label[5], "default-bold-small")]]
         newPrisonerGUI.label[6] = guiCreateLabel(7, 77, 301, 15, "============Tempo de Prisão==========", false, newPrisonerGUI.window[1])
         guiLabelSetHorizontalAlign(newPrisonerGUI.label[6], "center", false)
         newPrisonerGUI.label[7] = guiCreateLabel(148, 96, 51, 15, "Minuto:", false, newPrisonerGUI.window[1])
@@ -336,6 +336,7 @@ function addPrisonerGUI(source, name, cell, days, hours, charges, row, fines, ja
         newPrisonerGUI.edit[3] = guiCreateEdit(60, 97, 78, 40, "", false, newPrisonerGUI.window[1])
         newPrisonerGUI.edit[4] = guiCreateEdit(199, 96, 83, 41, "", false, newPrisonerGUI.window[1])
         guiSetText(newPrisonerGUI.edit[3], "0")
+        guiSetEnabled(newPrisonerGUI.edit[3], false)
         guiSetText(newPrisonerGUI.edit[4], "0")
 
         if name then
