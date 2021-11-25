@@ -9,7 +9,6 @@
 		/makeobject
 		/makevehicle
 		/listmods
-		/vehinfo
 ]]
 
 ---------------------------- TESTING PURPOSES ONLY BELOW ----------------------------
@@ -216,73 +215,3 @@ function listModsCmd(thePlayer, cmd)
 	triggerClientEvent(thePlayer, resName..":openTestWindow", resourceRoot, "listmods", "Total "..count.." Mods", modList)
 end
 addCommandHandler("listmods", listModsCmd, false, false)
-
-
-function showMyVehInfo(thePlayer, cmd)
-	local veh = getPedOccupiedVehicle(thePlayer)
-	if not veh then return outputChatBox("Get inside a vehicle", thePlayer, 255,0,0) end
-
-	local id = tonumber(getElementData(veh, dataNames["vehicle"]))
-	if not id then
-		return outputChatBox("Default vehicle model ID "..getElementModel(veh).." named "..getVehicleNameFromModel(getElementModel(veh)), thePlayer,255,194,14)
-	end
-
-	local isCustom, mod = isCustomModID(id)
-	local base_id = tonumber(mod.base_id)
-	outputChatBox("Custom vehicle model ID "..id.." on base ID "..(base_id and base_id or "?"), thePlayer,255,126,0)
-end
-addCommandHandler("vehinfo", showMyVehInfo, false, false)
-
---[[
--- Get all valid default object IDs
-addEventHandler( "onResourceStart", resourceRoot,
-function (startedResource)
-
-	local text = "{ "
-	for i=1,20000 do
-		local o = createObject(i,0,0,5)
-		if o then
-			text = text..i..", "
-		end
-	end
-	local f = fileCreate("object_ids.lua")
-	fileWrite(f, text)
-	fileClose(f)
-end)
---]]
-
---[[
--- Get all valid default vehicle IDs
-addEventHandler( "onResourceStart", resourceRoot,
-function (startedResource)
-
-	local text = "{ "
-	for i=1,20000 do
-		local o = createVehicle(i,0,0,5)
-		if o then
-			text = text..i..", "
-		end
-	end
-	local f = fileCreate("vehicle_ids.lua")
-	fileWrite(f, text)
-	fileClose(f)
-end)
---]]
-
---[[
--- Get all valid default ped IDs (skins)
-addEventHandler( "onResourceStart", resourceRoot,
-function (startedResource)
-
-	local text = "{ "
-	for i=1,20000 do
-		local o = createPed(i,0,0,5)
-		if o then
-			text = text..i..", "
-		end
-	end
-	local f = fileCreate("ped_ids.lua")
-	fileWrite(f, text)
-	fileClose(f)
-end)
---]]

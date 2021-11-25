@@ -88,13 +88,13 @@ function playerLogin(username,password,checksave)
 						triggerClientEvent(client,"set_authen_text",client,"Login","Converting Legacy Password..")
 						-- Run conversions // https://docs.djangoproject.com/en/1.10/topics/auth/passwords/#increasing-the-work-factor // Since Django prefixes it's passwords with the type we do this for compatibility
 						local new
-						_pass = "bcrypt_sha256$" .. bcrypt_hashpw(sha256(password):lower(), bcrypt_gensalt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
+						_pass = "bcrypt_sha256$" .. bcrypt_digest(sha256(password):lower(), bcrypt_salt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
 						if not dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=NULL WHERE id=?", new_pass, accountData["id"]) then
 							triggerClientEvent(client,"set_warning_text",client,"Login","A conversão da senha falhou para o nome da conta '".. username .."'!")
 							return false
 						end
 					else -- Else if new
-						local verified = bcrypt_checkpw(sha256(password):lower(), accountData["password"]:gsub("bcrypt_sha256%$", "")) -- Take out Django's junk to verify
+						local verified = bcrypt_verify(sha256(password):lower(), accountData["password"]:gsub("bcrypt_sha256%$"),"") -- Take out Django's junk to verify
 
 						if not verified then
 							triggerClientEvent(client,"set_warning_text",client,"Login","A senha está incorreta para o nome da conta '".. username .."'!")
@@ -370,7 +370,7 @@ function playerRegister(username,password,confirmPassword, email)
 				mysql:free_result(Q2)
 
 				--START CREATING ACCOUNT.
-				local encryptedPW = "bcrypt_sha256$" .. bcrypt_hashpw(sha256(password):lower(), bcrypt_gensalt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
+				local encryptedPW = "bcrypt_sha256$" .. bcrypt_digest(sha256(password):lower(), bcrypt_salt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
 
 
 				local ipAddress = getPlayerIP(client)
@@ -438,7 +438,7 @@ function changeAccountPassword(thePlayer, commandName, accountUsername, newPass,
 					outputChatBox("account not found", thePlayer, 125, 125, 125)
 					return
 				end
-				local encryptedPW = "bcrypt_sha256$" .. bcrypt_hashpw(sha256(newPass):lower(), bcrypt_gensalt(12))
+				local encryptedPW = "bcrypt_sha256$" .. bcrypt_digest(sha256(newPass):lower(), bcrypt_salt(12))
 
 				local query = dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=NULL WHERE id=?", encryptedPW, accountID)
 				if query then

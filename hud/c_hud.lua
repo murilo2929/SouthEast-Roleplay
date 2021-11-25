@@ -996,7 +996,7 @@ function isActive()
 	return getElementData(localPlayer, "hide_hud") ~= "0"
 end
 
-function hudADRP()
+--[[function hudADRP()
 	if not isPlayerMapVisible() and getElementData(localPlayer, "loggedin") == 1 then
 
 		if isActive() then
@@ -1020,15 +1020,7 @@ function hudADRP()
 
 	end
 end
-addEventHandler("onClientRender", getRootElement(), hudADRP)
-
-function hideHudADRP()
-	removeEventHandler("onClientRender", getRootElement(), hudADRP)
-end
-
-function showHudADRP()
-	addEventHandler("onClientRender", getRootElement(), hudADRP)
-end
+addEventHandler("onClientRender", getRootElement(), hudADRP)]]
 
 --TO DETECT CLICK ON DX BOX 
 addEventHandler( "onClientClick", root,

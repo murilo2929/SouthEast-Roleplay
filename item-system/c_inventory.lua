@@ -1081,7 +1081,6 @@ bindKey( "i", "down",
 			if show then
 				hideNewInventory( )
 				playSoundInvClose()
-				exports["hud"]:showHudADRP()
 			elseif ((not getElementData(localPlayer, "adminjailed")) or exports.integration:isPlayerTrialAdmin(localPlayer)) and getElementData(getLocalPlayer(), "viewingInterior")~=1 then -- Chaos | Allowed admins to view inventory in jail, not in previewing interiors
 				if getElementData(localPlayer, "restrain") == 1 then return end
 				if getElementData(localPlayer, "exclusiveGUI") then
@@ -1092,7 +1091,6 @@ bindKey( "i", "down",
 				inventory = false
 				showCursor( true )
 				exports["realism"]:hideSpeedo()
-				exports["hud"]:hideHudADRP()
 				playSoundInvOpen()
 			else
 				outputChatBox("Você não pode acessar seu inventário neste momento.", 255, 0, 0)

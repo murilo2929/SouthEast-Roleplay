@@ -6,7 +6,7 @@
 	All global config variables are in this file:
 ]]
 
-START_STOP_MESSAGES = false -- enable resouce start/stop automatic chat messages
+START_STOP_MESSAGES = true -- enable resouce start/stop automatic chat messages
 
 SEE_ALLOCATED_TABLE = false -- automatically executes /allocatedids on startup
 
