@@ -19,3 +19,7 @@ item-texture/tmp_cache/
 # object/vehicle textures new
 item-texture/cache/
 item-texture/tmp_cache/
+
+
+# SAMP dff,txd,col : too big for github
+\[SERP\]/\[nando-models\]/sampobj_reloaded/models

@@ -9,19 +9,29 @@
 
 items = exports['item-system']
 function createItem(id, itemID, itemValue, ...)
-	local o = createObject(...)
+	local modelid, x,y,z,rx,ry,rz,islowlod = unpack({...})
+	local o = createObject(1337, x,y,z,rx,ry,rz,islowlod)
 	if o then
+
+		if exports.newmodels:isCustomModID(modelid) then
+			setElementData(o, exports.newmodels:getDataNameFromType("object"), modelid)
+		else
+			setElementModel(o, modelid)
+		end
+
 		anticheat:changeProtectedElementDataEx(o, "id", id)
 		anticheat:changeProtectedElementDataEx(o, "itemID", itemID)
 		anticheat:changeProtectedElementDataEx(o, "itemValue", itemValue, itemValue ~= 1)
 
 		return o
 	else
-		if dbExec(mysql:getConn('mta'), "DELETE FROM `worlditems` WHERE `id` = ?", id) then
+		--[[if dbExec(mysql:getConn('mta'), "DELETE FROM `worlditems` WHERE `id` = ?", id) then
 			outputDebugString("Deleted bugged Item ID #"..id)
 		else
 			outputDebugString("Failed to delete bugged Item ID #"..id)
-		end
+		end--]] -- isto é perigoso
+
+		outputDebugString("Failed to create object modelid: "..modelid, 2)
 		return false
 	end
 end

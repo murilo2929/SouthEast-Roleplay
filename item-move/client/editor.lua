@@ -4,12 +4,21 @@ local wInfo, eInfo, bReset, bClose, bProtect = nil, {}
 local screenX, screenY = guiGetScreenSize( )
 local ignoreGUIInput, ignoreKeyInput = false, false
 
-function getObjectName( model )
-  str = ''
-  if isElement(model) then
-    model = getElementModel(model)
+function getObjectName( object )
+  if not isElement(object) then return "?" end
+
+  local id = tonumber(getElementData(object, exports.newmodels:getDataNameFromType("object")))
+  if id then
+    local isCustom, mod = exports.newmodels:isCustomModID(id)
+    if isCustom and mod then
+      return "[custom] "..(mod.name or "?").." ("..id..")"
+    else
+      return "[custom] ? ("..id..")"
+    end
+  else
+    local model = getElementModel(object)
+    return ((engineGetModelNameFromID(model) or "?").." ("..model..")")
   end
-  return engineGetModelNameFromID( model ) .. ' [' .. model .. ']' .. str
 end
 
 local function getFancyRotation( rx, ry, rz )
