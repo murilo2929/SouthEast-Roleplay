@@ -75,31 +75,16 @@ function playerLogin(username,password,checksave)
 
 					--Now check if passwords are matched or the account is activated, this is to prevent user with fake emails.
 					triggerClientEvent(client,"set_authen_text",client,"Login","Senha aceita! Autenticando..")
-					-- Check if old method
-					if not string.find(accountData["password"], "$", 1, true) then -- Plain search, not regex
-						local encryptionRule = accountData["salt"]
-						
-						local encryptedPW = string.lower(md5(string.lower(md5(password))..encryptionRule))
-						if accountData["password"] ~= encryptedPW then
-							triggerClientEvent(client,"set_warning_text",client,"Login","A senha (herdada) está incorreta para o nome da conta '".. username .."'!")
-							return false
-						end
 
-						triggerClientEvent(client,"set_authen_text",client,"Login","Converting Legacy Password..")
-						-- Run conversions // https://docs.djangoproject.com/en/1.10/topics/auth/passwords/#increasing-the-work-factor // Since Django prefixes it's passwords with the type we do this for compatibility
-						local new
-						_pass = "bcrypt_sha256$" .. bcrypt_digest(sha256(password):lower(), bcrypt_salt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
-						if not dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=NULL WHERE id=?", new_pass, accountData["id"]) then
-							triggerClientEvent(client,"set_warning_text",client,"Login","A conversão da senha falhou para o nome da conta '".. username .."'!")
-							return false
-						end
-					else -- Else if new
-						local verified = bcrypt_verify(sha256(password):lower(), accountData["password"]:gsub("bcrypt_sha256%$"),"") -- Take out Django's junk to verify
+					local salt = accountData["salt"] or "-"
+					local reEncryptedPw = getEncryptedPw(password, salt)
 
-						if not verified then
-							triggerClientEvent(client,"set_warning_text",client,"Login","A senha está incorreta para o nome da conta '".. username .."'!")
-							return false
-						end
+					local encryptedPw = accountData["password"]
+					local verified = (encryptedPw == reEncryptedPw)
+
+					if not verified then
+						triggerClientEvent(client,"set_warning_text",client,"Login","A senha está incorreta para o nome da conta '".. username .."'!")
+						return false
 					end
 
 					if tonumber(accountData["activated"]) == 0 then
@@ -369,13 +354,13 @@ function playerRegister(username,password,confirmPassword, email)
 				end
 				mysql:free_result(Q2)
 
-				--START CREATING ACCOUNT.
-				local encryptedPW = "bcrypt_sha256$" .. bcrypt_digest(sha256(password):lower(), bcrypt_salt(12)) -- 12 work factor // https://github.com/django/django/blob/master/django/contrib/auth/hashers.py#L404
-
+				--START CREATING ACCOUNT
+				local salt = getRandomSalt()
+				local encryptedPW = getEncryptedPw(password, salt)
 
 				local ipAddress = getPlayerIP(client)
-				preparedQuery3 = "INSERT INTO `accounts` SET `username`=?, `password`=?, `email`=?, `registerdate`=NOW(), `ip`=?, `activated`='1' "
-				local userid = dbExec(exports.mysql:getConn("core"), preparedQuery3, username, encryptedPW, email, ipAddress)
+				preparedQuery3 = "INSERT INTO `accounts` SET `username`=?, `password`=?,`salt`=? `email`=?, `registerdate`=NOW(), `ip`=?, `activated`='1' "
+				local userid = dbExec(exports.mysql:getConn("core"), preparedQuery3, username, encryptedPW, salt, email, ipAddress)
 				if userid then
 					triggerClientEvent(client,"accounts:register:complete",client, username, password)
 					dbQuery(function(qh, client)
@@ -417,37 +402,47 @@ function toSQL(stuff)
 	return mysql:escape_string(stuff)
 end
 
--- q chato, tem q converter as funcoes mysql ntigas pra dbQuery
 function changeAccountPassword(thePlayer, commandName, accountUsername, newPass, newPassConfirm)
-	if exports.integration:isPlayerLeadAdmin(thePlayer) then
-		if not accountUsername or not newPass or not newPassConfirm then
-			outputChatBox("SYNTAX: /" .. commandName .. " [Account Username] [New Password] [Confirm Pass]", thePlayer, 125, 125, 125)
+	if not exports.integration:isPlayerScripter(thePlayer) then return end
+	if not accountUsername or not newPass or not newPassConfirm then
+		outputChatBox("SYNTAX: /" .. commandName .. " [Account Username] [New Password] [Confirm Pass]", thePlayer, 125, 125, 125)
+	else
+		if (newPass ~= newPassConfirm) then
+			outputChatBox("passwords don't match", thePlayer, 125, 125, 125)
+		elseif (string.len(newPass)<6) then
+			outputChatBox("password too short", thePlayer, 125, 125, 125)
+		elseif (string.len(newPass)>=30) then
+			outputChatBox("passwords too long", thePlayer, 125, 125, 125)
+		elseif (string.find(newPass, ";", 0)) or (string.find(newPass, "'", 0)) or (string.find(newPass, "@", 0)) or (string.find(newPass, ",", 0)) then
+			outputChatBox("password cant contain ;,@'.", thePlayer, 125, 125, 125)
 		else
-			if (newPass ~= newPassConfirm) then
-				outputChatBox("passwords don't match", thePlayer, 125, 125, 125)
-			elseif (string.len(newPass)<6) then
-				outputChatBox("password too short", thePlayer, 125, 125, 125)
-			elseif (string.len(newPass)>=30) then
-				outputChatBox("passwords too long", thePlayer, 125, 125, 125)
-			elseif (string.find(newPass, ";", 0)) or (string.find(newPass, "'", 0)) or (string.find(newPass, "@", 0)) or (string.find(newPass, ",", 0)) then
-				outputChatBox("password cant contain ;,@'.", thePlayer, 125, 125, 125)
+
+			local accountID = exports.cache:getIdFromUsername(accountUsername)
+			if not accountID then
+				outputChatBox("account not found", thePlayer, 125, 125, 125)
+				return
+			end
+
+			local salt = getRandomSalt()
+			local encryptedPW = getEncryptedPw(newPass, salt)
+
+			local query = dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=? WHERE id=?", encryptedPW, salt, accountID)
+			if query then
+				outputChatBox("password changed", thePlayer, 125, 125, 125)
 			else
-
-				local accountID = exports.cache:getIdFromUsername(accountUsername)
-				if not accountID then
-					outputChatBox("account not found", thePlayer, 125, 125, 125)
-					return
-				end
-				local encryptedPW = "bcrypt_sha256$" .. bcrypt_digest(sha256(newPass):lower(), bcrypt_salt(12))
-
-				local query = dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=NULL WHERE id=?", encryptedPW, accountID)
-				if query then
-					outputChatBox("password changed", thePlayer, 125, 125, 125)
-				else
-					outputChatBox("error", thePlayer, 125, 125, 125)
-				end
+				outputChatBox("error", thePlayer, 125, 125, 125)
 			end
 		end
 	end
 end
-addCommandHandler("setaccountpassword", changeAccountPassword, false, false)
+addCommandHandler("setsenha", changeAccountPassword, false, false)
+
+-- Funcoes para:
+-- . Hash password com salt
+-- . Gerar salt aleatorio
+function getEncryptedPw(password, salt)
+	return string.lower(sha256(string.lower(sha256(string.lower(sha256(string.lower(sha256(password))))))..salt))
+end
+function getRandomSalt()
+	return tostring(math.random(0,9))..tostring(math.random(10,99))..tostring(math.random(0,9))..tostring(math.random(0,9))..tostring(math.random(0,9))..tostring(math.random(222,983))..tostring(math.random(111,555))..tostring(math.random(0,9))..tostring(math.random(0,9))
+end
