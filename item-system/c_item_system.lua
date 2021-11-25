@@ -1029,7 +1029,7 @@ addEventHandler("finishItemDrop", localPlayer,
 --
 -- Carried items weight.
 --
-addCommandHandler("carried",
+addCommandHandler("verpeso",
 	function( command, detailed )
 		exports.hud:sendBottomNotification(localPlayer, "Peso transportado", ("%.2f/%.2f" ):format( getCarriedWeight( localPlayer ), getMaxWeight( localPlayer ) ) )
 		if detailed == "detailed" then
