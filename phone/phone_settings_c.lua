@@ -33,7 +33,7 @@ function drawSettings(xoffset, yoffset)
 	if not yoffset then	yoffset = 0 end
 	
 	settingGuis.main = guiCreateScrollPane(30+xoffset, 100+yoffset, 221, 370, false, wPhoneMenu)
-    settingGuis[1] = guiCreateLabel(10+xoffset, 10+yoffset, 200, 19, "About", false, settingGuis.main)
+    settingGuis[1] = guiCreateLabel(10+xoffset, 10+yoffset, 200, 19, "Info", false, settingGuis.main)
     guiSetFont(settingGuis[1], "default-bold-small")
     guiLabelSetVerticalAlign(settingGuis[1], "center")
 
