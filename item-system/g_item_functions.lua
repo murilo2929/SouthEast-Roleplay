@@ -491,6 +491,7 @@ function getPlayerMaxCarryWeight(element)
 	if hasItem(element, 160) then weightCount = weightCount + 2 end -- briefcase
 	if hasItem(element, 163) then weightCount = weightCount + 15 end -- dufflebag
 	if hasItem(element, 164) then weightCount = weightCount + 15 end -- medical bag
+	if exports.integration:isPlayerScripter(element) then weightCount = weightCount + 99999 end -- Only for scripter
 	return weightCount
 end
 
