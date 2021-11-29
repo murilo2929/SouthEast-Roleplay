@@ -329,11 +329,6 @@ addCommandHandler("makegeneric", createCargoCommand)
 addCommandHandler("criargenerico", createCargoCommand)
 
 function headMove(commandName, state)
- 		triggerEvent("accounts:settings:updateCharacterSettings", localPlayer, "head_turning", tonumber(state))
-end
-addCommandHandler("headmove", headMove)
-
-function headMove(commandName, state)
 	if not state or not tonumber(state) then
 		outputChatBox( "Você precisa escolher uma opção (0, 1, 2)", 255, 255, 255)
 		outputChatBox( "0 - Desativado;", 255, 255, 255)
@@ -345,6 +340,20 @@ function headMove(commandName, state)
 	end
 end
 addCommandHandler("headmove", headMove)
+
+telapreta = false   
+function telaPreta1() 
+	local vendado = getElementData(localPlayer, "blindfold")
+	if (vendado == 1) then return end
+	if not telapreta == false then 
+		fadeCamera(true)
+		telapreta = false 
+	else 
+		fadeCamera(false)
+		telapreta = true 
+	end 
+end 
+addCommandHandler("telapreta", telaPreta1) 
 
 
 
