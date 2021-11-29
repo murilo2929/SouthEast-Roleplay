@@ -277,7 +277,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 							end
 						end
 					else
-						--outputChatBox("Sorry, we currently are not allowing to have the duffelbag object attached whilst having food/drink objects attached.", source, 255, 0, 0)
+						outputChatBox("Sorry, we currently are not allowing to have the duffelbag object attached whilst having food/drink objects attached.", source, 255, 0, 0)
 					end
 				elseif isNewItem(itemID) then
 					if getElementData(source, "item:" .. itemID) == 1 then
