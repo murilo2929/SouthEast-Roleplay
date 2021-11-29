@@ -113,7 +113,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 						helmets[source] = nil
 						exports.anticheat:changeProtectedElementDataEx(source, data2[1], false, true)
 					end
-				elseif (itemID == 58 or itemID == 62 or itemID == 63) then
+				--[[elseif (itemID == 58 or itemID == 62 or itemID == 63) then
 					if not (briefcase[source] or duffelbag[source] or food[source] or bottle[source]) then
 						if (getElementData(source, "bottle") ~= 1) then
 							setElementDataEx(source, "bottle", 1, false)
@@ -197,7 +197,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 								exports.bone_attach:attachElementToBone(case, source, 12, 0, 0, 0, 0, -100, 0)
 								briefcase[source] = case
 							end
-						end
+						end]]
 					elseif (getElementData(source, "briefcase") == 1) then
 						local check = secondItem(source, itemID, 2)
 						if (check == true) then
