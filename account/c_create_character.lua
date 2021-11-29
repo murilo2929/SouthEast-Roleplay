@@ -27,7 +27,7 @@ function newCharacter_init()
 	gui["txtCharName"] = guiCreateEdit(60, 24, 180, 22, "", false, gui["_root"])
 	guiEditSetMaxLength(gui["txtCharName"], 32767)
 
-	gui["lblCharNameExplanation"] = guiCreateLabel(10, 40, 240, 80,"Precisa estar no seguinte formato: \n     Nome Sobrenome\nExemplo: Chris Flits.\nVocê não tem permissão para usar nomes famosos.", false, gui["_root"])
+	gui["lblCharNameExplanation"] = guiCreateLabel(10, 40, 240, 80,"Precisa estar no seguinte formato: \nNome Sobrenome\nExemplo: Chris Flits.\nNão use nomes famosos.", false, gui["_root"])
 	guiLabelSetHorizontalAlign(gui["lblCharNameExplanation"], "left", false)
 	guiLabelSetVerticalAlign(gui["lblCharNameExplanation"], "center")
 
