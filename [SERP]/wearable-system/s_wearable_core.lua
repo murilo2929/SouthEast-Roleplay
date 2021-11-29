@@ -53,7 +53,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 			setElementDataEx(source, "slot", itemSlot, false)
 				
 				if (getPedWeapon(source) > 0 and not (itemID == 16 or itemID == 90)) then 
-					outputChatBox("Desculpe amigo, você não pode usar este item agora, desequipe sua arma primeiro.", source, 255, 0, 0) 
+					outputChatBox("Sorry bud, you can't use this item right now, unequip your weapon first.", source, 255, 0, 0) 
 					if (foodtable[itemID] or drinktable[itemID]) then
 						exports.global:giveItem(source, itemID, 1) 
 					end
@@ -96,7 +96,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 									exports.bone_attach:attachElementToBone(helmet, source, 1, 0, -0.03, -0.75, 0, 0, 90)
 									helmets[source] = helmet
 								else
-									outputChatBox("O capacete não é compatível com a sua pele!", source, 255, 0, 0)
+									outputChatBox("The helmet mod is not compatible with your skin!", source, 255, 0, 0)
 								end
 							end
 						else
@@ -113,7 +113,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 						helmets[source] = nil
 						exports.anticheat:changeProtectedElementDataEx(source, data2[1], false, true)
 					end
-				--[[elseif (itemID == 58 or itemID == 62 or itemID == 63) then
+				elseif (itemID == 58 or itemID == 62 or itemID == 63) then
 					if not (briefcase[source] or duffelbag[source] or food[source] or bottle[source]) then
 						if (getElementData(source, "bottle") ~= 1) then
 							setElementDataEx(source, "bottle", 1, false)
@@ -140,9 +140,9 @@ function triggerWearableSystem(source, itemID, itemSlot)
 							bottle[source] = odrink
 							outputChatBox("İçmek için /icecek komutunu kullanın.", source, 255, 50, 0)
 							setElementDataEx(source, "drank", math.random(0.1, 0.5), false)
-							setTimer ( function()
+							--[[setTimer ( function()
 							exports.bone_attach:attachElementToBone(odrink, source, 11, 0, 0.05, 0.04, 0, 240, 0)
-							end, 4300, 1 )
+							end, 4300, 1 )]]
 						end
 					else
 						outputChatBox("Üzgünüz, elinizde başka objeler varken birşeyler içemezsiniz.", source, 255, 0, 0)
@@ -197,7 +197,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 								exports.bone_attach:attachElementToBone(case, source, 12, 0, 0, 0, 0, -100, 0)
 								briefcase[source] = case
 							end
-						end]]
+						end
 					elseif (getElementData(source, "briefcase") == 1) then
 						local check = secondItem(source, itemID, 2)
 						if (check == true) then
@@ -520,6 +520,221 @@ end
 addCommandHandler("dufleft", leftHand)
 addCommandHandler("briefleft", leftHand)
 
+function useDrink(source)
+	local number = getElementData(source, "drank")
+	local thirst = getElementData(source, "thirst")
+	local logged = getElementData(source, "loggedin")
+	
+	local seed = math.randomseed( getRealTime().second )
+	local newstamina = math.random(1,20); math.random(1,20); math.random(1,20)
+		
+	if not (logged==1) then
+		return
+	end
+
+	if (getElementData(source, "bottle") == 1) then
+		if (getElementData(source, "drank") == 10000) then
+			thirst = thirst + math.random(5, 20)
+			setElementDataEx(source, "thirst", thirst, false)
+			mysql:query_free("UPDATE characters SET thirst = thirst WHERE charactername='" .. mysql:escape_string(getPlayerName(source)) .. "' LIMIT 1")
+			setElementDataEx(source, "bottle", 0, false)
+			setTimer ( function()
+				exports.bone_attach:detachElementFromBone(bottle[source])
+				destroyElement(bottle[source])
+				bottle[source] = nil
+			end, 3000, 1 )
+			setElementDataEx(source, "drank", 0, true)
+			outputChatBox("İçeceğinizin tamamını içtiniz.", source, 0, 255, 0)
+			if getElementData(source, "thirst") > 100 then
+				setElementDataEx(source, "thirst", 100, false)
+				mysql:query_free("UPDATE characters SET thirst = 100 WHERE charactername='" .. mysql:escape_string(getPlayerName(source)) .. "' LIMIT 1")			
+			elseif getElementData(source, "hunger") > 100 then
+				setElementDataEx(source, "hunger", 100, false)
+				mysql:query_free("UPDATE characters SET hunger = 100 WHERE charactername='" .. mysql:escape_string(getPlayerName(source)) .. "' LIMIT 1")
+			end
+		elseif (getElementData(source, "drank")) then
+			local newvalue = number + math.random(4000, 5000)
+			if newvalue > 10000 or newvalue > 9000 then newvalue = 10000 end
+			setElementDataEx(source, "drank", newvalue, true)
+			if newvalue == 10000 then newvalue = math.random(9000, 9900) end
+			local calc = (newvalue / 10000) * 100
+			outputChatBox("İçeceğinizin " .. string.format("%.f %%", calc) .. "'sini içtiniz.", source, 255, 50, 0)
+		end
+	else
+		outputChatBox("Elinizde herhangi bir içecek yok.", source, 255, 0, 0)
+		exports.global:removeAnimation(source)
+	end
+end
+addCommandHandler("drink", useDrink)
+addCommandHandler("icecek", useDrink)
+
+function eatFood(source)
+	local number = getElementData(source, "eaten")
+	local thirst = getElementData(source, "thirst")
+	local hunger = getElementData(source, "hunger")
+	local logged = getElementData(source, "loggedin")
+	local newstamina = 0
+	
+	local seed = math.randomseed( getRealTime().second )
+	local randommath = math.random(1,20); math.random(1,20); math.random(1,20)
+		
+	if not (logged==1) then
+		return
+	end
+	
+	if (getElementData(source, "food") == 1) then
+		exports.global:applyAnimation(source, "FOOD", "EAT_Burger", 4000, false, true, true)
+		if (getElementData(source, "eaten") == 10000) then
+			hunger = hunger + math.random(5, 40)
+			setElementDataEx(source, "hunger", hunger, false)
+			mysql:query_free("UPDATE characters SET hunger = hunger WHERE charactername='" .. mysql:escape_string(getPlayerName(source)) .. "' LIMIT 1")
+			setElementDataEx(source, "thirst", thirst - 5, false)
+			mysql:query_free("UPDATE characters SET thirst = thirst - 5 WHERE charactername='" .. mysql:escape_string(getPlayerName(source)) .. "' LIMIT 1")
+			setElementDataEx(source, "food", 0, false)
+			setTimer ( function()
+				exports.bone_attach:detachElementFromBone(food[source])
+				destroyElement(food[source])
+				food[source] = nil
+			end, 3000, 1 )
+
+			newstamina = newstamina - randommath
+			--outputDebugString(newstamina)
+			setElementDataEx(source, "eaten", 0, true)
+			outputChatBox("Yemeğinizin hepsini yediniz.", source, 0, 255, 0)
+			if getElementData(source, "thirst") > 100 then
+				setElementDataEx(source, "thirst", 100, false)
+				mysql:query_free("UPDATE characters SET thirst = 100 WHERE charactername='" .. mysql:escape_string(getPlayerName(source)) .. "' LIMIT 1")			
+			elseif getElementData(source, "hunger") > 100 then
+				setElementDataEx(source, "hunger", 100, false)
+				mysql:query_free("UPDATE characters SET hunger = 100 WHERE charactername='" .. mysql:escape_string(getPlayerName(source)) .. "' LIMIT 1")
+			end
+		elseif (getElementData(source, "eaten")) then
+			local newvalue = number + math.random(4000, 5000)
+			if newvalue > 10000 or newvalue > 9000 then newvalue = 10000 end
+			setElementDataEx(source, "eaten", newvalue, true)
+			if newvalue == 10000 then newvalue = math.random(9000, 9900) end
+			local calc = (newvalue / 10000) * 100
+			outputChatBox("Yiyeceğinizin " .. string.format("%.f %%", calc) .. "'sini yediniz.", source, 255, 50, 0)
+		end
+	else
+		outputChatBox("Elinizde bir yiyeceğiniz kalmadı.", source, 255, 0, 0)
+	end
+end
+addCommandHandler("eat", eatFood)
+addCommandHandler("yiyecek", eatFood)
+
+addCommandHandler("icecekat", 
+	function (source, commandName, ... )
+		local logged = getElementData(source, "loggedin")
+		local args = { ... }
+		local itemID = getElementData(source, "drinkitem")
+		local itemSlot = getElementData(source, "slot")
+		if (#args < 1) then
+			outputChatBox("SYNTAX: /" .. commandName .. " [Throwing:1 Lay:0]", source, 255, 194, 14)
+			return
+		end
+		
+		if not (logged==1) then
+			return
+		end
+		
+		local driver = getPedOccupiedVehicle ( source )
+	
+		if driver then
+			outputChatBox("Bu komutu araçta kullanamazsınız.", source, 255, 0, 0)
+			return
+		end
+		
+		if (getElementData(source, "bottle") == 1) then
+			setElementDataEx(source, "bottle", 0, false)
+			exports.bone_attach:detachElementFromBone(bottle[source])
+			destroyElement(bottle[source])
+			bottle[source] = nil
+			if (getElementData(source, "normaldrink") == 1) then	
+				setElementDataEx(source, "normaldrink", 0, false)
+				if (args[1] == tostring(1)) then
+					exports.global:giveItem(source, itemID, 1)
+					exports.global:sendLocalMeAction(source, "içeceğini fırlatır.")
+					exports.global:sendLocalDoAction(source, "" .. getPlayerName(source):gsub("_", " ") .. " isimli kişiyi şişesini atarken görürsünüz, şişe yere fırlamıştır.")
+					returnItem(source, itemID, 1)
+					exports.global:removeAnimation(source)
+					exports.global:applyAnimation(source, "GRENADE", "WEAPON_throw", 1000, false, false, true)
+				elseif (args[1] == tostring(0)) then
+					exports.global:giveItem(source, itemID, 1)
+					exports.global:sendLocalMeAction(source, "şişeyi yavaşça yere bırakır.")
+					returnItem(source, itemID, 1)
+					exports.global:removeAnimation(source)
+					exports.global:applyAnimation(source, "CARRY", "putdwn", 500, false, false, true)
+				end
+			else
+				if (args[1] == tostring(1)) then
+					exports.global:sendLocalMeAction(source, "içeceğini fırlatır.")
+					exports.global:sendLocalDoAction(source, "" .. getPlayerName(source):gsub("_", " ") .. " isimli kişiyi şişesini atarken görürsünüz, şişe yere fırlar ve kırılır.")
+					returnItem(source, 72, 3)
+					exports.global:removeAnimation(source)
+					exports.global:applyAnimation(source, "GRENADE", "WEAPON_throw", 1000, false, false, true)
+				elseif (args[1] == tostring(0)) then
+					exports.global:giveItem(source, itemID, 1) 
+					exports.global:sendLocalMeAction(source, "eğilir ve şişeyi yavaşça yere bırakır.")
+					returnItem(source, itemID, 1)
+					exports.global:removeAnimation(source)
+					exports.global:applyAnimation(source, "CARRY", "putdwn", 500, false, false, true)
+				end
+			end		
+		else
+			outputChatBox("Elinizde bir şişe olmadan şişeyi fırlatamazsınız.", source, 255, 255, 255)
+		end
+	end
+)
+
+addCommandHandler("yiyecekat", 
+	function (source, commandName, ... )
+		local logged = getElementData(source, "loggedin")
+		local args = { ... }
+		local itemID = getElementData(source, "fooditem")
+		local itemSlot = getElementData(source, "slot")
+		local x, y, z = getElementPosition(source)
+		if (#args < 1) then
+			outputChatBox("SYNTAX: /" .. commandName .. " [Throwing:1 Lay:0]", source, 255, 194, 14)
+			return
+		end
+		
+		if not (logged==1) then
+			return
+		end
+		
+		local driver = getPedOccupiedVehicle ( source )
+	
+		if driver then
+			outputChatBox("Bu komutu araçta kullanamazsınız.", source, 255, 0, 0)
+			return
+		end
+		
+		if (getElementData(source, "food") == 1) then
+			setElementDataEx(source, "food", 0, false)
+			exports.bone_attach:detachElementFromBone(food[source])
+			destroyElement(food[source])
+			food[source] = nil
+			if (args[1] == tostring(1)) then
+				exports.global:giveItem(source, itemID, 1) 
+				exports.global:sendLocalMeAction(source, "yiyeceğini fırlatır.")
+				exports.global:sendLocalDoAction(source, "" .. getPlayerName(source):gsub("_", " ") .. " isimli kişi elindeki yiyeceği fırlatmıştır.")
+				returnItem(source, itemID, 1)
+				exports.global:removeAnimation(source)
+				exports.global:applyAnimation(source, "GRENADE", "WEAPON_throw", 1000, false, false, true)
+			elseif (args[1] == tostring(0)) then
+				exports.global:giveItem(source, itemID, 1) 
+				exports.global:sendLocalMeAction(source, "eğilir ve yavaşça elindeği yiyeceği yere koyar.")
+				returnItem(source, itemID, 1)
+				exports.global:removeAnimation(source)
+				exports.global:applyAnimation(source, "CARRY", "putdwn", 500, false, false, true)
+			end
+		else
+			outputChatBox("Yiyeceğin olmadan nasıl atmayı planlıyorsun, dostum?", source, 255, 255, 255)
+		end
+	end
+)
+
 function returnItem(source, item, check)
 	local items = exports['item-system']:getItems( source )
 	local x, y, z = getElementPosition(source)
@@ -807,7 +1022,7 @@ end
 -- if the system is bugged use this
 
 function bugFix(thePlayer)
-	if not exports.global:isPlayerScripter(thePlayer) then
+	if not exports.global:isPlayerAdmin(thePlayer) then
 		return
 	end
 	
