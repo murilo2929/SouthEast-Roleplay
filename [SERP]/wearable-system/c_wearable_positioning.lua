@@ -659,7 +659,7 @@ function wearable_recieve_position(ITEM_POSITION)
     }
     exports.bone_attach:attachElementToBone(POSITION_OBJECT, LOCAL_PLAYER, POSITION_BONE, ITEM_X, ITEM_Y, ITEM_Z, ITEM_RX, ITEM_RY, ITEM_RZ)
     setObjectScale(POSITION_OBJECT, ITEM_SCALE)
-    outputChatBox("Your previous set position has been retrieved!")
+    outputChatBox("Sua posição definida anteriormente foi recuperada!")
   end
 end
 function wearable_initialize_system(WEARABLE_ITEM)

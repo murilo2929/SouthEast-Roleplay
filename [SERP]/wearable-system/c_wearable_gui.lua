@@ -91,7 +91,7 @@ function recievePosition(position)
 		
 		setObjectScale(object, ioc)
 		
-		outputChatBox("Kaydedilmiş aksesuar pozisyonunuz ayarlanmıştır!")
+		outputChatBox("A posição do acessório salvo foi definida!")
 	end
 end
 
