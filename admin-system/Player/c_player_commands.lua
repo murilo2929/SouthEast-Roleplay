@@ -328,5 +328,23 @@ end
 addCommandHandler("makegeneric", createCargoCommand)
 addCommandHandler("criargenerico", createCargoCommand)
 
+function headMove(commandName, state)
+ 		triggerEvent("accounts:settings:updateCharacterSettings", localPlayer, "head_turning", tonumber(state))
+end
+addCommandHandler("headmove", headMove)
+
+function headMove(commandName, state)
+	if not state or not tonumber(state) then
+		outputChatBox( "Você precisa escolher uma opção (0, 1, 2)", 255, 255, 255)
+		outputChatBox( "0 - Desativado;", 255, 255, 255)
+		outputChatBox( "1 - Elementos próximos;", 255, 255, 255)
+		outputChatBox( "2 - Onde a câmera está apontando;", 255, 255, 255)
+	else
+		triggerEvent("accounts:settings:updateCharacterSettings", localPlayer, "head_turning", tonumber(state))
+		outputChatBox( "Headmove definido para: "..state, 255, 255, 255)
+	end
+end
+addCommandHandler("headmove", headMove)
+
 
 

@@ -10,19 +10,20 @@
 validWalkingStyles = { [57]=true, [58]=true, [59]=true, [60]=true, [61]=true, [62]=true, [63]=true, [64]=true, [65]=true, [66]=true, [67]=true, [68]=true, [118]=true, [119]=true, [120]=true, [121]=true, [122]=true, [123]=true, [124]=true, [125]=true, [126]=true, [128]=true, [129]=true, [130]=true, [131]=true, [132]=true, [133]=true, [134]=true, [135]=true, [136]=true, [137]=true, [138]=true }
 function setWalkingStyle(thePlayer, commandName, walkingStyle)
 	if not walkingStyle or not validWalkingStyles[tonumber(walkingStyle)] or not tonumber(walkingStyle) then
-		outputChatBox("SYNTAX: /" .. commandName .. " [Walking Style ID]", thePlayer, 255, 194, 14)
-		outputChatBox("'/walklist' to list all valid walking style IDs.", thePlayer, 255, 194, 14)
+		outputChatBox("SYNTAX: /" .. commandName .. " [ID]", thePlayer, 255, 194, 14)
+		outputChatBox("'/walklist' para ver todos os ID's.", thePlayer, 255, 194, 14)
 	-- if having a forced walking style
 	elseif getElementData( thePlayer, 'old_walkstyle' ) then
-		outputChatBox("You can not change walking style at the moment.", thePlayer, 255, 0, 0)
+		outputChatBox("Você não pode mudar o jeito de andar nesse momento.", thePlayer, 255, 0, 0)
 	else
 		setPedWalkingStyle( thePlayer, tonumber(walkingStyle) )
-		outputChatBox("Walking style successfully set to: " .. walkingStyle, thePlayer, 0, 255, 0)
+		outputChatBox("Jeito de andar definido para: " .. walkingStyle, thePlayer, 255, 255, 255)
 		dbExec( exports.mysql:getConn('mta'), "UPDATE characters SET walkingstyle=? WHERE id=? ", walkingStyle, getElementData(thePlayer, "dbid") )
 	end
 end
 addCommandHandler("setwalkingstyle", setWalkingStyle)
 addCommandHandler("setwalk", setWalkingStyle)
+addCommandHandler("andar", setWalkingStyle)
 
 function applyWalkingStyle(style, ignoreSQL)
 	if not style or not validWalkingStyles[tonumber(style)] then
