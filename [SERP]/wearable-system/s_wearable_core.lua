@@ -113,7 +113,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 						helmets[source] = nil
 						exports.anticheat:changeProtectedElementDataEx(source, data2[1], false, true)
 					end
-				elseif (itemID == 58 or itemID == 62 or itemID == 63) then
+				--[[elseif (itemID == 58 or itemID == 62 or itemID == 63) then
 					if not (briefcase[source] or duffelbag[source] or food[source] or bottle[source]) then
 						if (getElementData(source, "bottle") ~= 1) then
 							setElementDataEx(source, "bottle", 1, false)
@@ -197,7 +197,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 								exports.bone_attach:attachElementToBone(case, source, 12, 0, 0, 0, 0, -100, 0)
 								briefcase[source] = case
 							end
-						end
+						end]]
 					elseif (getElementData(source, "briefcase") == 1) then
 						local check = secondItem(source, itemID, 2)
 						if (check == true) then
@@ -377,7 +377,7 @@ function wearablePositionCheck(source, itemID, optional, optional2)
 		for k, v in ipairs(gtextures) do 
 			if v["itemID"] == itemID then return end
 		end
-		outputChatBox("Você não configurou este item para o seu personagem, você pode configurá-lo com o comando '/acessorio'.", source, 255, 0, 0)
+		outputChatBox("Bu eşyayı karakterinize ayarlamamışsınız, '/aksesuar' komutu ile ayarlayabilirsiniz.", source, 255, 0, 0)
 		return
 	end
 	
@@ -464,7 +464,7 @@ function wearablePositionCheck(source, itemID, optional, optional2)
 				for k, v in ipairs(gtextures) do 
 					if v["itemID"] == itemID then return end
 				end
-				outputChatBox("Você ainda não editou este item, você pode editá-lo usando o comando '/acessorio'.", source, 255, 0, 0)
+				outputChatBox("Bu eşyayı henüz düzenlememişsiniz, '/aksesuar' komutunu kullanarak düzenleyebilirsiniz.", source, 255, 0, 0)
 				break
 			end
 		end

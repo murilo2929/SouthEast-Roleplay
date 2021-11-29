@@ -43,7 +43,7 @@ function requestPosition(itemID, itemName)
 	
 	removeData(source)
 	
-	--exports.global:sendMessageToAdmins(getPlayerName(source):gsub("_", " ") .. " ajustou a posição do acessório!")
+	exports.global:sendMessageToAdmins(getPlayerName(source):gsub("_", " ") .. " aksesuar pozisyonunu ayarlıyor!")
 	
 	if type(witems) == "table" then
 		for k, v in pairs(witems) do
@@ -143,7 +143,7 @@ function openClientGUIWindow(thePlayer)
 
 	triggerClientEvent(thePlayer, "wearable-system:openWindow", thePlayer, legitimatetable)
 end
-addCommandHandler("acessorio", openClientGUIWindow)
+addCommandHandler("aksesuar", openClientGUIWindow)
 
 function setDefaultPos(text)
 	local itemName = text
