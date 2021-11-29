@@ -3,7 +3,7 @@ items = {
 		{name = "Kar Maskesi", itemID = 56, objectID = 1636, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
 		{name = "Domuz Maskesi", itemID = 223, objectID = 2374, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
 		{name = "Yaratık Maskesi", itemID = 224, objectID = 2396, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
-		{name = "Mascara Hockey", itemID = 277, objectID = 2397, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
+		{name = "Hokey Maskesi", itemID = 277, objectID = 2397, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
 		{name = "Sigaralı Maymun Maskesi", itemID = 226, objectID = 2398, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
 		{name = "Maymun Maskesi", itemID = 227, objectID = 2399, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
 		{name = "Karnaval Maskesi", itemID = 228, objectID = 2407, bone = 1, position = {0, 0, 0, 0, 0, 0, 1}},
