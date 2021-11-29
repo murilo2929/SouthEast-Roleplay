@@ -465,7 +465,7 @@ g_shops = {
 			{ name = "Sigaralı Maymun Maskesi", description = "Maymun kafası (Sigaralı) maskesi!", price = 25, itemID = 227 },
 			{ name = "Karnaval Maskesi", description = "Kırmızı/Beyaz/Turuncu renkler içeren maske.", price = 35, itemID = 228 },
 		},
-		--[[{
+		{
 			name  = "Gözlükler",
 			{ name = "Gözlük - 1", description = "Siyah Gözlük - 1", price = 60, itemID = 242 },
 			{ name = "Gözlük - 2", description = "Siyah Gözlük - 2", price = 60, itemID = 243 },
@@ -508,7 +508,7 @@ g_shops = {
 			{ name = "Siyah Kulaklık", description = "Siyah Kulaklık", price = 20, itemID = 263 },
 			{ name = "Warlock Gitar", description = "Siyah Warlock Gitar", price = 140, itemID = 264 },
 			{ name = "Bass Gitar", description = "Beyaz Bass Gitar", price = 120, itemID = 265 },
-		}]]
+		}
 	},
 }
 
