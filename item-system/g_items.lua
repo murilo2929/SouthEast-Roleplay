@@ -296,6 +296,7 @@ g_items = {
 	[275] = { "Cadeado de Bicicleta", "Cadeado de bicicleta.", 4, 1271, 0, 0, 0, 0, weight = 0.1}, -- SjoerdPSV 
 	[276] = { "MP7 (SKIN)", "MP7.", 8, 1581, 270, 270, 0, 0, weight = 0.1 },
 	[284] = { "Sistema ANPR", "Reconhecimento Automático da Placa Numérica.", 4, 367, 270, 270, 0, 0, weight = 0.1},
+	[277] = { "Mascara Hockey", "Mascara.", 6, 2386, 0, 0, 0, 0.1, weight = 0.2},
 }
 
 	-- name, description, category, model, rx, ry, rz, zoffset, weight
