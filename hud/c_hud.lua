@@ -191,16 +191,36 @@ function drawHUD()
 				end
 			end
 			
+			-- Sistema de fome e sede
+			local hunger = tonumber(getElementData(localPlayer, "char.Hunger"))
+			local sede = tonumber(getElementData(localPlayer, "char.Thirst"))
+			dxDrawImage(ax,ay,iconH,iconH,"images/hud/fome.png")
+			if (hunger == 100) then
+				dxDrawText(hunger, ax+6, ay+20, iconH, iconH, tocolor(255, 255, 255, 255), 0.70, "pricedown", "left", "center", false, false, false, false, false)
+			else
+				dxDrawText(hunger, ax+8, ay+20, iconH, iconH, tocolor(255, 255, 255, 255), 0.70, "pricedown", "left", "center", false, false, false, false, false)
+			end
+			table.insert(tooltips, "settings:hud:fome")
+			ax = ax - iconW
+
+			dxDrawImage(ax,ay,iconH,iconH,"images/hud/sede.png")
+			if (sede == 100) then
+				dxDrawText(sede, ax+5, ay+20, iconH, iconH, tocolor(255, 255, 255, 255), 0.70, "pricedown", "left", "center", false, false, false, false, false)
+			else
+				dxDrawText(sede, ax+8, ay+20, iconH, iconH, tocolor(255, 255, 255, 255), 0.70, "pricedown", "left", "center", false, false, false, false, false)
+			end
+			table.insert(tooltips, "settings:hud:sede")
+			ax = ax - iconW
 		
 			-- WALKING STYLE
-			if not getElementData( localPlayer, 'old_walkstyle' ) then
+			--[[if not getElementData( localPlayer, 'old_walkstyle' ) then
 				dxDrawImage(ax,ay,iconH,iconH,"images/hud/walkingstyle.png")
 				table.insert(tooltips, "settings:hud:walkingstyle")
 				ax = ax - iconW
-			end
+			end]]
 			
 			-- HEAD TURNING STYLE
-			if getElementData( localPlayer,"head_turning" ) == "1" then
+			--[[if getElementData( localPlayer,"head_turning" ) == "1" then
 				dxDrawImage(ax,ay,iconH,iconH,"images/hud/head_turning.png")
 				table.insert(tooltips, "settings:hud:head_turning:1")
 				ax = ax - iconW
@@ -212,7 +232,7 @@ function drawHUD()
 				dxDrawImage(ax,ay,iconH,iconH,"images/hud/head_turning.png", 0, 0, 0, disabled_item(100))
 				table.insert(tooltips, "settings:hud:head_turning:0")
 				ax = ax - iconW
-			end
+			end]]
 			
 			-- toggle hidden scoreboard 
 			local hasHidSco, hidScoState = exports.donators:hasPlayerPerk(localPlayer, 12)
@@ -365,14 +385,14 @@ function drawHUD()
 			end
 
 			-- Offline pm 
-			dxDrawImage(ax,ay,iconH,iconH,"images/hud/opm.png")
+			--[[dxDrawImage(ax,ay,iconH,iconH,"images/hud/opm.png")
 			table.insert(tooltips, "settings:hud:opm")
-			ax = ax - iconW
+			ax = ax - iconW]]
 
 			-- ads 
-			dxDrawImage(ax,ay,iconH,iconH,"images/hud/ads.png")
+			--[[dxDrawImage(ax,ay,iconH,iconH,"images/hud/ads.png")
 			table.insert(tooltips, "settings:hud:ads")
-			ax = ax - iconW
+			ax = ax - iconW]]
 		
 			local armor = getPedArmor( localPlayer )
 			if armor > 0 then
@@ -384,10 +404,16 @@ function drawHUD()
 			--HEATH 
 			local health = getElementHealth( localPlayer )
 			dxDrawImage(ax,ay,iconH,iconH,"images/hud/health2.png", 0, 0, 0, disabled_item(255/100*health))
+			if (health == 100) then
+				dxDrawText(math.floor(getElementHealth(localPlayer)), ax+5, ay+20, iconH, iconH, tocolor(255, 255, 255, 255), 0.70, "pricedown", "left", "center", false, false, false, false, false)
+			else
+				dxDrawText(math.floor(getElementHealth(localPlayer)), ax+7, ay+20, iconH, iconH, tocolor(255, 255, 255, 255), 0.70, "pricedown", "left", "center", false, false, false, false, false)
+			end
 			ax = ax - iconW
 			table.insert(tooltips, "health")
 			ax = ax - iconW
 			
+
 			if #tooltips > 0 then
 				setElementData(localPlayer, "hud:showingSomeIconsOnTopLeft", 40, false)
 			else
@@ -658,12 +684,12 @@ function drawHUD()
 							playToggleSound()
 						end
 					--WALKING STYLE 
-					elseif tooltips[i] == "settings:hud:walkingstyle" then
+					--[[elseif tooltips[i] == "settings:hud:walkingstyle" then
 						tooltip( cursorX, cursorY, "Estilo Andar: "..getPedWalkingStyle(localPlayer), "Clique para mudar.")
 						if justClicked then
 							triggerServerEvent("realism:switchWalkingStyle", localPlayer)
 							playToggleSound()
-						end
+						end]]
 					--AUTOPARK 
 					elseif tooltips[i] == "settings:hud:autopark:on" then
 						tooltip( cursorX, cursorY, "Salvar automaticamente spawn do veículo esta Ativo", "Clique para desativar.")
@@ -705,7 +731,7 @@ function drawHUD()
 							playToggleSound()
 						end
 					-- HEAD TURNING 
-					elseif tooltips[i] == "settings:hud:head_turning:0" then
+					--[[elseif tooltips[i] == "settings:hud:head_turning:0" then
 						tooltip( cursorX, cursorY, "O giro da cabeça está desabilitado", "Clique para ativar.")
 						if justClicked then
 							triggerEvent("accounts:settings:updateCharacterSettings", localPlayer, "head_turning", "1")
@@ -722,7 +748,7 @@ function drawHUD()
 						if justClicked then
 							triggerEvent("accounts:settings:updateCharacterSettings", localPlayer, "head_turning", "0")
 							playToggleSound()
-						end
+						end]]
 					--TOGAD 
 					elseif tooltips[i] == "settings:hud:togad:on" then
 						tooltip( cursorX, cursorY, "Anúncio esta ativo", "Clique para desativar.")
@@ -788,18 +814,18 @@ function drawHUD()
 							exports.donators:updatePerkValue(localPlayer, 9, 1)
 							playToggleSound()
 						end
-					elseif tooltips[i] == "settings:hud:opm" then
+					--[[elseif tooltips[i] == "settings:hud:opm" then
 						tooltip( cursorX, cursorY, "Enviar Mensagem Privada offline.", "Clique para enviar. Ou você também pode digitar /opm [nome de usuário] [mensagem]")
 						if justClicked then
 							executeCommandHandler("opm")
 							playToggleSound()
-						end
-					elseif tooltips[i] == "settings:hud:ads" then
+						end]]
+					--[[elseif tooltips[i] == "settings:hud:ads" then
 						tooltip( cursorX, cursorY, "Crie um anúncio.", "Clique para criar. Ou você também pode digitar /ads")
 						if justClicked then
 							executeCommandHandler('ads')
 							playToggleSound()
-						end
+						end]]
 					elseif tooltips[i] == "firemode:auto" then
 						tooltip( cursorX, cursorY, "Modo de disparo de arma: Full-auto", "Clique para mudar. Ou você também pode pressionar 'N'")
 						if justClicked then
