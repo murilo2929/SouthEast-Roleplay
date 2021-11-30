@@ -4,7 +4,7 @@ local tempobjv = { }
 local tempobjbone = { }
 
 function attachObject (thePlayer, commandName, objectID, bone, scale)
-	if not exports.integration:isPlayerAdmin(thePlayer) then
+	if not exports.integration:isPlayerScripter(thePlayer) then
 		return
 	end
 	if scale == nil then scale = 1 end
@@ -35,7 +35,7 @@ end
 addCommandHandler("startbone", attachObject, false, false)
 
 function moveBoneX (thePlayer, commandName, x)
-	if not exports.integration:isPlayerAdmin(thePlayer) then
+	if not exports.integration:isPlayerScripter(thePlayer) then
 		return
 	end
 	if not x then
@@ -54,7 +54,7 @@ end
 addCommandHandler("bonex", moveBoneX, false, false)
 
 function moveBoneY (thePlayer, commandName, x)
-	if not exports.integration:isPlayerAdmin(thePlayer) then
+	if not exports.integration:isPlayerScripter(thePlayer) then
 		return
 	end
 	if not x then
@@ -73,7 +73,7 @@ end
 addCommandHandler("boney", moveBoneY, false, false)
 
 function moveBoneZ (thePlayer, commandName, x)
-	if not exports.integration:isPlayerAdmin(thePlayer) then
+	if not exports.integration:isPlayerScripter(thePlayer) then
 		return
 	end
 	if not x then
@@ -92,7 +92,7 @@ end
 addCommandHandler("bonez", moveBoneZ, false, false)
 
 function moveBoneRX (thePlayer, commandName, x)
-	if not exports.integration:isPlayerAdmin(thePlayer) then
+	if not exports.integration:isPlayerScripter(thePlayer) then
 		return
 	end
 	if not x then
@@ -111,7 +111,7 @@ end
 addCommandHandler("bonerx", moveBoneRX, false, false)
 
 function moveBoneRY (thePlayer, commandName, x)
-	if not exports.integration:isPlayerAdmin(thePlayer) then
+	if not exports.integration:isPlayerScripter(thePlayer) then
 		return
 	end
 	if not x then
@@ -130,7 +130,7 @@ end
 addCommandHandler("bonery", moveBoneRY, false, false)
 
 function moveBoneRZ (thePlayer, commandName, x)
-	if not exports.integration:isPlayerAdmin(thePlayer) then
+	if not exports.integration:isPlayerScripter(thePlayer) then
 		return
 	end
 	if not x then

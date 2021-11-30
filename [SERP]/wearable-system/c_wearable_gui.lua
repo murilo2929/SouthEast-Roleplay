@@ -40,7 +40,7 @@ function startWiGUI(legitimatecheck)
 		local windowX, windowY = 500, 450
 		local pX, pY = (sWidth/2)-(windowX/2), (sHeight/2)-(windowY/2)
 		
-		GUIEditor.window[1] = guiCreateWindow(pX, pY + 50, 552, 288, "Ares RolePlay - Aksesuarlarım", false)
+		GUIEditor.window[1] = guiCreateWindow(pX, pY + 50, 552, 288, "Acessórios", false)
 		guiWindowSetSizable(GUIEditor.window[1], false)
 		
 		legitimatev = table.concat(legitimatecheck, " ", 8, 9)
@@ -51,22 +51,22 @@ function startWiGUI(legitimatecheck)
 		for k,v in ipairs(items) do
 			guiComboBoxAddItem( GUIEditor.combobox[1], v["name"] )
 		end
-		GUIEditor.button[3] = guiCreateButton(425, 248, 113, 30, "Kapat", false, GUIEditor.window[1])
+		GUIEditor.button[3] = guiCreateButton(425, 248, 113, 30, "Fechar", false, GUIEditor.window[1])
 		addEventHandler("onClientGUIClick", GUIEditor.button[3], function()
 			stopWiGUI()
 		end, false)
-		GUIEditor.button[4] = guiCreateButton(213, 37, 94, 21, "Düzenle", false, GUIEditor.window[1])
+		GUIEditor.button[4] = guiCreateButton(213, 37, 94, 21, "Editar", false, GUIEditor.window[1])
 		addEventHandler ( "onClientGUIClick", GUIEditor.button[4],  function()
 			local item = guiComboBoxGetSelected(GUIEditor.combobox[1])
 			local text = guiComboBoxGetItemText(GUIEditor.combobox[1], item)
 			
-			if text == "" then return outputChatBox("Lütfen bir item seçiniz!") end
+			if text == "" then return outputChatBox("Selecione um item!") end
 			--startPositionGUI(text)
 			wearable_initialize_system(text)
 			destroyElement(GUIEditor.window[1])
 			showCursor(false)
 		end, false)
-		GUIEditor.label[3] = guiCreateLabel(12, 98, 526, 140, "Yukarıdaki listeden aksesuarlarınızın pozisyonunu ayarlayabilirsiniz.\nDaha sonra, aksesuar satıcısından bu ayarladığınız aksesuarları satın alarak,\nkarakterinizde ayarladığınız pozisyonda görünmesini sağlayabilirsiniz.", false, GUIEditor.window[1])    
+		GUIEditor.label[3] = guiCreateLabel(12, 98, 526, 140, "Você pode ajustar a posição de seus acessórios da lista acima.\nEntão, comprando os acessórios que você configurou no revendedor de acessórios,\nvocê pode fazer com que apareça na posição que definiu em seu personagem.", false, GUIEditor.window[1])    
 		triggerEvent("hud:convertUI", localPlayer, GUIEditor.window[1])
 	elseif (started == true) then
 		started = false
@@ -91,7 +91,7 @@ function recievePosition(position)
 		
 		setObjectScale(object, ioc)
 		
-		outputChatBox("Kaydedilmiş aksesuar pozisyonunuz ayarlanmıştır!")
+		outputChatBox("A posição do acessório salvo está definida!")
 	end
 end
 
@@ -165,7 +165,7 @@ function startPositionGUI(text)
 	addEventHandler("onClientGUIScroll", GUIEditor.scrollbar[7], update_position_scrollbars)
 	GUIEditor.label[1] = guiCreateLabel(16, 38, 20, 108, "X\n\nY\n\nZ", false, GUIEditor.window[2])
 	GUIEditor.label[2] = guiCreateLabel(215, 39, 20, 108, "RX\n\nRY\n\nRZ", false, GUIEditor.window[2])
-	GUIEditor.button[1] = guiCreateButton(309, 184, 108, 27, "Save", false, GUIEditor.window[2])
+	GUIEditor.button[1] = guiCreateButton(309, 184, 108, 27, "Salvar", false, GUIEditor.window[2])
 	addEventHandler("onClientGUIClick", GUIEditor.button[1], function()
 		-- gather all our information and send it to the server side to continue the process there
 		local table = {name = itemName, itemID = itemID, objectID = objectID, bone = bone, position = {objectpos[1], objectpos[2], objectpos[3], objectpos[4], objectpos[5], objectpos[6], objectpos[7]}, default = default}
@@ -194,7 +194,7 @@ function startPositionGUI(text)
 		updateGlobalValue(false)
 	end, false)
 	
-	GUIEditor.button[7] = guiCreateButton(159, 184, 108, 27, "Reset", false, GUIEditor.window[2])    
+	GUIEditor.button[7] = guiCreateButton(159, 184, 108, 27, "Resetar", false, GUIEditor.window[2])    
 	addEventHandler("onClientGUIClick", GUIEditor.button[7], function()
 		exports.bone_attach:detachElementFromBone(object)
 		setObjectScale(object, 1)
@@ -206,9 +206,9 @@ function startPositionGUI(text)
 		exports.bone_attach:attachElementToBone(object, localPlayer, 1, 0, 0, 0, 0, 0, 0 )
 	end, false)
 	
-	GUIEditor.label[4] = guiCreateLabel(215, 140, 32, 15, "Scale:", false, GUIEditor.window[2])
+	GUIEditor.label[4] = guiCreateLabel(215, 140, 32, 15, "Escala:", false, GUIEditor.window[2])
 	
-	GUIEditor.button[2] = guiCreateButton(16, 184, 108, 27, "Cancel", false, GUIEditor.window[2])
+	GUIEditor.button[2] = guiCreateButton(16, 184, 108, 27, "Cancelar", false, GUIEditor.window[2])
 	addEventHandler("onClientGUIClick", GUIEditor.button[2], function()
 		destroyElement(GUIEditor.window[2])
 		destroyElement(object)
@@ -413,7 +413,7 @@ function bandanaManagement()
 				end
 			end
 		end, false)
-		GUIEditor.button[10] = guiCreateButton(223, 180, 90, 26, "Close", false, GUIEditor.window[3])
+		GUIEditor.button[10] = guiCreateButton(223, 180, 90, 26, "Fechar", false, GUIEditor.window[3])
 		addEventHandler("onClientGUIClick", GUIEditor.button[10], function()
 			stopBmGUI()
 		end, false)
@@ -426,12 +426,12 @@ function bandanaManagement()
 				guiComboBoxAddItem( GUIEditor.combobox[2], v["name"] )
 			end
 		end
-		GUIEditor.button[11] = guiCreateButton(146, 108, 79, 22, "Save", false, GUIEditor.window[3])
+		GUIEditor.button[11] = guiCreateButton(146, 108, 79, 22, "Salvar", false, GUIEditor.window[3])
 		addEventHandler ( "onClientGUIClick", GUIEditor.button[11],  function()
 			local item = guiComboBoxGetSelected(GUIEditor.combobox[2])
 			local text = guiComboBoxGetItemText(GUIEditor.combobox[2], item)
 			
-			if text == "" then return outputChatBox("Please select a item first!") end
+			if text == "" then return outputChatBox("Selecione um item primeiro!") end
 			triggerServerEvent("wearable-system:updateDefaultPosition", localPlayer, text)
 			destroyElement(GUIEditor.window[3])
 			showCursor(false)
@@ -451,49 +451,3 @@ end
 -- Event handlers
 addEvent("wearable-system:openWindow", true)
 addEventHandler("wearable-system:openWindow", getRootElement(), startWiGUI)
-
---[[addEvent("wearable-system:recievePosition", true)
-addEventHandler("wearable-system:recievePosition", getRootElement(), recievePosition)]]
-
-
--- BELOW IS OLD CRAP
-
---[[GUIEditor = {
-	button = {},
-	window = {},
-	progressbar = {},
-	label = {}
-}
-
-function startWearableGUI()
-	if (started == false) then
-		started = true
-		showCursor(true)
-
-		GUIEditor.window[1] = guiCreateWindow(405, 196, 451, 448, "Fusionz's Wearable System", false)
-        guiWindowSetSizable(GUIEditor.window[1], false)
-
-        GUIEditor.label[1] = guiCreateLabel(14, 417, 112, 15, "Version: 0.8.5 beta", false, GUIEditor.window[1])
-        guiLabelSetColor(GUIEditor.label[1], 244, 10, 37)
-        --GUIEditor.progressbar[1] = guiCreateProgressBar(107, 381, 119, 31, false, GUIEditor.window[1])
-
-        --GUIEditor.label[2] = guiCreateLabel(91, 7, 59, 14, "37%", false, GUIEditor.progressbar[1])
-
-        --GUIEditor.label[3] = guiCreateLabel(107, 356, 124, 15, "Progress:", false, GUIEditor.window[1])
-        GUIEditor.label[4] = guiCreateLabel(0, 330, 451, 16, "_________________________________________________________________", false, GUIEditor.window[1])
-        GUIEditor.label[5] = guiCreateLabel(13, 28, 428, 292, "Welcome to my menu. \nThis menu will tell you everything you need to know. \n______________________________________________________________\nThe items you are able to have attached (more to come):\n\n1. Helmet\n2. Duffelbag\n3. Backpack\n4. Briefcase\n5. Bottle - Applies for most of the alcoholic drinks\n6. Sprunk - Applies or the normal drinks\n7. Hamburger - Applies for most of the food items\n\nCommands:\n/throwbottle - Removes the bottle/drink object from your body\n/throwfood - Removes the food object from your body\n/eat - to eat your food\n/drink - to drink\n/dufleft or /briefleft - using this command will put the duffelbag/briefcase\nstraight on to your left hand while clicking it in your inventory\n\nYou can apply the object by just clicking on it in your inventory.", false, GUIEditor.window[1])
-        GUIEditor.button[1] = guiCreateButton(341, 407, 100, 31, "Close", false, GUIEditor.window[1])
-		addEventHandler("onClientGUIClick", GUIEditor.button[1], stopWearableGUI, false)
-	elseif (started == true) then
-		started = false
-		destroyElement(GUIEditor.window[1])
-		showCursor(false)	
-	end
-end
-addCommandHandler("wearable", startWearableGUI)
-
-function stopWearableGUI()
-	showCursor(false)
-	destroyElement(GUIEditor.window[1])
-	started = false
-end]]

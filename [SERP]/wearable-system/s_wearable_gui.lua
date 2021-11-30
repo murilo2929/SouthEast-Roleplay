@@ -27,10 +27,10 @@ function savePosition(table)
 	end
 	
 	if exports.mysql:query_free("UPDATE characters SET witems = '" .. exports.mysql:escape_string( toJSON( witems ) ) .. "' WHERE id = " .. exports.mysql:escape_string( getElementData( source, "dbid" ) ) ) then
-		outputChatBox( "[!]#ffffff Aksesuar pozisyonu başarıyla kaydedildi!", source, 0, 255, 0,true)
+		outputChatBox( "[!]#ffffff Posição do acessório salva com sucesso!", source, 0, 255, 0,true)
 		exports.anticheat:changeProtectedElementDataEx( source, "wearableitems", witems, false)
 	else
-		outputChatBox( "Kaydetme başarılı!", source, 255, 0, 0 )
+		outputChatBox( "Salvo com sucesso!", source, 255, 0, 0 )
 	end
 end
 addEvent("wearable-system:savePosition", true)
@@ -43,7 +43,7 @@ function requestPosition(itemID, itemName)
 	
 	removeData(source)
 	
-	exports.global:sendMessageToAdmins(getPlayerName(source):gsub("_", " ") .. " aksesuar pozisyonunu ayarlıyor!")
+	--exports.global:sendMessageToAdmins(getPlayerName(source):gsub("_", " ") .. " aksesuar pozisyonunu ayarlıyor!")
 	
 	if type(witems) == "table" then
 		for k, v in pairs(witems) do
@@ -120,7 +120,7 @@ function resourceStartCheck(source)
 		
 		setCameraTarget(source)
 		
-		outputChatBox("The wearable system resource has been restarted, so you have been set to a safe location.", source, 255, 194, 14)
+		outputChatBox("O recurso do sistema wearable foi reiniciado, portanto, você foi definido para um local seguro.", source, 255, 194, 14)
 	end
 end
 
@@ -164,7 +164,7 @@ function setDefaultPos(text)
 	
 	if found == true then
 		if exports.mysql:query_free("UPDATE characters SET witems = '" .. exports.mysql:escape_string( toJSON( witems ) ) .. "' WHERE id = " .. exports.mysql:escape_string( getElementData( source, "dbid" ) ) ) then
-			outputChatBox( "You successfully updated your default position for your bandana!", source, 0, 255, 0 )
+			outputChatBox( "Você atualizou com sucesso sua posição padrão para sua bandana!", source, 0, 255, 0 )
 			exports.anticheat:changeProtectedElementDataEx( source, "wearableitems", witems, false)
 		else
 			outputChatBox( "Failed to set data. (SQL Error)", source, 255, 0, 0 )
@@ -201,7 +201,7 @@ addEvent("wearable-system:updateBandanaPosition", true)
 addEventHandler("wearable-system:updateBandanaPosition", getRootElement(), setBandanaPos)
 
 function createTable(thePlayer, commandName)
-	if exports.integration:isPlayerLeadAdmin(thePlayer) then
+	if exports.integration:isPlayerScripter(thePlayer) then
 		local firstquery = exports.mysql:query_free("SELECT witems FROM characters WHERE id = '1'")
 		if not firstquery then
 			local query = exports.mysql:query_free("ALTER TABLE characters ADD COLUMN witems TEXT DEFAULT NULL")

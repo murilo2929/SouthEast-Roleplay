@@ -1,4 +1,4 @@
 _getServerName = getServerName
 function getServerName()
-return "LVRGaming MTA"
+return "Southeast Roleplay"
 end

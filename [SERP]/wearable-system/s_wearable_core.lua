@@ -53,7 +53,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 			setElementDataEx(source, "slot", itemSlot, false)
 				
 				if (getPedWeapon(source) > 0 and not (itemID == 16 or itemID == 90)) then 
-					outputChatBox("Sorry bud, you can't use this item right now, unequip your weapon first.", source, 255, 0, 0) 
+					outputChatBox("Desculpe amigo, você não pode usar este item agora, desequipe sua arma primeiro.", source, 255, 0, 0) 
 					if (foodtable[itemID] or drinktable[itemID]) then
 						exports.global:giveItem(source, itemID, 1) 
 					end
@@ -96,7 +96,7 @@ function triggerWearableSystem(source, itemID, itemSlot)
 									exports.bone_attach:attachElementToBone(helmet, source, 1, 0, -0.03, -0.75, 0, 0, 90)
 									helmets[source] = helmet
 								else
-									outputChatBox("The helmet mod is not compatible with your skin!", source, 255, 0, 0)
+									outputChatBox("O mod do capacete não é compatível com a sua skin!", source, 255, 0, 0)
 								end
 							end
 						else
@@ -121,12 +121,12 @@ function triggerWearableSystem(source, itemID, itemSlot)
 							obottle = createObject(1484, 0, 0, 0)
 							exports.bone_attach:attachElementToBone(obottle, source, 12, 0.03, 0.135, 0.11, 136, -39.98, -29)
 							bottle[source] = obottle
-							outputChatBox("İçmek için /icecek komutunu kullanın.", source, 255, 50, 0)
+							--outputChatBox("İçmek için /icecek komutunu kullanın.", source, 255, 50, 0)
 							setElementDataEx(source, "drank", math.random(0.1, 0.5), true)
 						end
 					else
-						outputChatBox("Sorry, we currently are not allowing to have the bottle attached whilst having other objects attached.", source, 255, 255, 255)
-						exports.global:giveItem(source, itemID, 1)
+						--outputChatBox("Sorry, we currently are not allowing to have the bottle attached whilst having other objects attached.", source, 255, 255, 255)
+						--exports.global:giveItem(source, itemID, 1)
 					end
 				elseif (itemID == 9 or itemID == 15 or itemID == 101 or itemID == 101 or itemID == 179 or itemID == 180) then
 					if not (briefcase[source] or duffelbag[source] or food[source] or bottle[source]) then
@@ -138,15 +138,15 @@ function triggerWearableSystem(source, itemID, itemSlot)
 							setObjectScale(odrink, 0.6)
 							exports.bone_attach:attachElementToBone(odrink, source, 12, 0, 0.05, 0.04, 0, 240, 0)
 							bottle[source] = odrink
-							outputChatBox("İçmek için /icecek komutunu kullanın.", source, 255, 50, 0)
+							--outputChatBox("İçmek için /icecek komutunu kullanın.", source, 255, 50, 0)
 							setElementDataEx(source, "drank", math.random(0.1, 0.5), false)
 							--[[setTimer ( function()
 							exports.bone_attach:attachElementToBone(odrink, source, 11, 0, 0.05, 0.04, 0, 240, 0)
 							end, 4300, 1 )]]
 						end
 					else
-						outputChatBox("Üzgünüz, elinizde başka objeler varken birşeyler içemezsiniz.", source, 255, 0, 0)
-						exports.global:giveItem(source, itemID, 1)
+						--outputChatBox("Üzgünüz, elinizde başka objeler varken birşeyler içemezsiniz.", source, 255, 0, 0)
+						--exports.global:giveItem(source, itemID, 1)
 					end
 				elseif (foodtable[itemID]) then
 					if not (briefcase[source] or duffelbag[source] or bottle[source] or food[source]) then
@@ -156,12 +156,12 @@ function triggerWearableSystem(source, itemID, itemSlot)
 							ofood = createObject(2880,0,0,0)
 							exports.bone_attach:attachElementToBone(ofood, source, 12, 0, 0, 0, 0, -90, 0)
 							food[source] = ofood
-							outputChatBox("Yemek için /yiyecek komutunu kullanın.", source, 0, 255, 0)
+							--outputChatBox("Yemek için /yiyecek komutunu kullanın.", source, 0, 255, 0)
 							setElementDataEx(source, "eaten", math.random(0.1, 0.5), true)
 						end
 					else
-						outputChatBox("Üzgünüz, elinizde başka objeler varken yemek yiyemezsiniz.", source, 255, 0, 0)
-						exports.global:giveItem(source, itemID, 1)
+						--outputChatBox("Üzgünüz, elinizde başka objeler varken yemek yiyemezsiniz.", source, 255, 0, 0)
+						--exports.global:giveItem(source, itemID, 1)
 					end
 				elseif (itemID == 156) then
 					if (getElementData(source, "briefcase")) ~= 1 and not (bottle[source] or food[source]) then
@@ -377,7 +377,7 @@ function wearablePositionCheck(source, itemID, optional, optional2)
 		for k, v in ipairs(gtextures) do 
 			if v["itemID"] == itemID then return end
 		end
-		outputChatBox("Bu eşyayı karakterinize ayarlamamışsınız, '/aksesuar' komutu ile ayarlayabilirsiniz.", source, 255, 0, 0)
+		outputChatBox("Você não configurou este item para o seu personagem, você pode configurá-lo com o comando '/acessorio'.", source, 255, 0, 0)
 		return
 	end
 	
@@ -464,7 +464,7 @@ function wearablePositionCheck(source, itemID, optional, optional2)
 				for k, v in ipairs(gtextures) do 
 					if v["itemID"] == itemID then return end
 				end
-				outputChatBox("Bu eşyayı henüz düzenlememişsiniz, '/aksesuar' komutunu kullanarak düzenleyebilirsiniz.", source, 255, 0, 0)
+				outputChatBox("Você ainda não editou este item, você pode editá-lo usando o comando '/acessorio'.", source, 255, 0, 0)
 				break
 			end
 		end
@@ -565,8 +565,8 @@ function useDrink(source)
 		exports.global:removeAnimation(source)
 	end
 end
-addCommandHandler("drink", useDrink)
-addCommandHandler("icecek", useDrink)
+--addCommandHandler("drink", useDrink)
+--addCommandHandler("icecek", useDrink)
 
 function eatFood(source)
 	local number = getElementData(source, "eaten")
@@ -620,10 +620,10 @@ function eatFood(source)
 		outputChatBox("Elinizde bir yiyeceğiniz kalmadı.", source, 255, 0, 0)
 	end
 end
-addCommandHandler("eat", eatFood)
-addCommandHandler("yiyecek", eatFood)
+--addCommandHandler("eat", eatFood)
+--addCommandHandler("yiyecek", eatFood)
 
-addCommandHandler("icecekat", 
+--addCommandHandler("icecekat", 
 	function (source, commandName, ... )
 		local logged = getElementData(source, "loggedin")
 		local args = { ... }
@@ -687,7 +687,7 @@ addCommandHandler("icecekat",
 	end
 )
 
-addCommandHandler("yiyecekat", 
+--addCommandHandler("yiyecekat", 
 	function (source, commandName, ... )
 		local logged = getElementData(source, "loggedin")
 		local args = { ... }
@@ -795,7 +795,7 @@ function checkForSkinChange(oldModel, newModel)
         if (getElementData(source, "helmets") == 1) then
 			local data = masks[90]
 			if not (skins[newModel]) then
-				outputChatBox("Your player model has been changed to skin ID: "..newModel .." which is not compatible with the helmet, it has been un-attached.", source, 255, 0, 0)
+				outputChatBox("Seu modelo de jogador foi alterado para ID: "..newModel .." que não é compatível com o capacete, o mesmo foi retirado.", source, 255, 0, 0)
 				setElementDataEx(source, "helmets", 0, false)
 				exports.bone_attach:detachElementFromBone(helmets[source])
 				destroyElement(helmets[source])
@@ -1022,7 +1022,7 @@ end
 -- if the system is bugged use this
 
 function bugFix(thePlayer)
-	if not exports.global:isPlayerAdmin(thePlayer) then
+	if not exports.global:isPlayerScripter(thePlayer) then
 		return
 	end
 	
