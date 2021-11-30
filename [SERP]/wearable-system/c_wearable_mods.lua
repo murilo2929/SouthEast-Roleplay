@@ -47,10 +47,6 @@ replaceModelMod = function()
   engineImportTXD(txd11, 2407)
   dff11 = engineLoadDFF("mods/mask6.dff", 2407)
   engineReplaceModel(dff11, 2407)
-  txd12 = engineLoadTXD("mods/santahat.txd")
-  engineImportTXD(txd12, 1245)
-  dff12 = engineLoadDFF("mods/santahat.dff", 1245)
-  engineReplaceModel(dff12, 1245)
   
   --glasses
   txd20 = engineLoadTXD("mods/glasses03blue.txd")
@@ -62,11 +58,6 @@ replaceModelMod = function()
   engineImportTXD(txd56, 1899)
   dff56 = engineLoadDFF("mods/glasses03red.dff", 1899)
   engineReplaceModel(dff56, 1899)
-  
-  txd21 = engineLoadTXD("mods/fedora.txd")
-  engineImportTXD(txd21, 1241)
-  dff21 = engineLoadDFF("mods/fedora.dff", 1241)
-  engineReplaceModel(dff21, 1241)
   
    txd21 = engineLoadTXD("mods/polissapka.txd")
   engineImportTXD(txd21, 1242)
