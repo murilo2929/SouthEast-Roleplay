@@ -450,6 +450,60 @@ g_shops = {
 		description = " ",
 		image = "general.png",
 	},
+	{ -- 20
+		name = "Acessorios",
+		description = "Ande na moda!",
+		image = "general.png",
+		
+		{
+			name  = "Mascaras",
+			{ name = "Mascara Hockey", description = "Warner Bros. 'Jason'.", price = 35, itemID = 277 },
+		},
+		--[[{
+			name  = "Gözlükler",
+			{ name = "Gözlük - 1", description = "Siyah Gözlük - 1", price = 60, itemID = 242 },
+			{ name = "Gözlük - 2", description = "Siyah Gözlük - 2", price = 60, itemID = 243 },
+			{ name = "Gözlük - 3", description = "Mavi Gözlük - 1.", price = 60, itemID = 244 },
+			{ name = "Gözlük - 4", description = "Yeşil Gözlük - 1", price = 60, itemID = 245 },
+			{ name = "Gözlük - 5", description = "Turuncu Gözlük - 1", price = 60, itemID = 246 },
+			{ name = "Gözlük - 6", description = "Pembe Gözlük - 1", price = 60, itemID = 247 },
+			{ name = "Gözlük - 7", description = "Mor Gözlük - 1", price = 60, itemID = 248 },
+			{ name = "Gözlük - 8", description = "Kırmızı Gözlük - 1", price = 60, itemID = 249 },
+			{ name = "Gözlük - 9", description = "Sarı Gözlük - 1", price = 60, itemID = 250 },
+		},
+		{
+			name  = "Şapkalar",
+			{ name = "Fedora", description = " Gri Fötr Şapka.", price = 100, itemID = 230 },
+			{ name = "Beyaz Fötr Şapka", description = "Beyaz Fötr Şapkası", price = 90, itemID = 256 },
+			{ name = "HatMan", description = "Siyah HatMan Şapka", price = 35, itemID = 251 },
+			{ name = "HatMan - 2", description = "Gri-Beyaz Çizgili HatMan Şapka", price = 35, itemID = 252 },
+			{ name = "Komando Yeşil Bere", description = "Kamonda Yeşili Rengi Bere", price = 30, itemID = 253 },
+			{ name = "Siyah Bere", description = "Siyah Bere", price = 30, itemID = 254 },
+			{ name = "Siyah Bere - 2", description = "Siyah Oval Bere", price = 20, itemID = 255 },
+			{ name = "Sarı Kovboy Şapka", description = "Sarı Kovboy Şapkası", price = 30, itemID = 257 },
+			{ name = "Siyah Kovboy Şapka", description = "Siyah Kovboy Şapka", price = 35, itemID = 259 },
+			{ name = "Sihirbaz Şapkası", description = "Büyüh Siyah Şapka", price = 45, itemID = 258 },
+		},
+		{
+			name  = "Bandanalar",
+			{ name = "Kırmızı Bandana", description = "Kırmızı bez parçası.", price = 20, itemID = 123 },
+			{ name = "Açık Mavi Bandana", description = "Açık Mavi bez parçası.", price = 20, itemID = 122 },
+			{ name = "Mavi Bandana", description = "Mavi bez parçası.", price = 20, itemID = 135 },
+			{ name = "Sarı Bandana", description = "Sarı bez parçaşı.", price = 20, itemID = 124 },
+			{ name = "Beyaz Bandana", description = "Beyaz paçavra.", price = 20, itemID = 136 },
+			{ name = "Siyah Bandana", description = "Siyah bez parçası.", price = 20, itemID = 168 },
+			{ name = "Mor Bandana", description = "Mor bez parçası", price = 20, itemID = 125 },
+		},
+		{
+			name  = "Diğer",
+			{ name = "Göz Bandı", description = "Siyah Göz Bandı", price = 10, itemID = 260 },
+			{ name = "Kol Bandı", description = "Beyaz Kol Bandı", price = 10, itemID = 261 },
+			{ name = "Beyaz Kulaklık", description = "Beyaz Kulaklık", price = 20, itemID = 262 },
+			{ name = "Siyah Kulaklık", description = "Siyah Kulaklık", price = 20, itemID = 263 },
+			{ name = "Warlock Gitar", description = "Siyah Warlock Gitar", price = 140, itemID = 264 },
+			{ name = "Bass Gitar", description = "Beyaz Bass Gitar", price = 120, itemID = 265 },
+		}]]
+	},
 }
 
 -- some initial updating once you start the resource
