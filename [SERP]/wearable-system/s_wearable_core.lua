@@ -623,7 +623,7 @@ end
 --addCommandHandler("eat", eatFood)
 --addCommandHandler("yiyecek", eatFood)
 
---addCommandHandler("icecekat", 
+addCommandHandler("icecekat", 
 	function (source, commandName, ... )
 		local logged = getElementData(source, "loggedin")
 		local args = { ... }
@@ -687,7 +687,7 @@ end
 	end
 )
 
---addCommandHandler("yiyecekat", 
+addCommandHandler("yiyecekat", 
 	function (source, commandName, ... )
 		local logged = getElementData(source, "loggedin")
 		local args = { ... }
