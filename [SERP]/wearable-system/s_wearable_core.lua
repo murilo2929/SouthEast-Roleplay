@@ -1,32 +1,3 @@
--- function startBackpack(source)
-	-- if (getResourceState(getResourceFromName("bone_attach")) == "running") then
-		-- setTimer ( function()
-			-- if (exports.global:hasItem(source, 48)) then
-				-- if (getElementData(source, "backpack") ~= 1) then
-					-- if not (backpacknormal[getElementModel(source)]) then 
-						-- setElementDataEx(source, "backpack", 1, false)
-						-- bpack = createObject(3026, 0, 0, 0)
-						-- exports.bone_attach:attachElementToBone(bpack, source, 3, 0.12, -0.11, 0.03, 10.02, -10, 18)
-						-- backpack[source] = bpack
-						-- wearableCheckDimension (source, getElementDimension(source), getElementInterior(source))
-					-- else
-						-- setElementDataEx(source, "backpack", 1, false)
-						-- setElementData(source, "hud:backpack", 1)
-					-- end			
-				-- end
-			-- else
-				-- outputChatBox("You do not have a backpack!", source, 255, 0, 0)
-			-- end
-		-- end, 500, 1 ) -- some compensation
-	-- else
-		-- outputChatBox("ERROR #342-E: bone_attach resource is not running!", source, 255, 0, 0)
-	-- end
--- end
--- addEvent("attachBackpackServer", true)
--- addEventHandler("attachBackpackServer", getRootElement(), startBackpack)
-
--- returns the tables and a string for the element data
-
 function returnObject(itemID)
 	if (itemID == 90) then
 		return helmets, "helmets"

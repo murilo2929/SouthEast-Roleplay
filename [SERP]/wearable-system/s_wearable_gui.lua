@@ -143,7 +143,7 @@ function openClientGUIWindow(thePlayer)
 
 	triggerClientEvent(thePlayer, "wearable-system:openWindow", thePlayer, legitimatetable)
 end
-addCommandHandler("aksesuar", openClientGUIWindow)
+addCommandHandler("acessorio", openClientGUIWindow)
 
 function setDefaultPos(text)
 	local itemName = text
