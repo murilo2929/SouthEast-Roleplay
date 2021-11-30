@@ -969,6 +969,8 @@ function useItem(itemSlot, additional)
 			setElementData(source,"cweapon", "mp7")
 			setPedWeaponSlot (source, 2)
 			end
+		elseif (itemID==277) then --TESTE elseif (itemID>=223) and (itemID<=271)
+		 exports["wearable-system"]:triggerWearableSystem(source, itemID, itemSlot)
 		else
 			-- WHY? This does not really mean there's a bug. Just that we didnt add any click functionality to the item. Thus, commented out. --Exciter 2014-07-11
 			--outputChatBox("Error J" .. ("%04d"):format(tonumber(itemID) or 9999) .. " - Report on http://forums.owlgaming.net/forms.php?do=form&fid=2", source, 255, 0, 0)
