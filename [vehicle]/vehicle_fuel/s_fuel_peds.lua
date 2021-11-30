@@ -381,7 +381,7 @@ function pedWillFuelTheVehicle(thePlayer, thePed, amount, moneyType)
 		}
 
 	if exports.donators:hasPlayerPerk(thePlayer, 7) and not factionPaid then
-		table.insert(info, {"    " .. math.ceil(theLitres) .. " litros de gasolina    - (( Gassolina Gratis ))"})
+		table.insert(info, {"    " .. math.ceil(theLitres) .. " litros de gasolina    - (( Gasolina Gratis ))"})
 	else
 		table.insert(info, {"    " .. math.ceil(theLitres) .. " litros de gasolina    -    " .. fuelCost .. "$"})
 		if factionPaid then
