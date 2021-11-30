@@ -1,0 +1,17 @@
+function ustAramaOnayGUI(arayan, aranan)
+	local screenW, screenH = guiGetScreenSize()
+    ustAramaSorWindow = guiCreateWindow((screenW - 455) / 2, (screenH - 141) / 2, 455, 141, "Southeast Roleplay", false)
+    guiWindowSetSizable(ustAramaSorWindow, false)
+
+    aramaTheLabel = guiCreateLabel(12, 25, 433, 40, " O jogador "..getPlayerName(arayan) .." quer revistar você, você aceita?", false, ustAramaSorWindow)
+    guiLabelSetHorizontalAlign(aramaTheLabel, "center", true)
+    guiLabelSetVerticalAlign(aramaTheLabel, "center")
+    aramaKabulEtSorBtn = guiCreateButton(12, 75, 215, 50, "Aceitar", false, ustAramaSorWindow)
+    guiSetProperty(aramaKabulEtSorBtn, "NormalTextColour", "FFAAAAAA")
+	addEventHandler("onClientGUIClick", aramaKabulEtSorBtn, function() destroyElement(ustAramaSorWindow) triggerServerEvent("pd:aramaKabul", arayan, arayan, aranan) end)
+    aramaReddetBtn = guiCreateButton(235, 75, 210, 50, "Recusar", false, ustAramaSorWindow)
+    guiSetProperty(aramaReddetBtn, "NormalTextColour", "FFAAAAAA")
+	addEventHandler("onClientGUIClick", aramaReddetBtn, function() destroyElement(ustAramaSorWindow) triggerServerEvent("pd:aramaRed", arayan, arayan, aranan) end)
+end
+addEvent("pd:ustAramaOnayGUI", true)
+addEventHandler("pd:ustAramaOnayGUI", root, ustAramaOnayGUI)

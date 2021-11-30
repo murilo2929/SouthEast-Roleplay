@@ -91,6 +91,9 @@
 
     <file src="pedvehicle.png" />
     <file src="ped.png" />
+
+    <script src="s_revistar.lua" type="server" />
+    <script src="c_revistar.lua" type="client" />
     <!--<file src="vehicle.png" />-->
     <min_mta_version server="1.3.4-0.00000" client="1.3.4-0.00000"></min_mta_version>
 </meta>
