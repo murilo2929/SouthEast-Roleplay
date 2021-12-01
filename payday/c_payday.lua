@@ -19,7 +19,7 @@ function cPayDay(faction, pay, profit, interest, donatormoney, tax, incomeTax, v
 	else
 		if (pay + tax > 0) then
 			--outputChatBox(, 255, 194, 14, true)
-			table.insert(info, {"  Salário Pago: $" .. exports.global:formatMoney(pay+tax)})
+			table.insert(info, {"  Salário: $" .. exports.global:formatMoney(pay+tax)})
 		end
 	end
 	
@@ -66,7 +66,7 @@ function cPayDay(faction, pay, profit, interest, donatormoney, tax, incomeTax, v
 	
 	if (rent > 0) then
 		--outputChatBox(, 255, 194, 14, true)
-		table.insert(info, {"  Aluguel Apartamento: $" .. exports.global:formatMoney(rent)})
+		table.insert(info, {"  Aluguel: $" .. exports.global:formatMoney(rent)})
 	end
 	
 	--outputChatBox("------------------------------------------------------------------", 255, 194, 14)

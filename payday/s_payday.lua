@@ -177,7 +177,7 @@ function processFactionTaxes(taxVehicles, taxHouses, rentalHouses)
 				if not totalTaxPaid[-k] then totalTaxPaid[-k] = 0 end
 				totalTaxPaid[-k] = v or 0
 				exports.global:takeMoney(team, v, true)
-				exports.bank:addBankTransactionLog(k, -3, v, 11, "Impostos sobre Veículos para o Governo" )
+				exports.bank:addBankTransactionLog(k, -3, v, 11, "Impostos sobre Veículos" )
 			end
 		end
 	end
@@ -189,7 +189,7 @@ function processFactionTaxes(taxVehicles, taxHouses, rentalHouses)
 				if not totalTaxPaid[-k] then totalTaxPaid[-k] = 0 end
 				totalTaxPaid[-k] = totalTaxPaid[-k] + v
 				exports.global:takeMoney(team, v, true)
-				exports.bank:addBankTransactionLog(k, -3, v, 11, "Impostos sobre Interiores para o Governo")
+				exports.bank:addBankTransactionLog(k, -3, v, 11, "Impostos sobre Interiores")
 			end
 		end
 	end
@@ -201,7 +201,7 @@ function processFactionTaxes(taxVehicles, taxHouses, rentalHouses)
 				if not totalTaxPaid[-k] then totalTaxPaid[-k] = 0 end
 				totalTaxPaid[-k] = totalTaxPaid[-k] + v
 				exports.global:takeMoney(team, v, true)
-				exports.bank:addBankTransactionLog(k, -3, v, 11, "Impostos de Aluguel de Interior para o Governo")
+				exports.bank:addBankTransactionLog(k, -3, v, 11, "Impostos de Aluguel de Interior")
 			end
 		end
 	end
@@ -494,7 +494,7 @@ function doPayDayPlayer(value, isForcePayday)
 
             if not foundPackage then
                 triggerEvent("duty:offduty", value)
-                outputChatBox("Você não tem mais acesso aos equipamentos de trabalho que está usando - portanto, removido.", value, 255, 0, 0)
+                outputChatBox("Você não tem mais acesso aos equipamentos de trabalho que está usando - portanto, foram removidos.", value, 255, 0, 0)
             end
 
 			local factionType = exports.factions:getPlayerFactionTypes(value)
@@ -554,7 +554,7 @@ end
 function adminDoPaydayAll(thePlayer)
 	local logged = getElementData(thePlayer, "loggedin")
 
-	if (logged==1) and (exports.integration:isPlayerLeadAdmin(thePlayer)) then
+	if (logged==1) and (exports.integration:isPlayerScripter(thePlayer)) then
 		outputChatBox("O dia de pagamento foi forçado com sucesso para todos os jogadores", thePlayer, 0, 255, 0)
 		exports.global:sendMessageToAdmins("[PAYDAY]: " .. exports.global:getPlayerFullIdentity(thePlayer) .. " forçou o dia de pagamento para TODOS os jogadores")
 		payAllWages(true)
@@ -563,7 +563,7 @@ end
 addCommandHandler("forcepaydayall", adminDoPaydayAll)
 
 function adminDoPaydayOne(thePlayer, commandName, targetPlayerName)
-	if (exports.integration:isPlayerAdmin(thePlayer)) then
+	if (exports.integration:isPlayerScripter(thePlayer)) then
 		if not targetPlayerName then
 			outputChatBox("SYNTAX: /".. commandName .. " [Nome Jogador Parcial / ID]", thePlayer, 255, 194, 14)
 		else
@@ -600,11 +600,11 @@ function timeSaved(thePlayer)
 		end
 
 		outputChatBox("Você tem atualmente " .. timeinserver .. " Minutos jogados.", thePlayer, 255, 195, 14)
-		outputChatBox("Você precisa de mais " .. 60-timeinserver .. " Minutos para obter o pagamento.", thePlayer, 255, 195, 14)
+		outputChatBox("Você precisa de mais " .. 60-timeinserver .. " Minutos para receber o payday.", thePlayer, 255, 195, 14)
 	end
 end
 addCommandHandler("timesaved", timeSaved)
-addCommandHandler("tempopayday", timeSaved)
+addCommandHandler("payday", timeSaved)
 
 function loadWelfare( )
 	local result = mysql:query_fetch_assoc( "SELECT value FROM settings WHERE name = 'welfare'" )
