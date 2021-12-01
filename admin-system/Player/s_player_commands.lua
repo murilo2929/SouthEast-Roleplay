@@ -1325,7 +1325,7 @@ function giveMoney(thePlayer, commandName, target, money, ...)
 						{"Razão:", reason}
 					}
 
-					triggerEvent("integration:createForumThread", resourceRoot, 62, "/"..commandName.." $"..amount.." para ("..targetUsername..") "..targetCharacterName, content)
+					--triggerEvent("integration:createForumThread", resourceRoot, 62, "/"..commandName.." $"..amount.." para ("..targetUsername..") "..targetCharacterName, content)
 				end
 				--exports.global:sendMessageToAdmins("[GIVEMONEY] Admin " .. username .. " deu a ("..targetUsername..") "..targetCharacterName.." $" .. amount .. " ("..reason..").")
 			end
