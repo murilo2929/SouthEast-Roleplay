@@ -993,7 +993,7 @@ function fillFuelTank(veh)
 	elseif (fuel==0) then
 		outputChatBox("Esta lata de combustível está vazia.", source, 255, 0, 0)
 	elseif (engine==1) then
-		outputChatBox("Você não pode abastecer veículos em funcionamento. Por favor, desligue o motor primeiro.", source, 255, 0, 0)
+		outputChatBox("Você não pode abastecer veículos ligados. Por favor, desligue o motor primeiro.", source, 255, 0, 0)
 	else
 		local fuelAdded = fuel
 
@@ -1006,14 +1006,14 @@ function fillFuelTank(veh)
 			return
 		end
 
-		outputChatBox("Você adicionou " .. math.floor(fuelAdded) .. " litros de gasolina em seu carro a partir de sua lata de combustível.", source, 0, 255, 0 )
+		outputChatBox("Você adicionou " .. math.floor(fuelAdded) .. " litros de gasolina em seu carro com sua lata de combustível.", source, 0, 255, 0 )
 
 		local gender = getElementData(source, "gender")
-		local genderm = "his"
+		local genderm = "seu"
 		if (gender == 1) then
-			genderm = "her"
+			genderm = "seu"
 		end
-		triggerEvent('sendAme', source, "abastece " .. genderm .. " veículo de um pequeno cilindro de gasolina.")
+		triggerEvent('sendAme', source, "abastece " .. genderm .. " veículo com uma lata de combustível.")
 
 		exports.anticheat:setEld( veh, "fuel", currFuel+fuelAdded )
 		triggerClientEvent(source, "syncFuel", veh, getElementData( veh, 'fuel' ), getElementData( veh, 'battery' ) or 100 )
@@ -1028,7 +1028,7 @@ function getYearDay(thePlayer)
 
 	outputChatBox("Year day is " .. currYearday, thePlayer)
 end
-addCommandHandler("yearday", getYearDay)
+--addCommandHandler("yearday", getYearDay)
 
 function removeNOS(theVehicle)
 	removeVehicleUpgrade(theVehicle, getVehicleUpgradeOnSlot(theVehicle, 8))
