@@ -17,9 +17,9 @@ setPedAnimation ( dominick, "FOOD", "FF_Sit_Look", -1, true, false, false )
 
 local localPlayer = getLocalPlayer()
 local cost = {
-	["car"] =  550,
-	["bike"] =  300,
-	["boat"] =  950,
+	["car"] =  50,
+	["bike"] =  50,
+	["boat"] =  50,
 	["fishing"] =  250,
 }
 function showLicenseWindow()

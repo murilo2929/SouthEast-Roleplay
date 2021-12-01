@@ -94,7 +94,7 @@ g_shops = {
 			--{ name = "City Guide", description = "A small city guide booklet.", price = 15, itemID = 18 },
 			{ name = "Mochila", description = "Uma mochila de tamanho razoável.", price = 150, itemID = 48 },
 			{ name = "Vara de Pesca", description = "Uma vara de pesca de aço carbono de 7 pés.", price = 300, itemID = 49 },
-			{ name = "Mascara", description = "Uma mascara de esqui.", price = 50, itemID = 56 },
+			{ name = "Máscara", description = "Uma mascara de esqui.", price = 100, itemID = 56 },
 			{ name = "Lata de Combustível", description = "Uma pequena lata de combustível de metal.", price = 35, itemID = 57, itemValue = 0 },
 			{ name = "Kit de Primeiros Socorros", description = "Um pequeno kit de primeiros socorros", price = 80, itemID = 70, itemValue = 3 },
 			{ name = "Seda", description = "Papéis para enrolar seus cigarros.", price = 10, itemID = 181, itemValue = 20 },
@@ -118,7 +118,7 @@ g_shops = {
 		},
 		{
 			name = "Utilitários",
-			{ name = "Corda", description = "Uma corda resistente.", price = 30, itemID = 46 },
+			{ name = "Corda", description = "Uma corda resistente.", price = 90, itemID = 46 },
 		},
 		{
 			name = "Consumível",
@@ -276,19 +276,19 @@ g_shops = {
 
 		{
 			name = "Eletrônicos",
-			{ name = "Celular", description = "Um celular elegante e fino.", price = 800, itemID = 2 },
+			{ name = "Celular", description = "Celular de ultima geração.", price = 500, itemID = 2 },
 			{ name = "Lanterna", description = "Ilumina o ambiente.", price = 25, itemID = 145, itemValue = 100 },
 			--{ name = "Ghettoblaster", description = "Um ghettoblaster preto.", price = 250, itemID = 54 },
-			{ name = "Camera", description = "Uma pequena câmera analógica preta.", price = 75, itemID = 115, itemValue = 43 },
-			--{ name = "Radio", description = "Um rádio preto.", price = 50, itemID = 6 },
+			{ name = "Camera", description = "Uma pequena câmera analógica preta.", price = 300, itemID = 115, itemValue = 43 },
+			{ name = "Radio", description = "Um rádio preto.", price = 50, itemID = 6 },
 			--{ name = "Fone de Ouvido", description = "Um fone de ouvido que pode ser usado com um rádio.", price = 25, itemID = 88 },
 			{ name = "Relógio", description = "Contar as horas nunca foi tão sexy!", price = 25, itemID = 17 },
 			--{ name = "MP3 Player", description = "Um MP3 Player branco.", price = 120, itemID = 19 },
 			--{ name = "Kit de Química", description = "Um pequeno conjunto de química.", price = 2000, itemID = 44 },
 			{ name = "Cofre", description = "Um cofre para armazenar seus itens.", price = 500, itemID = 223, itemValue = "Safe:2332:50" }, -- Model ID is the old safe and cap is 50kg
 			--{ name = "GPS", description = "A GPS Satnav for a car.", price = 300, itemID = 67 },
-			{ name = "GPS Portátil", description = "Dispositivo de posicionamento global pessoal, com mapas recentes.", price = 200, itemID = 111 },
-			{ name = "Macbook pro A1286 Core i7", description = "Um Macbook topo de gama para ver e-mails e navegar na Internet.", price = 2200, itemID = 96 },
+			{ name = "GPS Portátil", description = "Dispositivo de posicionamento global pessoal, com mapas recentes.", price = 150, itemID = 111 },
+			--{ name = "Macbook pro A1286 Core i7", description = "Um Macbook topo de gama para ver e-mails e navegar na Internet.", price = 2200, itemID = 96 },
 			--{ name = "Portable TV", description = "A portable TV to watch the TV.", price = 750, itemID = 104 },
 			--{ name = "Pedagio Sem-Parar", description = "Para seu carro: cobra automaticamente ao passar por um portão de pedágio.", price = 400, itemID = 118 },
 			{ name = "Sistema de Alarme de Veículo", description = "Proteja seu veículo com um alarme.", price = 1000, itemID = 130 },
