@@ -403,23 +403,23 @@ function toSQL(stuff)
 end
 
 function changeAccountPassword(thePlayer, commandName, accountUsername, newPass, newPassConfirm)
-	if not exports.integration:isPlayerScripter(thePlayer) then return end
+	if not exports.integration:isPlayerLeadAdmin(thePlayer) then return end
 	if not accountUsername or not newPass or not newPassConfirm then
-		outputChatBox("SYNTAX: /" .. commandName .. " [Account Username] [New Password] [Confirm Pass]", thePlayer, 125, 125, 125)
+		outputChatBox("SYNTAX: /" .. commandName .. " [Usuario] [Nova Senha] [Confirmar Senha]", thePlayer, 125, 125, 125)
 	else
 		if (newPass ~= newPassConfirm) then
-			outputChatBox("passwords don't match", thePlayer, 125, 125, 125)
+			outputChatBox("senha não bate", thePlayer, 125, 125, 125)
 		elseif (string.len(newPass)<6) then
-			outputChatBox("password too short", thePlayer, 125, 125, 125)
+			outputChatBox("senha muito curta", thePlayer, 125, 125, 125)
 		elseif (string.len(newPass)>=30) then
-			outputChatBox("passwords too long", thePlayer, 125, 125, 125)
+			outputChatBox("senha muito longa", thePlayer, 125, 125, 125)
 		elseif (string.find(newPass, ";", 0)) or (string.find(newPass, "'", 0)) or (string.find(newPass, "@", 0)) or (string.find(newPass, ",", 0)) then
-			outputChatBox("password cant contain ;,@'.", thePlayer, 125, 125, 125)
+			outputChatBox("senha não pode conter ;,@'.", thePlayer, 125, 125, 125)
 		else
 
 			local accountID = exports.cache:getIdFromUsername(accountUsername)
 			if not accountID then
-				outputChatBox("account not found", thePlayer, 125, 125, 125)
+				outputChatBox("conta não encontrada", thePlayer, 125, 125, 125)
 				return
 			end
 
@@ -428,7 +428,7 @@ function changeAccountPassword(thePlayer, commandName, accountUsername, newPass,
 
 			local query = dbExec(exports.mysql:getConn("core"), "UPDATE `accounts` SET `password`=?, `salt`=? WHERE id=?", encryptedPW, salt, accountID)
 			if query then
-				outputChatBox("password changed", thePlayer, 125, 125, 125)
+				outputChatBox("senha mudada", thePlayer, 125, 125, 125)
 			else
 				outputChatBox("error", thePlayer, 125, 125, 125)
 			end
