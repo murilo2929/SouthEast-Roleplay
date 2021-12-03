@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/uikit.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta author="Hanz">
+    <title>Advertisements</title>
+  </head>
+  <body style="background: transparent;">
+    <div class="center">
+      <div class="card" style="min-width: 700px;">
+ 
+        <div class="card-header">
+          <h4>Anúncio</h4>
+        </div>
+       
+        <div id="request-panel">
+          <div class="card-body">
+            <div class="empty-state" style="height: 260px; max-width: 600px;">
+              <img class="img-fluid" src="img/logo.png" alt="image" width="128" style="margin-top: -20px;">
+                    <div class="form-group">
+                      <label id="appo-label">Los Santos Network<br>Anúncio</label>
+                      <div class="form-group">
+                        <b>REGRAS DE ANÚNCIO</b>
+                      </div>
+                  <div class="alert alert-primary">
+                      Enquanto anuncia <b>ortografia - ortografia </b>regras devem ser observadas.
+                 </div>
+                <div class="alert alert-info">
+                  Anúncios ilegais são <b>proibidos</b> (use a deep web).
+                </div>              
+            </div>
+            </div>
+          </div>
+          <div class="card-footer bg-whitesmoke" id="solutionaction">
+              <a href="#" class="btn btn-icon btn-dark float-right" onclick="switchPanel('next-panel');">Avançar</a>
+              <button class="btn btn-danger btn-icon icon-left" onclick="mta.triggerEvent('adverts.close');">Fechar</button>
+          </div>
+        </div>
+        <div id="next-panel">
+          <div class="card-body" style="padding: 0;">
+            <div class="empty-state" style="height: 300px; max-width: 700px;">
+              <div class="form-group">
+                <label id="appo-label">Escreva o conteúdo do anúncio na caixa abaixo.</label>
+                <div class="form-group">
+                  <label><b>(Exemplo: Meu veículo da marca Volkswagen Golf está à venda. Ligue para saber o preço.)</b></label>
+                  <input type="text" class="form-control" id="advertstext">
+                </div>
+                <div class="alert alert-primary">
+                  Se eu não cumprir as regras de anúncio <b>Penalidade OOC</b> Eu estou ciente que serei punido.
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div class="card-footer bg-whitesmoke" id="solutionaction">
+            <a href="#" class="btn btn-icon btn-dark float-left" onclick="switchPanel('request-panel');">Voltar</a>
+            <button class="btn btn-primary float-right" onclick="mta.triggerEvent('adverts.send', document.getElementById('advertstext').value);">Anúnciar</button>
+		<br></br>
+        </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const tabs = ["request-panel", "next-panel"];
+      var checkTimer = null;
+      function setIcon(icon) {
+        document.getElementById("err_img").src = `img/${icon}.svg`;
+      }
+
+      function switchPanel(id) {
+        tabs.forEach(
+          function(row) {
+            document.getElementById(row).style.display = "none";
+          }
+        );
+        document.getElementById(id).style.display = "block";
+        if (!checkTimer)
+          checkTimer = setInterval(function() {mta.triggerEvent('marriage.updateText');}, 500);
+      }
+      function destroyPanel() {
+        tabs.forEach(
+          function(row) {
+            document.getElementById(row).style.display = "none";
+          }
+        );
+        if (checkTimer)
+          clearInterval(checkTimer);
+          checkTimer = null;
+      }
+      function maxLengthCheck(object) {
+        if (object.value.length > object.maxLength)
+          object.value = object.value.slice(0, object.maxLength)
+
+        if (object.value > 21)
+          object.value = 21;
+
+        if (object.value != "")
+          if (object.value < 1)
+            object.value = 1;
+      }
+      
+
+      destroyPanel();
+      switchPanel("request-panel");
+      
+    </script>
+    <script src="js/uikit.min.js"></script>
+    <script src="js/mtaevents.js"></script>
+  </body>
+</html>
