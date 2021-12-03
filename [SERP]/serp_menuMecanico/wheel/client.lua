@@ -17,7 +17,7 @@ wheels = {
 },
 }
 
-local mesaj = "Pedido"
+local mesaj = "Instalar"
 
 addEvent("jant:gui", true)
 addEventHandler("jant:gui", root,
@@ -46,7 +46,7 @@ addEventHandler("onClientGUIClick", root,
 	function(b)
 		if (b == "left") then
 			if (source == close) then
-				mesaj = "Pedido"
+				mesaj = "Instalar"
 				guiSetText(save, mesaj)
 				destroyElement(mechanicGUI)
 				localPlayer:setData("wheel:mechanic", nil)	

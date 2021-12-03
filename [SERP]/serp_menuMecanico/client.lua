@@ -33,11 +33,11 @@ addEventHandler("mechanic:gui", root,
         --self.label[1] = guiCreateLabel(216, 179, 255, 19, "Agora você pode instalar spoilers de veículos com mais facilidade. ", false, self.tab[3])
         self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "spoiler/main/main.png", false, self.tab[3])
 		
-        self.tab[4] = guiCreateTab("Buzina", self.tabpanel[2])
+        --self.tab[4] = guiCreateTab("Buzina", self.tabpanel[2])
 		
-        kornapanel = guiCreateButton(23, 213, 650, 40, "Buzina", false, self.tab[4])
+        --kornapanel = guiCreateButton(23, 213, 650, 40, "Buzina", false, self.tab[4])
         --self.label[4] = guiCreateLabel(216, 179, 255, 19, "Agora você poderá instalar buzinas de veículos com mais facilidade. ", false, self.tab[4])
-        self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "korna/main/main.png", false, self.tab[4])
+        --self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "korna/main/main.png", false, self.tab[4])
 		
         --[[self.tab[5] = guiCreateTab("Características adicionais", self.tabpanel[2])
 

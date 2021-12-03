@@ -26,7 +26,7 @@ spoilers = {
 },
 }
 
-local mesaj = "Pedido"
+local mesaj = "Instalar"
 
 addEvent("spoiler:gui", true)
 addEventHandler("spoiler:gui", root,

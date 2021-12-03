@@ -1,5 +1,5 @@
 kornas = {
-	{418, "Buzina #1", 1500000},
+	{418, "Buzina #1", 2},
 	{419, "Buzina #2", 1500000},
 	{420, "Buzina #3", 1500000},
 	{421, "Buzina #4", 1500000},
@@ -7,7 +7,7 @@ kornas = {
 	{423, "Buzina #6", 1500000},
 }
 
-local mesaj = "Pedido"
+local mesaj = "Instalar"
 
 addEvent("korna:gui", true)
 addEventHandler("korna:gui", root,
