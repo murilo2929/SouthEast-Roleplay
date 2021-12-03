@@ -39,17 +39,17 @@ addEventHandler("mechanic:gui", root,
         --self.label[4] = guiCreateLabel(216, 179, 255, 19, "Agora você poderá instalar buzinas de veículos com mais facilidade. ", false, self.tab[4])
         self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "korna/main/main.png", false, self.tab[4])
 		
-        self.tab[5] = guiCreateTab("Características adicionais", self.tabpanel[2])
+        --[[self.tab[5] = guiCreateTab("Características adicionais", self.tabpanel[2])
 
         self.label[2] = guiCreateLabel(271, 114, 155, 15, "Esta interface está em construção.", false, self.tab[5])
-        self.label[3] = guiCreateLabel(316, 129, 58, 16, "© v1", false, self.tab[5])
+        self.label[3] = guiCreateLabel(316, 129, 58, 16, "© v1", false, self.tab[5])]]
 
 
 
-        self.tab[6] = guiCreateTab("Ajuda", self.tabpanel[1])
+        self.tab[6] = guiCreateTab("", self.tabpanel[1])
 
         close2 = guiCreateButton(10, 317, 728, 23, "Fechar", false, self.tab[6])
-        self.gridlist[1] = guiCreateGridList(18, 20, 710, 287, false, self.tab[6])
+        --[[self.gridlist[1] = guiCreateGridList(18, 20, 710, 287, false, self.tab[6])
         guiGridListAddColumn(self.gridlist[1], "Ajuda", 0.9)
         for i = 1, 14 do
             guiGridListAddRow(self.gridlist[1])
@@ -72,7 +72,7 @@ addEventHandler("mechanic:gui", root,
         guiGridListSetItemText(self.gridlist[1], 10, 1, "", false, false)
         guiGridListSetItemText(self.gridlist[1], 11, 1, "", false, false)
         guiGridListSetItemText(self.gridlist[1], 12, 1, "Você teve a ajuda de que precisava. Se você tiver quaisquer problemas, você pode pedir ajuda enviando um report.", false, false)
-        guiGridListSetItemText(self.gridlist[1], 13, 1, "Roleplay - Scripting Team", false, false)    
+        guiGridListSetItemText(self.gridlist[1], 13, 1, "Roleplay - Scripting Team", false, false)]]    
     end
 )
 

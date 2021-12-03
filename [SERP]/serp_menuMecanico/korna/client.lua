@@ -15,14 +15,14 @@ addEventHandler("korna:gui", root,
 		setElementData(localPlayer, "korna:mechanic", true)
 		kornaGUI = guiCreateWindow(0, 0, 612, 348, " Roleplay - Buzinas", false)
 		guiWindowSetSizable(kornaGUI, false)
-		exports.ed_global:centerWindow(kornaGUI)
+		exports.global:centerWindow(kornaGUI)
 		gridlist = guiCreateGridList(9, 24, 349, 228, false, kornaGUI)
 		guiGridListAddColumn(gridlist, "Buzina", 0.6)
 		guiGridListAddColumn(gridlist, "Preço", 0.23)
 		for index, v in ipairs(kornas) do
 			local row = guiGridListAddRow(gridlist)
 			guiGridListSetItemText(gridlist, row, 1, "Buzina de ar (#"..index..")", false, false)
-			guiGridListSetItemText(gridlist, row, 2, exports.ed_global:formatMoney(v[3]).." $", false, false)
+			guiGridListSetItemText(gridlist, row, 2, exports.global:formatMoney(v[3]).." $", false, false)
 		end
 		savesd = guiCreateButton(10, 267, 590, 33, mesaj, false, kornaGUI)
 		korna = guiCreateStaticImage(375, 26, 223, 226, "korna/main/korna.png", false, kornaGUI)
