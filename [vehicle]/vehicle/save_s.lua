@@ -20,6 +20,7 @@ function saveVehicle(source)
 			local sirens = getVehicleSirensOn(source) and 1 or 0
 			local Impounded = getElementData(source, "Impounded") or 0
 			local handbrake = getElementData(source, "handbrake") or 0
+			local neon = getElementData(source, "tuning.neon") or "N/A"
 			local health = getElementHealth(source)
 			local dimension = getElementDimension(source)
 			local interior = getElementInterior(source)
@@ -45,7 +46,7 @@ function saveVehicle(source)
 			local doorState = toJSON( { door0, door1, door2, door3, door4, door5 } )
 			
 			dbExec( exports.mysql:getConn('mta'), "UPDATE vehicles SET fuel=?, engine=?, locked=?, lights=?, hp=?, sirens=?, Impounded=?, handbrake=?, currx=?, curry=?, currz=?, currrx=?, currry=?, currrz=?, currdimension=?, currinterior=?, " 
-				.. "panelStates=?, wheelStates=?, doorStates=?, odometer=? WHERE id=? ", fuel, engine, locked, lights, health, sirens, Impounded, handbrake, x, y, z, rx, ry, rz, dimension, interior, panelState, wheelState, doorState, odometer, dbid ) 
+				.. "panelStates=?, wheelStates=?, doorStates=?, odometer=?, neon=? WHERE id=? ", fuel, engine, locked, lights, health, sirens, Impounded, handbrake, x, y, z, rx, ry, rz, dimension, interior, panelState, wheelState, doorState, odometer, neon, dbid ) 
 	end
 end
 
