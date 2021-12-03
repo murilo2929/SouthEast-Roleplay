@@ -198,10 +198,10 @@ function openAppsWindow(apps1, quests1)
 
 
 end
-addCommandHandler("apps",openAppsWindow )
-addCommandHandler("applications",openAppsWindow)
-addEvent("apps:openAppsWindow", true)
-addEventHandler("apps:openAppsWindow", getRootElement(), openAppsWindow)
+--addCommandHandler("apps",openAppsWindow )
+--addCommandHandler("applications",openAppsWindow)
+--addEvent("apps:openAppsWindow", true)
+--addEventHandler("apps:openAppsWindow", getRootElement(), openAppsWindow)
 
 function updateQuests()
 	guiGridListClear(gui1.grid_appPart1)
