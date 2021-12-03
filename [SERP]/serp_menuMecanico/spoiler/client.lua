@@ -34,14 +34,14 @@ addEventHandler("spoiler:gui", root,
 		setElementData(localPlayer, "spoiler:mechanic", true)
 		spoilerGUI = guiCreateWindow(0, 0, 612, 348, "Sistema Spoiler", false)
 		guiWindowSetSizable(spoilerGUI, false)
-		exports.ed_global:centerWindow(spoilerGUI)
+		exports.global:centerWindow(spoilerGUI)
 		gridlist = guiCreateGridList(9, 24, 349, 228, false, spoilerGUI)
 		guiGridListAddColumn(gridlist, "Spoilers", 0.6)
 		guiGridListAddColumn(gridlist, "Preço", 0.2)
 		for index, v in ipairs(spoilers[2]) do
 			local row = guiGridListAddRow(gridlist)
 			guiGridListSetItemText(gridlist, row, 1, "Spoiler (#"..index..")", false, false)
-			guiGridListSetItemText(gridlist, row, 2, exports.ed_global:formatMoney(v[3]).." $", false, false)
+			guiGridListSetItemText(gridlist, row, 2, exports.global:formatMoney(v[3]).." $", false, false)
 			guiGridListSetItemData(gridlist, row, 1, v[2], false, false)
 		end
 		saves = guiCreateButton(10, 267, 590, 33, mesaj, false, spoilerGUI)

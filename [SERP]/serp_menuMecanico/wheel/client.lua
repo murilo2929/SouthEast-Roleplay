@@ -25,14 +25,14 @@ addEventHandler("jant:gui", root,
 		setElementData(localPlayer, "wheel:mechanic", true)
 		mechanicGUI = guiCreateWindow(0, 0, 612, 348, "Sistema Rodas", false)
 		guiWindowSetSizable(mechanicGUI, false)
-		exports.ed_global:centerWindow(mechanicGUI)
+		exports.global:centerWindow(mechanicGUI)
 		gridlist = guiCreateGridList(9, 24, 349, 228, false, mechanicGUI)
 		guiGridListAddColumn(gridlist, "Rodas", 0.6)
 		guiGridListAddColumn(gridlist, "Preço", 0.2)
 		for index, v in ipairs(wheels[2]) do
 			local row = guiGridListAddRow(gridlist)
 			guiGridListSetItemText(gridlist, row, 1, "Jant (#"..index..")", false, false)
-			guiGridListSetItemText(gridlist, row, 2, exports.ed_global:formatMoney(v[3]).." $", false, false)
+			guiGridListSetItemText(gridlist, row, 2, exports.global:formatMoney(v[3]).." $", false, false)
 			guiGridListSetItemData(gridlist, row, 1, v[2], false, false)
 		end
 		save = guiCreateButton(10, 267, 590, 33, mesaj, false, mechanicGUI)
