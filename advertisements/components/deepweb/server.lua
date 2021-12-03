@@ -47,6 +47,9 @@ addEventHandler("deepweb:receive", root,
 			--end
 			outputChatBox("Você compartilhou com sucesso, será verificado e compartilhado em 15 segundos.", player, 255, 255, 255)	
 			exports.global:sendMessageToAdmins("AdmWrn: "..player.name.." publicou um anúncio, Anúnciou: "..message)
+
+			local logMsg = "```"..player.name.." fez um anúncio (Ilegal), Anúncio: "..message.."```"
+			exports.serp_discord_logs:msg("anuncio-logs", logMsg)
 			
 			Timer(
 				function(adID, plr)
@@ -65,7 +68,7 @@ addEventHandler("deepweb:receive", root,
 								--end
 							end
 						else
-							exports.global:giveMoney(player, 300)
+							--exports.global:giveMoney(player, 300)
 						end
 					end
 				end,

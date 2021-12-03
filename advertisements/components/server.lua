@@ -47,6 +47,9 @@ addEventHandler("adverts:receive", root,
 			outputChatBox("#ffffff Seu anúncio foi enviado com sucesso, será publicado em 10 segundos.", player, 0, 255, 0, true)	
 			--exports.global:sendMessageToAdmins("AdmWrn: "..player.name.." anúncio:")
 			exports.global:sendMessageToAdmins("AdmWrn: "..player.name.." fez um anúncio, Anúncio: "..message.."")
+
+			local logMsg = "```"..player.name.." fez um anúncio (Legal), Anúncio: "..message.."```"
+			exports.serp_discord_logs:msg("anuncio-logs", logMsg)
 			
 			Timer(
 				function(adID, plr)
