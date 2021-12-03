@@ -24,7 +24,7 @@ function ustArama(thePlayer, cmdName, targetPlayer)
 			
 				local distance = getDistanceBetweenPoints3D(x, y, z, tx, ty, tz)
 				
-				if (distance<=5) then
+				if (distance<=1) then
 					outputChatBox("#f0f0f0Um pedido de revista foi enviado para o jogador: " .. targetPlayerName, thePlayer, 0, 255, 0, true)
 					triggerClientEvent(targetPlayer, "pd:ustAramaOnayGUI", thePlayer, thePlayer, targetPlayer)
 				else
