@@ -24,19 +24,19 @@ addEventHandler("mechanic:gui", root,
         self.tab[2] = guiCreateTab("Rodas", self.tabpanel[2])
 
         jantpanel = guiCreateButton(23, 213, 650, 40, "Interface de roda aberta", false, self.tab[2])
-        self.label[1] = guiCreateLabel(216, 179, 255, 19, "Agora você poderá instalar rodas no veículo com mais facilidade. ", false, self.tab[2])
+        --self.label[1] = guiCreateLabel(216, 179, 255, 19, "Agora você poderá instalar rodas no veículo com mais facilidade. ", false, self.tab[2])
         self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "wheel/main/main.png", false, self.tab[2])
 
         self.tab[3] = guiCreateTab("Spoiler", self.tabpanel[2])
 
         spoilerpanel = guiCreateButton(23, 213, 650, 40, "Spoiler", false, self.tab[3])
-        self.label[1] = guiCreateLabel(216, 179, 255, 19, "Agora você pode instalar spoilers de veículos com mais facilidade. ", false, self.tab[3])
+        --self.label[1] = guiCreateLabel(216, 179, 255, 19, "Agora você pode instalar spoilers de veículos com mais facilidade. ", false, self.tab[3])
         self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "spoiler/main/main.png", false, self.tab[3])
 		
         self.tab[4] = guiCreateTab("Buzina", self.tabpanel[2])
 		
         kornapanel = guiCreateButton(23, 213, 650, 40, "Buzina", false, self.tab[4])
-        self.label[4] = guiCreateLabel(216, 179, 255, 19, "Agora você poderá instalar buzinas de veículos com mais facilidade. ", false, self.tab[4])
+        --self.label[4] = guiCreateLabel(216, 179, 255, 19, "Agora você poderá instalar buzinas de veículos com mais facilidade. ", false, self.tab[4])
         self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "korna/main/main.png", false, self.tab[4])
 		
         self.tab[5] = guiCreateTab("Características adicionais", self.tabpanel[2])
@@ -87,21 +87,21 @@ addEventHandler("onClientGUIClick", root,
 					destroyElement(self.window[1])
 					triggerEvent("jant:gui", localPlayer)
 				else
-					outputChatBox("[-]#f9f9f9 Bu arayüze erişmene iznin yok.", 255, 0, 0, true)
+					outputChatBox("[-]#f9f9f9 Você não tem permissão para acessar esta interface.", 255, 0, 0, true)
 				end
 			elseif (source == spoilerpanel) then
 				if localPlayer:getData("job") == 5 then 
 					destroyElement(self.window[1])
 					triggerEvent("spoiler:gui", localPlayer)
 				else
-					outputChatBox("[-]#f9f9f9 Bu arayüze erişmene iznin yok.", 255, 0, 0, true)
+					outputChatBox("[-]#f9f9f9 Você não tem permissão para acessar esta interface.", 255, 0, 0, true)
 				end
 			elseif (source == kornapanel) then
 				if localPlayer:getData("job") == 5 then 
 					destroyElement(self.window[1])
 					triggerEvent("korna:gui", localPlayer)
 				else
-					outputChatBox("[-]#f9f9f9 Bu arayüze erişmene iznin yok.", 255, 0, 0, true)
+					outputChatBox("[-]#f9f9f9 Você não tem permissão para acessar esta interface.", 255, 0, 0, true)
 				end				
 			end
 		end
