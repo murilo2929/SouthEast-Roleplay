@@ -23,7 +23,7 @@ addEventHandler("mechanic:gui", root,
 
         self.tab[2] = guiCreateTab("Rodas", self.tabpanel[2])
 
-        jantpanel = guiCreateButton(23, 213, 650, 40, "Interface de roda aberta", false, self.tab[2])
+        jantpanel = guiCreateButton(23, 213, 650, 40, "Rodas", false, self.tab[2])
         --self.label[1] = guiCreateLabel(216, 179, 255, 19, "Agora você poderá instalar rodas no veículo com mais facilidade. ", false, self.tab[2])
         self.staticimage[1] = guiCreateStaticImage(276, 33, 136, 136, "wheel/main/main.png", false, self.tab[2])
 
