@@ -8,7 +8,7 @@ function checkForAFK()
 		armed = true
 	end
 end
-setTimer(checkForAFK, 60000, 0) -- Every minute check pls
+--setTimer(checkForAFK, 60000, 0) -- Every minute check pls
 
 function playerIsNotAway()
 	pending = getRealTime().timestamp
