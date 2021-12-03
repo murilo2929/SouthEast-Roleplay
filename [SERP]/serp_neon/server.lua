@@ -24,7 +24,7 @@ addCommandHandler("setneon",
 				outputChatBox("#ffffff /setneon [Veículo ID] [Cor (1-10)]", player, 0, 0, 255, true)
 				return
 			end
-			local vehicle = exports.ed_pool:getElement('vehicle', vehID)
+			local vehicle = exports.pool:getElement('vehicle', vehID)
 			if vehicle and isElement(vehicle) then
 				local color = neonList[tostring(color)]
 				if not color then return end
