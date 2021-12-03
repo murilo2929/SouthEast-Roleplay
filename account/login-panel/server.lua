@@ -359,7 +359,7 @@ function playerRegister(username,password,confirmPassword, email)
 				local encryptedPW = getEncryptedPw(password, salt)
 
 				local ipAddress = getPlayerIP(client)
-				preparedQuery3 = "INSERT INTO `accounts` SET `username`=?, `password`=?,`salt`=? `email`=?, `registerdate`=NOW(), `ip`=?, `activated`='1' "
+				preparedQuery3 = "INSERT INTO `accounts` SET `username`=?, `password`=?,`salt`=?, `email`=?, `registerdate`=NOW(), `ip`=?, `activated`='1' "
 				local userid = dbExec(exports.mysql:getConn("core"), preparedQuery3, username, encryptedPW, salt, email, ipAddress)
 				if userid then
 					triggerClientEvent(client,"accounts:register:complete",client, username, password)
