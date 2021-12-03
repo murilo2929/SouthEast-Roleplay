@@ -96,8 +96,13 @@ function showPlayerMenu(targetPlayer, friend)
 	end
 
 	if cuffed == 1 then
-		bRestrain = exports['rightclick']:addRow("Desalgemar")
-		addEventHandler("onClientGUIClick", bRestrain, cunrestrainPlayer, false)
+		if algema then
+			bRestrain = exports['rightclick']:addRow("Desalgemar")
+			addEventHandler("onClientGUIClick", bRestrain, cunrestrainPlayer, false)
+		else
+			bRestrain = exports['rightclick']:addRow("Desamarrar")
+			addEventHandler("onClientGUIClick", bRestrain, cunrestrainPlayer, false)
+		end
 	end
 	
 	--[[RESTRAIN
