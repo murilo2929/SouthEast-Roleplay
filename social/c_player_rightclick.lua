@@ -81,10 +81,17 @@ function showPlayerMenu(targetPlayer, friend)
 
 	-- ALGEMAR
 	local cuffed = getElementData(player, "restrain")
-	if exports.global:hasItem(getLocalPlayer(), 45) then
+	local algema = exports.global:hasItem(getLocalPlayer(), 45)
+	local corda = exports.global:hasItem(getLocalPlayer(), 46)
+	if algema or corda then
 		if cuffed == 0 then
-			bRestrain = exports['rightclick']:addRow("Algemar")
-			addEventHandler("onClientGUIClick", bRestrain, crestrainPlayer, false)
+			if algema then
+				bRestrain = exports['rightclick']:addRow("Algemar")
+				addEventHandler("onClientGUIClick", bRestrain, crestrainPlayer, false)
+			else
+				bRestrain = exports['rightclick']:addRow("Amarrar")
+				addEventHandler("onClientGUIClick", bRestrain, crestrainPlayer, false)
+			end
 		end
 	end
 
