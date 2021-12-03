@@ -76,8 +76,12 @@ function showPlayerMenu(targetPlayer, friend)
 	end]]
 
 	-- FRISK
-	bFrisk = exports['rightclick']:addRow("Inventario")
-	addEventHandler("onClientGUIClick", bFrisk, cfriskPlayer, false)
+
+	local cuffed = getElementData(player, "restrain")
+	if cuffed == 1 then
+		bFrisk = exports['rightclick']:addRow("Inventario")
+		addEventHandler("onClientGUIClick", bFrisk, cfriskPlayer, false)
+	end
 
 	-- ALGEMAR
 	local cuffed = getElementData(player, "restrain")
@@ -159,8 +163,8 @@ function showPlayerMenu(targetPlayer, friend)
 		end
 	end
 	
-	bInformation = exports['rightclick']:addRow("Informação")
-	addEventHandler("onClientGUIClick", bInformation, showPlayerInfo, false)
+	--bInformation = exports['rightclick']:addRow("Informação")
+	--addEventHandler("onClientGUIClick", bInformation, showPlayerInfo, false)
 
 	sent = false
 end
@@ -336,11 +340,8 @@ function cfriskPlayer(button, state, x, y)
 		local injured = getElementData(player, "injuriedanimation")
 		
 		if restrained ~= 1 and not injured then
-			outputChatBox("Este jogador não está algemado ou ferido.", 255, 0, 0)
+			--outputChatBox("Este jogador não está algemado ou ferido.", 255, 0, 0)
 			hidePlayerMenu()
-		--[[elseif getElementHealth(getLocalPlayer()) < 50 then
-			outputChatBox("You need at least half health to frisk someone.", 255, 0, 0)
-			hidePlayerMenu()]]--
 		else
 			gx = x
 			gy = y
