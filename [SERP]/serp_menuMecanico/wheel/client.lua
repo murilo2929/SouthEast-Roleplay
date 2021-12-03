@@ -31,7 +31,7 @@ addEventHandler("jant:gui", root,
 		guiGridListAddColumn(gridlist, "Preço", 0.2)
 		for index, v in ipairs(wheels[2]) do
 			local row = guiGridListAddRow(gridlist)
-			guiGridListSetItemText(gridlist, row, 1, "Jant (#"..index..")", false, false)
+			guiGridListSetItemText(gridlist, row, 1, "Roda (#"..index..")", false, false)
 			guiGridListSetItemText(gridlist, row, 2, exports.global:formatMoney(v[3]).." $", false, false)
 			guiGridListSetItemData(gridlist, row, 1, v[2], false, false)
 		end
