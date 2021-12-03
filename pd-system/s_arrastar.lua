@@ -39,7 +39,7 @@ addCommandHandler("arrastar",
 						
 						local distance = getDistanceBetweenPoints3D(x, y, z, tx, ty, tz)
 						
-						if (distance<=10) then
+						if (distance<=1) then
 							exports.global:applyAnimation( targetPlayer, "CRACK", "crckidle4", -1, false, false, false)
 							attachElements(targetPlayer, thePlayer, 0, 1, 0)
 							setElementData(thePlayer, "surukle", targetPlayer)
