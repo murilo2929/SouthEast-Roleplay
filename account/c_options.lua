@@ -187,7 +187,7 @@ function options_showmenu()
 		end
 	end
 
-	if getResourceFromName("apps") and exports.integration:isPlayerTrialAdmin(localPlayer) or exports.integration:isPlayerSupporter(localPlayer) then
+	--[[if getResourceFromName("apps") and exports.integration:isPlayerTrialAdmin(localPlayer) or exports.integration:isPlayerSupporter(localPlayer) then
 		bApplicationManager = guiCreateButton(margin, wHeight, 230, 30, "Whitelisst Manager", false, wOptions)
 		addEventHandler("onClientGUIClick", bApplicationManager,
 		function ()
@@ -197,7 +197,7 @@ function options_showmenu()
 			options_closemenu()
 		end, false)
 		wHeight = wHeight + bHeight
-	end
+	end]]
 
 	if getResourceFromName("carradio") then
 		bRadioManager = guiCreateButton(margin, wHeight, 230, 30, "Estação Radio Manager", false, wOptions)
