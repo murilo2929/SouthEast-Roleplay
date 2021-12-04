@@ -479,7 +479,7 @@ function getCarID(thePlayer, commandName)
 	end
 end
 addCommandHandler("thiscar", getCarID, false, false)
-addCommandHandler("idveiculo", getCarID, false, false)
+addCommandHandler("idcarro", getCarID, false, false)
 
 -- /gotocar
 function gotoCar(thePlayer, commandName, id)
@@ -516,7 +516,7 @@ function gotoCar(thePlayer, commandName, id)
 end
 addCommandHandler("gotocar", gotoCar, false, false)
 addCommandHandler("gotoveh", gotoCar, false, false)
-addCommandHandler("tpveiculo", gotoCar, false, false)
+addCommandHandler("ircarro", gotoCar, false, false)
 
 -- /getcar
 function getCar(thePlayer, commandName, id)
@@ -559,7 +559,7 @@ function getCar(thePlayer, commandName, id)
 end
 addCommandHandler("getcar", getCar, false, false)
 addCommandHandler("getveh", getCar, false, false)
-addCommandHandler("trazerveiculo", getCar, false, false)
+addCommandHandler("trazercarro", getCar, false, false)
 
 -- This command teleports the specified vehicle to the specified player, /sendcar
 function sendCar(thePlayer, commandName, id, toPlayer)
@@ -700,7 +700,7 @@ function getNearbyVehicles(thePlayer, commandName)
 end
 addCommandHandler("nearbyvehicles", getNearbyVehicles, false, false)
 addCommandHandler("nearbyvehs", getNearbyVehicles, false, false)
-addCommandHandler("veiculosproximos", getNearbyVehicles, false, false)
+addCommandHandler("carros", getNearbyVehicles, false, false)
 
 function delNearbyVehicles(thePlayer, commandName)
 	if exports.integration:isPlayerAdmin(thePlayer)  then
