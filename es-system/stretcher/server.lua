@@ -17,7 +17,7 @@ function destroyStretcher( playerElement, vehicle )
 	if not playerElement and source then
 		playerElement = source
 	end
-
+	
 	if  stretcherArray[ playerElement ] then
 		if vehicle and isElement(vehicle) then
 			local patient = getElementData(stretcherArray[playerElement], "realism:stretcher:playerOnIt")
@@ -35,7 +35,7 @@ function destroyStretcher( playerElement, vehicle )
 				end
 				--outputDebugString("warpResult="..tostring(warpResult))
 				if not warpResult then
-					outputChatBox("O "..tostring(exports.global:getVehicleName(vehicle)).." não tem espaço para mais pacientes.", playerElement, 255, 0, 0)
+					outputChatBox("The "..tostring(exports.ed_global:getVehicleName(vehicle)).." does not have space for any more patients.", playerElement, 255, 0, 0)
 				else
 					setElementData(patient, "realism:stretcher:isInAmbulanceOnStretcher", true, true)
 				end
@@ -57,7 +57,7 @@ function leaveStretcher( playerElement )
 	if not playerElement and source then
 		playerElement = source
 	end
-
+	
 	if  stretcherArray[ playerElement ] then
 		triggerClientEvent( playerElement, "stretcher:getPositionInFrontOfElement", getRootElement( ), playerElement, false, "leave" )
 	end
@@ -70,11 +70,11 @@ function takeStretcher( stretcher, playerElement )
 	if not playerElement and source then
 		playerElement = source
 	end
-
+	
 	if  isElement(stretcher) and getElementType(stretcher) == "object" then
 		if not stretcherArray[playerElement] then
 			stretcherArray[ playerElement ] = stretcher
-			triggerClientEvent( playerElement, "stretcher:getPositionInFrontOfElement", getRootElement( ), playerElement, false, "take" )
+			triggerClientEvent( playerElement, "stretcher:getPositionInFrontOfElement", getRootElement( ), playerElement, false, "take" ) 
 		end
 	end
 end
@@ -85,25 +85,25 @@ function createStretcher( playerElement, vehicle )
 	if not playerElement and source then
 		playerElement = source
 	end
-
+	
 	if (getPedOccupiedVehicle(playerElement)) then
 		return
-	end
+	end	
 
 	if hasPlayerStretcherSpawned( playerElement ) then
 		if vehicle then
-			exports.global:sendLocalMeAction(playerElement, "coloca a maca dentro da ambulancia.")
+			exports.ed_global:sendLocalMeAction(playerElement, "puts the stretcher inside the "..tostring(exports.ed_global:getVehicleName(vehicle))..".")
 		else
-			exports.global:sendLocalMeAction(playerElement, "guarda a maca.")
+			exports.ed_global:sendLocalMeAction(playerElement, "puts the stretcher inside.")
 		end
 		destroyStretcher( playerElement, vehicle )
 	else
 		if vehicle then
-			exports.global:sendLocalMeAction(playerElement, "pega uma maca.")
+			exports.ed_global:sendLocalMeAction(playerElement, "takes out a stretcher from the "..tostring(exports.ed_global:getVehicleName(vehicle))..".")
 		else
-			exports.global:sendLocalMeAction(playerElement, "tira uma maca.")
+			exports.ed_global:sendLocalMeAction(playerElement, "takes out a stretcher.")
 		end
-		triggerClientEvent( playerElement, "stretcher:getPositionInFrontOfElement", getRootElement( ), playerElement, vehicle )
+		triggerClientEvent( playerElement, "stretcher:getPositionInFrontOfElement", getRootElement( ), playerElement, vehicle ) 
 	end
 end
 addEvent( "stretcher:createStretcher", true )
@@ -117,7 +117,7 @@ function getPositionInFrontOfElement( playerElement, x, y, z, vehicle, action )
 			setElementPosition(stretcherArray[playerElement], x, y, z - 0.5)
 			local rz, rx, ry = getElementRotation(playerElement, "ZXY")
 			setElementRotation(stretcherArray[playerElement], rz, rx, ry, "ZXY")
-
+			
 			stretcherArray[ playerElement ] = false
 			setElementData(playerElement, "realism:stretcher:hasStretcher", false, true)
 		else
@@ -206,6 +206,7 @@ function setStretcherInterior(player, interior, dimension)
 					--end
 					local interiortable = {false, false, false, interior, dimension}
 					triggerClientEvent(patient, "setPlayerInsideInterior", getRootElement(), interiortable, getRootElement())
+					--triggerEvent("onPlayerInteriorChange", patient, 0, 0, dimension, interior)
 				end
 			end
 		end
@@ -213,8 +214,8 @@ function setStretcherInterior(player, interior, dimension)
 end
 
 addEventHandler("onPlayerInteriorChange", getRootElement( ),
-	function( toInterior, toDimension)
-		setStretcherInterior(client, toInterior, toDimension)
+	function( a, b, toDimension, toInterior)	
+		setStretcherInterior(source, toInterior, toDimension)
 	end
 )
 
@@ -230,11 +231,11 @@ function movePedOntoStretcher(	targetElement, playerElement )
 	if not source and playerElement then
 		source = playerElement
 	end
-	if not targetElement or not isElement(targetElement) then
+	if not targetElement or not isElement(targetElement) then 
 		return false -- Target player does not exist
 	end
-
-	if not hasPlayerStretcherSpawned( source ) then
+	
+	if not hasPlayerStretcherSpawned( source ) then 
 		return false -- Stretcher does not exist
 	end
 	if getPedOccupiedVehicle( targetElement ) then
@@ -250,12 +251,11 @@ function movePedOntoStretcher(	targetElement, playerElement )
 	if getDistanceBetweenPoints3D(sourceX, sourceY, sourceZ, targetX, targetY, targetZ ) > 10 then
 		return false -- Far distance between the two players
 	end
-
+	
 	attachElements( targetElement, stretcherArray[ source ], 0, 0, 1.5 )
-	exports.global:applyAnimation( targetElement, "CRACK", "crckdeth2", -1, true )
+	exports.ed_global:applyAnimation( targetElement, "CRACK", "crckdeth2", -1, true )
 	setElementData(  stretcherArray[ source ], "realism:stretcher:playerOnIt", targetElement, true )
-	setElementCollisionsEnabled(targetElement, false)
-
+	
 end
 addEvent( "stretcher:movePedOntoStretcher", true )
 addEventHandler( "stretcher:movePedOntoStretcher", getRootElement( ), movePedOntoStretcher )
@@ -264,28 +264,27 @@ function takePedFromStretcher(	targetElement, playerElement )
 	if not source and playerElement then
 		source = playerElement
 	end
-	if not targetElement or not isElement(targetElement) then
+	if not targetElement or not isElement(targetElement) then 
 		return false -- Target player does not exist
 	end
-
-	if not hasPlayerStretcherSpawned( source ) then
+	
+	if not hasPlayerStretcherSpawned( source ) then 
 		return false -- Stretcher does not exist
 	end
-
+	
 	if getPedOccupiedVehicle( targetElement ) then
 		return false -- Target player is in a vehicle :(
 	end
-
+	
 	local sourceX, sourceY, sourceZ = getElementPosition(source)
 	local targetX, targetY, targetZ = getElementPosition(targetElement)
 	if getDistanceBetweenPoints3D(sourceX, sourceY, sourceZ,  targetX, targetY, targetZ ) > 10 then
 		return false -- Far distance between the two players
 	end
-
+	
 	detachElements( targetElement, stretcherArray[ source ], 0, 0, 1.5 )
-	exports.global:removeAnimation(targetElement)
+	exports.ed_global:removeAnimation(targetElement)
 	setElementData(  stretcherArray[ source ], "realism:stretcher:playerOnIt", false, false )
-	setElementCollisionsEnabled(targetElement, true)
 end
 addEvent( "stretcher:takePedFromStretcher", true )
 addEventHandler( "stretcher:takePedFromStretcher", getRootElement( ), takePedFromStretcher )
