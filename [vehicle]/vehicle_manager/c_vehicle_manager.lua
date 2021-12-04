@@ -689,7 +689,7 @@ function createCheckVehWindow(result, adminTitle, history, notes1)
         guiSetEnabled(bRemoveVeh1, exports.integration:isPlayerLeadAdmin(localPlayer))
         -- guiSetEnabled(bToggleInt1, false)
     else
-        bGotoVeh1 = guiCreateButton(12, 430, 90, 28, "IR ATÈ VEH", false, checkVehWindow)
+        bGotoVeh1 = guiCreateButton(12, 430, 90, 28, "IR ATE VEH", false, checkVehWindow)
         guiSetFont(bGotoVeh1, "default-bold-small")
         addEventHandler("onClientGUIClick", bGotoVeh1,
         function(button)
