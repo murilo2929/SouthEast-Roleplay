@@ -1,0 +1,6 @@
+<meta>
+	<script src="serit_c.lua" type="client" cache="false"/>
+	<script src="serit_s.lua" type="server"/>
+	<file src="policeline.png"/>
+	<oop>true</oop>
+</meta>
