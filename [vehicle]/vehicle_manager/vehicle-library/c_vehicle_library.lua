@@ -283,7 +283,8 @@ function showLibrary(vehs, thePed)
 		guiSetEnabled(buttons[7], false)
 
 
-		if exports.integration:isPlayerVehicleConsultant(localPlayer) or exports.integration:isPlayerLeadAdmin(localPlayer) then
+		--if exports.integration:isPlayerVehicleConsultant(localPlayer) or exports.integration:isPlayerLeadAdmin(localPlayer) then
+		if exports.integration:isPlayerScripter(localPlayer) then
 			guiSetEnabled(buttons[1], true) -- CREATE
 			guiSetEnabled(buttons[2], true) -- EDIT
 			guiSetEnabled(buttons[3], true) -- HANDLING
@@ -291,7 +292,7 @@ function showLibrary(vehs, thePed)
 			guiSetEnabled(buttons[7], true) -- RESTART CARSHOP
 		elseif exports.integration:isPlayerTrialAdmin(localPlayer) or exports.integration:isPlayerVCTMember(localPlayer) then
 			guiSetEnabled(buttons[7], true) -- RESTART CARSHOP
-			guiSetEnabled(buttons[3], true) -- HANDLING
+			--guiSetEnabled(buttons[3], true) -- HANDLING
 		end
 
 		-- NEXT, PREVIOUS AND SEARCH FEATURE.
