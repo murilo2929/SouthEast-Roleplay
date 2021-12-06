@@ -2,7 +2,7 @@ benzinmarker = createMarker ( 1939.1982421875, -1775.466796875, 13.39999961853, 
 -- benzinmarker2 = createMarker ( 1936.3503417969, -1775.6013183594, 13, "cylinder", 1.5, 255, 255, 0, 0 )
 
 function rolePlayMarkerTextRender()
-rolePlayMarkerText(benzinmarker,"/abastecer <Litros>\n[Litro 2$]",1,20,255,255,255,255,2,"arial")
+rolePlayMarkerText(benzinmarker,"/abastecer <Litros>\n[Litro 2$]",1,20,255,255,255,255,1.5,"arial")
 end
 addEventHandler("onClientRender", getRootElement(), rolePlayMarkerTextRender)
 

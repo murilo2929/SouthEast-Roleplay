@@ -34,7 +34,7 @@ local threadTimer = { }
 local resumeThreads = { }
 
 local function updateDepletingRate()
-	depleting_rate = math.max( #getElementsByType('player')*50, 10000 )
+	depleting_rate = math.max( #getElementsByType('player')*50, 500 )
 end
 updateDepletingRate()
 
