@@ -484,3 +484,55 @@ function tedaviOlma(thePlayer)
 end
 
 addCommandHandler("tratamento",tedaviOlma)
+
+function ChecarAnimo2(attacker)
+	for i, player in pairs (getElementsByType("player")) do
+		if not getElementData(player, "PlayerAnimo") then
+			if getElementData(player, "PlayerCaido") then return end
+				if tonumber(getElementHealth(player)) > 1 then
+					if tonumber(getElementHealth(player)) < 50 then 
+
+						local walkingStylesSave = getPedWalkingStyle(player)
+						setElementData(player, "JeitoAndar", walkingStylesSave)
+
+						setElementData(player, "PlayerAnimo", true)
+						toggleControl (player, "sprint", false ) 
+						toggleControl (player, "jump", false )
+						toggleControl (player, "crouch", false )
+						setPedWalkingStyle(player,120)
+					end
+				end
+		else
+			setPedWalkingStyle(player,120)
+			toggleControl (player, "sprint", false ) 
+			toggleControl (player, "jump", false )
+			toggleControl (player, "crouch", false )
+		end
+	end
+end
+setTimer(ChecarAnimo2, 200, 0)
+
+function ChecarAnimo()
+	for i, player in pairs (getElementsByType("player")) do
+		if  getElementData(player, "PlayerAnimo") then
+			if tonumber(getElementHealth(player)) > 51 then
+				setElementData(player, "PlayerAnimo", false)
+				setPedAnimation(player, false)
+				
+				local walkingStyles = getElementData(player, "JeitoAndar")
+				setPedWalkingStyle(player, walkingStyles)
+				
+				
+				toggleControl (player, "sprint", true ) 
+				toggleControl (player, "crouch", true )
+				toggleControl (player, "jump", true )
+
+				setTimer ( setPedAnimation, 100, 1, player,  "GHANDS", "gsign2", 5000, false, false, false)
+				setTimer ( setPedAnimation, 250, 1, player, nil)
+
+
+			end
+		end
+	end
+end
+setTimer(ChecarAnimo, 200, 0)
