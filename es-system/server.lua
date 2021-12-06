@@ -4,16 +4,17 @@ function playerDeath(totalAmmo, killer, killerWeapon)
 	if getElementData(source, "dbid") then
 		if getElementData(source, "adminjailed") then
 			local team = getPlayerTeam(source)
-			spawnPlayer(source, 232.3212890625, 160.5693359375, 1003.0234375, 270) --, team)
+			spawnPlayer(source, 232.3212890625, 160.5693359375, 1003.0234375, 270, 0) --, team)
 
 			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
 			local skincustom = getElementData(source, data_name) or getElementModel(source)
 
 		    if exports.newmodels:isCustomModID(skincustom) then
-			  setElementData(source, data_name, skincustom) -- custom id
-		    else
-		      setElementModel(source, skincustom) -- default id
-		    end
+				setElementData(source, data_name, 0)
+				setElementData(source, data_name, skincustom)
+			else
+				setElementModel(source, skincustom)
+			end
 			
 			--setElementModel(source,getElementModel(source))
 			setPlayerTeam(source, team)
@@ -50,10 +51,19 @@ function playerDeath(totalAmmo, killer, killerWeapon)
 			local dim = getElementDimension(source)
 			local team = getPlayerTeam(source)
 			local rotx, roty, rotz = getElementRotation(source)
-			local skin = getElementModel(source)
+			local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+			local skincustom = getElementData(source, data_name) or getElementModel(source)
+			--local skin = getElementModel(source)
 			
-			spawnPlayer(source, x, y, z, rotz, skin, int, dim, team)
-			
+			spawnPlayer(source, x, y, z, rotz, 0, int, dim, team)
+
+			if exports.newmodels:isCustomModID(skincustom) then
+				setElementData(source, data_name, 0)
+				setElementData(source, data_name, skincustom)
+			else
+				setElementModel(source, skincustom)
+			end
+
 			setElementFrozen(source, true)
 			setPedHeadless(source, false)
 			setCameraInterior(source, int)
@@ -89,7 +99,10 @@ addEventHandler("changeDeathView", getRootElement(), changeDeathView)
 
 
 function acceptDeath(thePlayer, victimDropItem)
-	if getElementData(thePlayer, "dead") == 1 then		
+	if getElementData(thePlayer, "dead") == 1 then	
+	local data_name = exports.newmodels:getDataNameFromType("ped") -- gets the correct data name
+	local skincustom = getElementData(thePlayer, data_name) or getElementModel(thePlayer)	
+
 		fadeCamera(thePlayer, true)
 		setElementData(thePlayer, "baygin", nil)
 
@@ -98,8 +111,16 @@ function acceptDeath(thePlayer, victimDropItem)
 		setElementData(thePlayer, "char.Thirst", 50)
 		setElementFrozen(thePlayer, false)
 		setElementData(thePlayer, "dead", 0)
-		spawnPlayer(source, 1177.9189453125, -1324.091796875, 14.094437599182, 270)
 		exports.global:removeAnimation(thePlayer)
+
+		spawnPlayer(thePlayer, 1178.38671875, -1324.2373046875, 14.117523193359, 270, 0)
+
+		if exports.newmodels:isCustomModID(skincustom) then
+			setElementData(thePlayer, data_name, 0)
+			setElementData(thePlayer, data_name, skincustom)
+		else
+			setElementModel(thePlayer, skincustom)
+		end
 	end
 end
 addEvent("es-system:acceptDeath", true)
@@ -390,27 +411,29 @@ function revivePlayerFromPK(thePlayer, commandName, targetPlayer)
 					spawnPlayer(targetPlayer, x, y, z, 0)--, team)
 					
 					if exports.newmodels:isCustomModID(skincustom) then
-			  			setElementData(targetPlayer, data_name, skincustom) -- custom id
-		    		else
-		      			setElementModel(targetPlayer, skincustom) -- default id
-		    		end
+						setElementData(targetPlayer, data_name, 0)
+						setElementData(targetPlayer, data_name, skincustom)
+					else
+						setElementModel(targetPlayer, skincustom)
+					end
 					--setElementModel(targetPlayer,skin)
 					setPlayerTeam(targetPlayer, team)
 					setElementInterior(targetPlayer, int)
 					setElementDimension(targetPlayer, dim)
 					acceptDeath(targetPlayer)
 					triggerClientEvent(targetPlayer, "bayilmaRevive", targetPlayer)
+					triggerClientEvent(targetPlayer, "removeTextoRespan", targetPlayer)
 					triggerEvent("updateLocalGuns", targetPlayer)
 					local adminTitle = tostring(exports.global:getPlayerAdminTitle(thePlayer))
 					
 					--outputChatBox("[-] "..tostring(exports.global:getPlayerAdminTitle(thePlayer)).." "..tostring(getPlayerName(thePlayer):gsub("_"," ")).." tarafından canlandırıldınız.", targetPlayer, 0, 255, 0, true)
 					--outputChatBox("[-] "..tostring(getPlayerName(targetPlayer):gsub("_"," ")).." isimli oyuncuyu canlandırdınız.", thePlayer, 0, 255, 0, true)
 					exports["serp_infobox"]:addBox(targetPlayer, "success", tostring(exports.global:getPlayerAdminTitle(thePlayer)).." "..tostring(getPlayerName(thePlayer):gsub("_"," ")).." te reviveu.")
-					exports["serp_infobox"]:addBox(thePlayer, "success", tostring(getPlayerName(targetPlayer):gsub("_"," ")).." isimli oyuncuyu canlandırdınız.")
+					exports["serp_infobox"]:addBox(thePlayer, "success", "Você reviveu o jogador "..tostring(getPlayerName(targetPlayer):gsub("_"," "))..".")
 					exports.global:sendMessageToAdmins("AdmCmd: "..tostring(exports.global:getPlayerAdminTitle(thePlayer)).." "..getPlayerName(thePlayer).." reviveu "..tostring(getPlayerName(targetPlayer))..".")
 					exports.logs:dbLog(thePlayer, 4, targetPlayer, "REVIVED from PK")
 				else
-					exports["serp_infobox"]:addBox(thePlayer, "error", tostring(getPlayerName(targetPlayer):gsub("_"," ")).." este jogador não morto.")
+					exports["serp_infobox"]:addBox(thePlayer, "error", "O jogador " ..tostring(getPlayerName(targetPlayer):gsub("_"," ")).." não está morto.")
 				end
 			end
 		end
