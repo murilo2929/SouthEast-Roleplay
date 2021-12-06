@@ -87,6 +87,7 @@ function showPlayerMenu(targetPlayer, friend)
 	local cuffed = getElementData(player, "restrain")
 	local algema = exports.global:hasItem(getLocalPlayer(), 45)
 	local corda = exports.global:hasItem(getLocalPlayer(), 46)
+	local chaves = exports.global:hasItem(getLocalPlayer(), 47)
 	if algema or corda then
 		if cuffed == 0 then
 			if algema then
@@ -100,7 +101,7 @@ function showPlayerMenu(targetPlayer, friend)
 	end
 
 	if cuffed == 1 then
-		if algema then
+		if chaves then
 			bRestrain = exports['rightclick']:addRow("Desalgemar")
 			addEventHandler("onClientGUIClick", bRestrain, cunrestrainPlayer, false)
 		else
@@ -296,6 +297,12 @@ function crestrainPlayer(button, state, x, y)
 				end
 					
 				triggerServerEvent("restrainPlayer", getLocalPlayer(), player, restrainedObj)
+
+				local playerPosX, playerPosY, playerPosZ = getElementPosition(player)
+				local soundEffect = playSound3D("handcuff.ogg", playerPosX, playerPosY, playerPosZ)
+				setElementInterior(soundEffect, getElementInterior(player))
+				setElementDimension(soundEffect, getElementDimension(player))
+				setSoundMaxDistance(soundEffect, 5)
 				hidePlayerMenu()
 			end
 		else
