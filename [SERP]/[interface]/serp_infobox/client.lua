@@ -24,15 +24,15 @@ local renderState = false
 local types = {}
 local details = {
     ["warning"] = {"Aviso", "warning", "w.mp3"},
-    ["error"] = {"Error", "error", "error.wav"},
-    ["info"] = {"Info", "information", "i.mp3"},
-    ["mod"] = {"Anúncio", "information", "i.mp3"},
-    ["models"] = {"Carregando models..", "information", "i.mp3"},
-    ["success"] = {"Başarılı", "success", "s.mp3"},
-    ["aduty"] = {"Anúncio oficial", "adminduty", "adminduty.mp3"},
-    ["buy"] = {"Atualização Financeira", "buy", "s.wav"},
-    ["twitter"] = {"Twitter", "twitter", "twitter.mp3"},
-    ["pet"] = {"Controle Animal", "pet", "w.mp3"},
+    ["error"] = {"Aviso", "error", "error.wav"},
+    ["info"] = {"Aviso", "information", "i.mp3"},
+    ["mod"] = {"Aviso", "information", "i.mp3"},
+    ["models"] = {"Aviso", "information", "i.mp3"},
+    ["success"] = {"Aviso", "success", "s.mp3"},
+    ["aduty"] = {"Aviso", "adminduty", "adminduty.mp3"},
+    ["buy"] = {"Aviso", "buy", "s.wav"},
+    ["twitter"] = {"Aviso", "twitter", "twitter.mp3"},
+    ["pet"] = {"Aviso", "pet", "w.mp3"},
 }
 
 function searchBox(key)
