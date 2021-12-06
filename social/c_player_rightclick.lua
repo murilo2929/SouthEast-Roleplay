@@ -144,7 +144,7 @@ function showPlayerMenu(targetPlayer, friend)
 	end]]
 	
 	-- STABILIZE
-	if exports.global:hasItem(getLocalPlayer(), 70) and getElementData(player, "injuriedanimation") or getElementData(player, "PlayerCaido") then
+	if exports.global:hasItem(getLocalPlayer(), 70) and getElementData(player, "injuriedanimation") or getElementData(player, "baygin") then
 		bStabilize = exports['rightclick']:addRow("Estabilizar")
 		addEventHandler("onClientGUIClick", bStabilize, cStabilize, false)
 	end
@@ -209,7 +209,7 @@ function cStabilize(button, state)
 	if button == "left" and state == "up" then
 		if (exports.global:hasItem(getLocalPlayer(), 70)) then -- Has First Aid Kit?
 			local knockedout = getElementData(player, "injuriedanimation")
-			local caido = getElementData(player, "PlayerCaido")
+			local caido = getElementData(player, "baygin")
 			
 			if not knockedout and not caido then
 				outputChatBox("Este jogador não está ferido.", 255, 0, 0)

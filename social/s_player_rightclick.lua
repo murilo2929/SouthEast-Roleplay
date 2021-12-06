@@ -192,12 +192,14 @@ function stabilizePlayer(player)
 		setPedRotation(client, findRotation(x,y,tx,ty) ); --let's set you facing them
 	
 	
-		outputChatBox("Você foi estabilizado por " .. username .. ".", player)
-		outputChatBox("Você estabilizou " .. targetPlayerName .. ".", client)
+		--outputChatBox("Você foi estabilizado por " .. username .. ".", player)
+		--outputChatBox("Você estabilizou " .. targetPlayerName .. ".", client)
 
 		setTimer ( function()
 
-			triggerEvent("onPlayerStabilize", player)
+			setElementHealth(player, math.max( 40, getElementHealth(player) ) )
+			outputChatBox("Você foi estabilizado por " .. username .. ".", player)
+			outputChatBox("Você estabilizou " .. targetPlayerName .. ".", client)
 
 		end, 10000, 1 )
 
