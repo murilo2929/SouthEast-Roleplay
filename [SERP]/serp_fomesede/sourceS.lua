@@ -64,6 +64,22 @@ function setarfome ( playerSource, commandName, amount )
 end
 addCommandHandler ("setfome", setarfome )
 
+function setarfome ( playerSource, commandName, targetPlayer, amount )
+	if exports.integration:isPlayerTrialAdmin(playerSource) then
+		if not tonumber(amount) or not (targetPlayer) then
+			outputChatBox("SYNTAX: /" .. commandName .. " [Nome Parcial Jogador / ID] [Quantia]", playerSource, 255, 194, 14)
+		else
+			local targetPlayer, targetPlayerName = exports.global:findPlayerByPartialNick(playerSource, targetPlayer)
+
+			if targetPlayer then
+				setElementData (targetPlayer,"char.Hunger",tonumber(amount))
+				setElementData (targetPlayer,"char.Thirst",tonumber(amount))
+			end
+		end
+	end
+end
+addCommandHandler ("setnecessidade", setarfome )
+
 --[[addEventHandler( "onPlayerQuit", root,
   function()
 	if isElement( burger[source] ) then destroyElement( burger[source] ) end
