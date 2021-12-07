@@ -206,7 +206,10 @@ function setInteriorID( thePlayer, commandName, interiorID )
 
 					outputChatBox( "Você mudou o interior da casa #"..dbid.." para o ID "..interiorID..".", thePlayer, 0, 255, 0 )
 					exports.logs:dbLog(thePlayer, 4, { "in"..tostring(dbid) } , "SETINTERIORID "..interiorID)
-					exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou o interior #"..dbid.." para o ID "..interiorID..".")
+
+					if not exports.integration:isPlayerScripter then
+						exports.serp_logsDiscord:adminlogsInterior("ADMcmd: Admin "..nome.." mudou o interior #"..dbid.." para o ID "..interiorID..".")
+					end
 
 					local hiddenAdmin = getElementData(thePlayer, "hiddenadmin")
 					local adminTitle = exports.global:getPlayerAdminTitle(thePlayer)
