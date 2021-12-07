@@ -130,7 +130,7 @@ function UnlockVehicle(element, matchingdimension)
                                 local factionRanks = getElementData(theTeam, "ranks")
                                 local factionRank = factionRanks[ rank ] or ""
 
-                                exports.global:giveItem(temp, 72, "Aviso de reboque: apreendido por ".. factionRank .." '".. getPlayerName(thePlayer) .."' at "..datestr)
+                                exports.global:giveItem(temp, 72, "Aviso de reboque: apreendido por ".. factionRank .." '".. getPlayerName(thePlayer) .."' as "..datestr)
                                 insertTowRecord(thePlayer, temp)
                                 outputChatBox("((Por favor, lembre-se de estacionar e trancar seu veículo em nosso estacionamento.))", thePlayer, 255, 194, 14)
                                 --notifications
