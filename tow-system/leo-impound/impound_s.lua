@@ -453,6 +453,7 @@ function addlane(player, cmd, fid)
 		local rx, ry, rz = getElementRotation(player)
 		local int = getElementInterior(player)
 		local dim = getElementDimension(player)
+		local fid = 1
 		if exports.mysql:query_free("INSERT INTO leo_impound_lot SET x="..x..", y="..y..", z="..z..", rx="..rx..", ry="..ry..", rz="..rz..", `int`="..int..", dim="..dim..", faction="..fid) then
 			outputChatBox("Land added.", player)
 		end
