@@ -216,8 +216,8 @@ function renderInteriorName()
                         local intPrice = exports.global:formatMoney(intStatus.cost)
                         intOwner = "Para venda: $"..intPrice
                         intInst = "Pressione F para comprar"
-                        local url = getElementData(theInterior, 'interior_id') and exports.cache:getImage(-tonumber(getElementData(theInterior, 'interior_id')))
-                        dxDrawImage ( img_l, img_t, img_w, img_h, url and url.tex or ':resources/loading.jpg' )
+                        --local url = getElementData(theInterior, 'interior_id') and exports.cache:getImage(-tonumber(getElementData(theInterior, 'interior_id')))
+                        --dxDrawImage ( img_l, img_t, img_w, img_h, url and url.tex or ':resources/loading.jpg' )
                     end
                 end
                 local intOwner_width = dxGetTextWidth ( intOwner, 1, "default" )
