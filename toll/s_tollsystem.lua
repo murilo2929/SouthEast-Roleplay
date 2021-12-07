@@ -269,7 +269,7 @@ function processOpenTolls(tollKey, thePed, thePlayer, payByBank)
 		end
 
 		triggerGate(thePed)
-		exports.global:giveMoney( getTeamFromName("Government of Los Santos"), 3 )
+		exports.global:giveMoney( getTeamFromName("Los Santos City Government"), 3 )
 		exports.global:giveMoney( getTeamFromName("Los Santos Police Department"), 2 )
 		return "Obrigado lá vai."
 	else

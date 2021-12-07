@@ -729,13 +729,13 @@ addEventHandler( "shop:buy", resourceRoot, function( index )
 		exports.logs:dbLog( client, 36, client, "bought WEAPON - " .. itemValue )
 
 		local govMoney = math.floor( price / 6 )
-		exports.global:giveMoney(getTeamFromName("Government of Los Santos"), govMoney)
+		exports.global:giveMoney(getTeamFromName("Los Santos City Government"), govMoney)
 		price = price - govMoney -- you'd obviously get less if the gov asks for percentage.
 	elseif itemID == 116 then -- log weapon purchases
 		exports.logs:dbLog( client, 36, client, "bought AMMO - " .. itemValue )
 
 		local govMoney = math.floor( price / 6 )
-		exports.global:giveMoney(getTeamFromName("Government of Los Santos"), govMoney)
+		exports.global:giveMoney(getTeamFromName("Los Santos City Government"), govMoney)
 		price = price - govMoney -- you'd obviously get less if the gov asks for percentage.
 	end
 

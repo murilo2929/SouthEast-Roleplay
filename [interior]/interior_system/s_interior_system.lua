@@ -453,12 +453,12 @@ function buyInterior(player, pickup, cost, isHouse, isRentable)
 	if exports.global:takeMoney(player, cost) then
 		if (isHouse) then
 			outputChatBox("Parabéns! Você acabou de comprar esta casa por $" .. exports.global:formatMoney(cost) .. ".", player, 255, 194, 14)
-			exports.global:giveMoney( getTeamFromName("Government of Los Santos"), cost )
+			exports.global:giveMoney( getTeamFromName("Los Santos City Government"), cost )
 		elseif (isRentable) then
 			outputChatBox("Parabéns! Você acabou de alugar esta casa por $" .. exports.global:formatMoney(cost) .. ".", player, 255, 194, 14)
 		else
 			outputChatBox("Parabéns! Você acabou de comprar esta propiedade por $" .. exports.global:formatMoney(cost) .. ".", player, 255, 194, 14)
-			exports.global:giveMoney( getTeamFromName("Government of Los Santos"), cost )
+			exports.global:giveMoney( getTeamFromName("Los Santos City Government"), cost )
 		end
 
 		local charid = getElementData(player, "dbid")
@@ -496,7 +496,7 @@ function buypropertyForFaction(interior, cost, isHouse, furniture, factionName)
 		outputChatBox("Não foi possivel pegar o dinheiro do banco da facção.", source, 255, 0, 0)
 		return
 	end
-	local gov = getTeamFromName("Government of Los Santos")
+	local gov = getTeamFromName("Los Santos City Government")
 	local intName = getElementData(interior,"name")
 	local intId = getElementData(interior, "dbid")
 	exports.global:giveMoney( gov, cost )
@@ -553,7 +553,7 @@ function buyInteriorCash(pickup, cost, isHouse, isRentable, furniture)
 		local charid = getElementData(client, "dbid")
 		local pickupid = getElementData(pickup, "dbid")
 		local intName = getElementData(pickup, "name")
-		local gov = getTeamFromName("Government of Los Santos")
+		local gov = getTeamFromName("Los Santos City Government")
 		if (isHouse) then
 			outputChatBox("Parabéns! Você acabou de comprar esta casa por $" .. exports.global:formatMoney(cost) .. ".", client, 255, 194, 14)
 			exports.global:giveMoney( gov, cost )
@@ -562,7 +562,7 @@ function buyInteriorCash(pickup, cost, isHouse, isRentable, furniture)
 			outputChatBox("Parabéns! Agora você está alugando esta propriedade por $" .. exports.global:formatMoney(cost) .. ".", client, 255, 194, 14)
 		else
 			outputChatBox("Parabéns! Você acabou de comprar este negócio por $" .. exports.global:formatMoney(cost) .. ".", client, 255, 194, 14)
-			exports.global:giveMoney( getTeamFromName("Government of Los Santos"), cost )
+			exports.global:giveMoney( getTeamFromName("Los Santos City Government"), cost )
 			exports.bank:addBankTransactionLog(charid, -(getElementData(gov, "id")), cost, 5 , "Interior Purchase", intName.." (ID: "..pickupid..")" )
 		end
 
@@ -612,7 +612,7 @@ function buyInteriorBank(pickup, cost, isHouse, isRentable, furniture)
 	else
 		local charid = getElementData(client, "dbid")
 		local pickupid = getElementData(pickup, "dbid")
-		local gov = getTeamFromName("Government of Los Santos")
+		local gov = getTeamFromName("Los Santos City Government")
 		local intName = getElementData(pickup, "name")
 		if (isHouse) then
 			outputChatBox("Parabéns! Você acabou de comprar esta casa por $" .. exports.global:formatMoney(cost) .. ".", client, 255, 194, 14)

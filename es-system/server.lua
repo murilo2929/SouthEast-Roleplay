@@ -178,7 +178,7 @@ function respawnPlayer(thePlayer, victimDropItem)
 		local tax = exports.global:getTaxAmount()
 		
 		exports.global:giveMoney( getTeamFromName("Los Santos Fire Department"), math.ceil((1-tax)*cost) )
-		exports.global:takeMoney( getTeamFromName("Government of Los Santos"), math.ceil((1-tax)*cost) )
+		exports.global:takeMoney( getTeamFromName("Los Santos City Government"), math.ceil((1-tax)*cost) )
 			
 		dbExec(mysql:getConn(), "UPDATE characters SET deaths = deaths + 1 WHERE charactername='" .. (getPlayerName(thePlayer)) .. "'")
 
