@@ -256,7 +256,7 @@ function showText()
 							--GET IMPOUND
 							if (exports.vehicle:isVehicleImpounded(theVehicle)) then
 								local days = getRealTime().yearday-getElementData(theVehicle, "Impounded")
-								toBeShowed = toBeShowed.."\n".."Apreendido: " .. days .. " dias"
+								toBeShowed = toBeShowed.."\n".."Apreendido: " .. days .. " dia(s)"
 								lines = lines + 1
 							end
 
