@@ -64,8 +64,8 @@ local convos = {
 	['noveh'] = {
 		"Onde está o veículo?",
 		"O que você quer que eu apreenda?",
-		"Traga o carro por favor.",
-		"Traga aqui por favor."
+		"Traga o veículo por favor.",
+		"Traga o veículo aqui por favor."
 	},
 	['invalid_days'] = {
 		"A duração da retenção deve ser de 1 a 500 dias.",
@@ -73,17 +73,17 @@ local convos = {
 		--"What the impound length, pal.",
 	},
 	['too_long_info'] = {
-		"Erm .. informações adicionais são muito longas, lembre-se de encurtá-las primeiro?",
+		"Erm .. informações adicionais são muito longas, lembre-se de encurtá-las primeiro",
 		--"Shorten the additional info, pal.",
 		--"Can you shorten the additional info, it looks too long.",
 	},
 	['invalid_lanes'] = {
-		"O número da pista deve ser um número, cara ..",
+		"Você precisa informar o numero da vaga que o carro vai ser apreendido..",
 		--"C'mon, be serious, lane number needs to be a number.",
 		--"Positive lane number please.",
 	},
 	['lane_not_free_anymore'] = {
-		"Ops, desculpe, esta pista não está mais livre, escolha outra pista, por favor.",
+		"Ops, desculpe, esta vaga não está mais livre, escolha outra vaga, por favor.",
 		--"Oh someone just took this lane, take another one please.",
 		--"Nah, pick another lane please.",
 	},
@@ -115,7 +115,7 @@ function getConvoText(convoId)
 end
 
 function pedSay(pedName, convoId)
-	return exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..(getConvoText(convoId)), 255, 255, 255, 10 )
+	return exports.global:sendLocalText( source, ""..pedName.." diz: "..(getConvoText(convoId)), 255, 255, 255, 10 )
 end
 addEvent("tow:pedSay", true)
 addEventHandler("tow:pedSay", root, pedSay)
@@ -147,24 +147,24 @@ function openImpGui(pedName)
 	end
 
 	if not exports.global:hasItem(source, badgeId) then
-		return exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..getConvoText('nobadge'), 255, 255, 255, 10 )
+		return exports.global:sendLocalText( source, ""..pedName.." diz: "..getConvoText('nobadge'), 255, 255, 255, 10 )
 	end
 	local found = getVehicleWithinBooth(factionId)
 	if not found then
-		return exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..getConvoText('noveh'), 255, 255, 255, 10 )
+		return exports.global:sendLocalText( source, ""..pedName.." diz: "..getConvoText('noveh'), 255, 255, 255, 10 )
 	end
 	--[[
 	if factionId == 4 and not exports.integration:isPlayerScripter(source) then
-		return exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: The new impound lot is not ready yet, check back soon!", 255, 255, 255, 10 )
+		return exports.global:sendLocalText( source, ""..pedName.." diz: The new impound lot is not ready yet, check back soon!", 255, 255, 255, 10 )
 	end
 	]]
 	local freeLane, used, total = getAFreeLane(factionId)
 	if not freeLane then
-		return exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..getConvoText('O lote apreendido aqui está cheio, talvez liberte alguns ou apreenda este outro lugar?'), 255, 255, 255, 10 )
+		return exports.global:sendLocalText( source, ""..pedName.." diz: "..getConvoText('O lote apreendido aqui está cheio, apreenda em outro lugar'), 255, 255, 255, 10 )
 	end
 	local vehName = exports.global:getVehicleName(found)
 	local vehId = getElementData(found, "dbid")
-	--exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: Alright, let's see. Hm.. "..vehName..", right?", 255, 255, 255, 10 )
+	--exports.global:sendLocalText( source, ""..pedName.." diz: Alright, let's see. Hm.. "..vehName..", right?", 255, 255, 255, 10 )
 	local first, last = getPlayerNameFirstLast(source)
 	local plate = getElementData(found, "show_plate") == 1 and getElementData(found, "plate") or "Sem placa"
 	local vin = getElementData(found, "show_vin") == 1 and getElementData(found, "dbid") or "Sem VIN"
@@ -190,7 +190,7 @@ function leoStartImpounding(dep, vehid, laneNumber, days, fine, first, last, bad
 
 	local freeLane, used, total = getAFreeLane(factionId)
 	if not freeLane or freeLane.veh ~= "0" then
-		exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..getConvoText('lane_not_free_anymore'), 255, 255, 255, 10 )
+		exports.global:sendLocalText( source, ""..pedName.." diz: "..getConvoText('lane_not_free_anymore'), 255, 255, 255, 10 )
 		triggerClientEvent(source, "tow:reEnableImpGui", source)
 		return false
 	end
@@ -198,7 +198,7 @@ function leoStartImpounding(dep, vehid, laneNumber, days, fine, first, last, bad
 	local veh = exports.pool:getElement("vehicle", vehid)
 	if getVehicleWithinBooth(factionId) ~= veh then
 		triggerClientEvent(source, "tow:reEnableImpGui", source, true)
-		exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..getConvoText('one_car_at_once'), 255, 255, 255, 10 )
+		exports.global:sendLocalText( source, ""..pedName.." diz: "..getConvoText('one_car_at_once'), 255, 255, 255, 10 )
 		return false
 	end
 	--unlock it
@@ -219,7 +219,7 @@ function leoStartImpounding(dep, vehid, laneNumber, days, fine, first, last, bad
         mins = "0" .. mins
     end
     local datestr = time.monthday .. "/" .. time.month .." " .. hour .. ":" .. mins
-    exports.global:giveItem(veh, 72, "Towing Notice: Impounded by ".. rank .." '".. first .." "..last.."', Violation(s): '"..volations.."' at '"..datestr.."', "..factionId == 4 and "" or ("Releasing in next "..days.." day(s)."))
+    exports.global:giveItem(veh, 72, "Reboque: Apreendido por ".. rank .." '".. first .." "..last.."', Violações(s): '"..volations.."' as '"..datestr.."', "..factionId == 4 and "" or ("Solto nos proximos "..days.." dia(s)."))
     --Impound it
     local mysql = exports.mysql
     local sql = "UPDATE vehicles SET x='" .. mysql:escape_string(freeLane.x) .. "', y='" .. mysql:escape_string(freeLane.y) .."', z='" .. mysql:escape_string(freeLane.z)
@@ -448,6 +448,7 @@ function getImpoundLanes(factionId)
 end
 
 function addlane(player, cmd, fid)
+	if exports.integration:isPlayerScripter(player) then
 		local x, y, z = getElementPosition(player)
 		local rx, ry, rz = getElementRotation(player)
 		local int = getElementInterior(player)
@@ -455,8 +456,9 @@ function addlane(player, cmd, fid)
 		if exports.mysql:query_free("INSERT INTO leo_impound_lot SET x="..x..", y="..y..", z="..z..", rx="..rx..", ry="..ry..", rz="..rz..", `int`="..int..", dim="..dim..", faction="..fid) then
 			outputChatBox("Land added.", player)
 		end
+	end
 end
---addCommandHandler("addlane", addlane)
+addCommandHandler("addlane", addlane)
 
 function fixlanesC(player, cmd)
 	if exports.integration:isPlayerScripter(player) then
@@ -498,7 +500,7 @@ function openReleaseGUI(pedName)
 	if not empty then
 		return triggerClientEvent(source, "tow:openReleaseGUI", source, factionId, vehs)
 	else
-		return exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..(getConvoText("no_car_to_release")), 255, 255, 255, 10 )
+		return exports.global:sendLocalText( source, ""..pedName.." diz: "..(getConvoText("no_car_to_release")), 255, 255, 255, 10 )
 	end
 end
 addEvent("tow:openReleaseGUI", true)
@@ -516,17 +518,17 @@ function release(pedName, vehid, cost)
 	end
 
 	if pedName ~= "Greer Reid" and lane.secdiff == "seized" then
-		exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..(getConvoText("Lamento que seu veículo tenha sido apreendido, não posso liberá-lo até novo aviso, você deve entrar em contato com nossos oficiais sobre isso.")), 255, 255, 255, 10 )
+		exports.global:sendLocalText( source, ""..pedName.." diz: "..(getConvoText("Lamento que seu veículo tenha sido apreendido, não posso liberá-lo até novo aviso, você deve entrar em contato com nossos oficiais sobre isso.")), 255, 255, 255, 10 )
 		return false
 	end
 	local text, sec = exports.datetime:formatFutureTimeInterval(tonumber(lane.secdiff))
 	if pedName ~= "Greer Reid" and sec ~= 0 then
-		exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..(getConvoText("Bem, de acordo com o documento que eu tenho aqui, você tem que esperar mais ".. text.." para liberar este veículo. Desculpa..")), 255, 255, 255, 10 )
+		exports.global:sendLocalText( source, ""..pedName.." diz: "..(getConvoText("Bem, de acordo com o documento que eu tenho aqui, você tem que esperar mais ".. text.." para liberar este veículo. Desculpa..")), 255, 255, 255, 10 )
 		return false
 	end
 
 	if not exports.global:takeMoney(source, cost) then
-		exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..(getConvoText("$"..exports.global:formatMoney(cost).." por favor..")), 255, 255, 255, 10 )
+		exports.global:sendLocalText( source, ""..pedName.." diz: "..(getConvoText("$"..exports.global:formatMoney(cost).." por favor..")), 255, 255, 255, 10 )
 		return false
 	end
 
@@ -542,11 +544,11 @@ function release(pedName, vehid, cost)
 
 	local state, reason = unimpVeh(vehid)
 	if state then
-		exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..(getConvoText("Seu veículo foi liberado, está la na frente. ((Lembre-se de estacionar /estacionar seu veículo para que ele não reapareça aqui.))")), 255, 255, 255, 10 )
+		exports.global:sendLocalText( source, ""..pedName.." diz: "..(getConvoText("Seu veículo foi liberado, está la na frente. ((Lembre-se de estacionar /estacionar seu veículo para que ele não reapareça aqui.))")), 255, 255, 255, 10 )
 		exports.vehicle_manager:addVehicleLogs(vehid, "LEO UNIMPOUND.", source)
 		exports.logs:dbLog(source, 6, {  veh }, "LEO UNIMPOUNDED ")
 	else
-		exports.global:sendLocalText( source, " [Ingles] "..pedName.." diz: "..(getConvoText("Opps, desculpa. "..reason)), 255, 255, 255, 10 )
+		exports.global:sendLocalText( source, ""..pedName.." diz: "..(getConvoText("Opps, desculpa. "..reason)), 255, 255, 255, 10 )
 	end
 end
 addEvent("tow:release", true)
