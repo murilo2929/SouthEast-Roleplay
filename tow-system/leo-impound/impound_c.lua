@@ -74,7 +74,7 @@ function openImpGui(dep, vehid, first, last, vehName, plate, vin, laneData)
 
 	gui.label[1] = guiCreateLabel(14, 29, 365, 18, dep == "RT" and "Informação Staff" or "Informação do Oficial", false, gui.window[1])
 	guiSetFont(gui.label[1], "default-bold-small")
-	gui.label[2] = guiCreateLabel(31, 58, 82, 25, "Primei Nome:", false, gui.window[1])
+	gui.label[2] = guiCreateLabel(31, 58, 82, 25, "Primeiro Nome:", false, gui.window[1])
 	guiLabelSetVerticalAlign(gui.label[2], "center")
 	gui.edit[1] = guiCreateEdit(113, 57, 266, 26, first or "", false, gui.window[1])
 	guiEditSetMaxLength(gui.edit[1], 200)
