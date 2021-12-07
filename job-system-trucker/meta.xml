@@ -38,7 +38,6 @@
     
     <!--Maps required for trucker job -->
     <map src="/RSHaulMap/RSHaulNew.map" dimension="0"></map>
-    <map src="/RSHaulMap/ParkingLot.map" dimension="0"></map>
     <script src="/RSHaulMap/mapEditorScriptingExtension_s.lua" type="server"></script>
     <script src="/RSHaulMap/mapEditorScriptingExtension_c.lua" type="client"></script>
     
