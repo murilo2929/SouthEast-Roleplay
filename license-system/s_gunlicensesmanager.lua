@@ -49,6 +49,7 @@ function startThis(thePlayer)
 	triggerClientEvent(thePlayer, "weaponlicensesGUI", thePlayer)
 end
 addCommandHandler("weaponlicenses", startThis)
+addCommandHandler("emitirlicenca", startThis)
 addEvent("gunlicense:weaponlicenses", true)
 addEventHandler("gunlicense:weaponlicenses", root, startThis)
 
